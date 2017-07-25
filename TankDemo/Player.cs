@@ -23,5 +23,10 @@ namespace TankDemo
             this.startX = 300;
             this.startY = 400;
         }
+
+        public void Paint(Graphics g)
+        {
+            g.DrawRectangle(new Pen(new SolidBrush(Color.Red)), 10, 10, 100, 100);
+        }
     }
 }

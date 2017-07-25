@@ -84,7 +84,7 @@
             this.text_password.PasswordChar = '*';
             this.text_password.Size = new System.Drawing.Size(261, 21);
             this.text_password.TabIndex = 4;
-            this.text_password.Text = "123456";
+            this.text_password.Text = "123";
             // 
             // label1
             // 
@@ -106,7 +106,7 @@
             this.label2.Text = "密码";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
-            // main
+            // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -121,7 +121,7 @@
             this.Controls.Add(this.button_register);
             this.Controls.Add(this.button_login);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Name = "main";
+            this.Name = "Login";
             this.Text = "Tank";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
