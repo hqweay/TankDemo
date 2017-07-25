@@ -14,9 +14,9 @@ using System.Windows.Forms;
 
 namespace TankDemo
 {
-    public partial class login : Form
+    public partial class Login : Form
     {
-        public login()
+        public Login()
         {
             string str = System.IO.Directory.GetCurrentDirectory();
        //     MessageBox.Show(str);
@@ -37,7 +37,8 @@ namespace TankDemo
             {
                 MessageBox.Show("登录成功，转向游戏界面");
 
-
+                this.Close();
+                new Map();
 
                 //下面是游戏界面代码
           //      register form = new register();
@@ -64,7 +65,7 @@ namespace TankDemo
         private void button2_Click(object sender, EventArgs e)
         {
             //跳转至注册窗体
-            register formRegister = new register();
+            Register formRegister = new Register();
             formRegister.Show();
         }
 

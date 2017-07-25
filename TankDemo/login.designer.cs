@@ -1,6 +1,6 @@
 ﻿namespace TankDemo
 {
-    partial class login
+    partial class Login
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(login));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Login));
             this.button_login = new System.Windows.Forms.Button();
             this.button_register = new System.Windows.Forms.Button();
             this.button_reset = new System.Windows.Forms.Button();
