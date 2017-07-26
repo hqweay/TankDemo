@@ -67,7 +67,7 @@ namespace TankDemo
                 try
                 {
                     p.Move(this.CreateGraphics());
-                    Thread.Sleep(1000);
+                    Thread.Sleep(30);
                 }
                 catch (Exception e)
                 {
@@ -109,17 +109,17 @@ namespace TankDemo
                 switch (wall.getType())
                 {
                     case 0:
-                        g.FillRectangle(new SolidBrush(Color.Green), wall.getX() * 40, wall.getY() * 40, Wall.WALL_SIZE, Wall.WALL_SIZE);
+                        g.FillRectangle(new SolidBrush(Color.Green), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
                         break;
                     case 1:
-                        g.FillRectangle(new SolidBrush(Color.Red), wall.getX() * 40, wall.getY() * 40, Wall.WALL_SIZE, Wall.WALL_SIZE);
+                        g.FillRectangle(new SolidBrush(Color.Red), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
                         break;
                     case 2:
-                        g.FillRectangle(new SolidBrush(Color.BurlyWood), wall.getX() * 40, wall.getY() * 40, Wall.WALL_SIZE, Wall.WALL_SIZE);
+                        g.FillRectangle(new SolidBrush(Color.BurlyWood), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
              //           g.FillRectangle(new SolidBrush(Color.Red), wall.getX() * 40, wall.getY() * 40, 1,1);
                         break;
                     case 3:
-                        g.FillRectangle(new SolidBrush(Color.Blue), wall.getX() * 40, wall.getY() * 40, Wall.WALL_SIZE, Wall.WALL_SIZE);
+                        g.FillRectangle(new SolidBrush(Color.Blue), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
                         break;
                     default:
                         break;
@@ -143,8 +143,8 @@ namespace TankDemo
                 int x = 5;
                 int y = 6;
                 Wall wall = new Wall();
-                wall.setX(x + i);
-                wall.setY(y);
+                wall.setX((x + i) * 40);
+                wall.setY(y * 40);
                 wall.setType(1);
                 wallList.Add(wall);
             }
@@ -154,8 +154,8 @@ namespace TankDemo
                 int x = 10;
                 int y = 8;
                 Wall wall = new Wall();
-                wall.setX(x + i);
-                wall.setY(y);
+                wall.setX((x + i) * 40);
+                wall.setY(y * 40);
                 wall.setType(1);
                 wallList.Add(wall);
             }
@@ -165,8 +165,8 @@ namespace TankDemo
                 int x = 8;
                 int y = 15;
                 Wall wall = new Wall();
-                wall.setX(x + i);
-                wall.setY(y);
+                wall.setX((x + i) * 40);
+                wall.setY(y * 40);
                 wall.setType(2);
                 wallList.Add(wall);
             }
@@ -176,8 +176,8 @@ namespace TankDemo
                 int x = 33;
                 int y = 2;
                 Wall wall = new Wall();
-                wall.setX(x);
-                wall.setY(y + i);
+                wall.setX(x * 40);
+                wall.setY((y + i) * 40);
                 wall.setType(3);
                 wallList.Add(wall);
             }
@@ -203,8 +203,8 @@ namespace TankDemo
                 int y = ran.Next(mapSizeHeight);
                 int type = ran.Next(4);
                 Wall wall = new Wall();
-                wall.setX(x);
-                wall.setY(y);
+                wall.setX(x * 40);
+                wall.setY(y * 40);
                 wall.setType(type);
                 if (isInHome(wall) || isInSelf(wall))
                 {
@@ -222,8 +222,8 @@ namespace TankDemo
         {
             int mapSizeWidth = mapWidth / 40;
             int mapSizeHeight = mapHeight / 40;
-            int startX = mapSizeWidth / 2 - 1;
-            int startY = mapSizeHeight - 1;
+            int startX = (mapSizeWidth / 2 - 1);
+            int startY = (mapSizeHeight - 1);
             for (int i = 0; i < 2; i++)
             {
                 int temp = 0;
@@ -231,8 +231,8 @@ namespace TankDemo
                 {
                     
                     Wall wall = new Wall();
-                    wall.setX(startX + temp );
-                    wall.setY(startY);
+                    wall.setX((startX + temp) * 40);
+                    wall.setY(startY * 40);
                     temp++;
                     if (i == 1 && j == 1)
                     {
@@ -260,10 +260,10 @@ namespace TankDemo
                         
                     case 4:
                         
-                        g.FillRectangle(new SolidBrush(Color.Black), wall.getX() * 40, wall.getY() * 40, Wall.WALL_SIZE, Wall.WALL_SIZE);
+                        g.FillRectangle(new SolidBrush(Color.Black), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
                         break;
                     case 5:
-                        g.FillRectangle(new SolidBrush(Color.Red), wall.getX() * 40, wall.getY() * 40, Wall.WALL_SIZE, Wall.WALL_SIZE);
+                        g.FillRectangle(new SolidBrush(Color.Red), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
                         break;
                     default:
                         break;
@@ -274,7 +274,7 @@ namespace TankDemo
             Font f = new Font("宋体", 34);
             Brush b;
             b = new SolidBrush(Color.White);
-            g.DrawString("家", f, b, homeList[4].getX() * 40 - 10, homeList[4].getY() * 40);
+            g.DrawString("家", f, b, homeList[4].getX() - 10, homeList[4].getY());
             g.Dispose(); 
 
         }
@@ -310,7 +310,7 @@ namespace TankDemo
         private Boolean isInHome(Wall wallSelf)
         {
          
-            if (wallSelf.getX() >= homeList[0].getX() - 1 && wallSelf.getX() <= homeList[2].getX() + 1 && wallSelf.getY() >= homeList[0].getY() - 2)
+            if (wallSelf.getX() >= homeList[0].getX() - 40 && wallSelf.getX() <= homeList[2].getX() + 40 && wallSelf.getY() >= homeList[0].getY() - 2 * 40)
             {
                 return true;
             }

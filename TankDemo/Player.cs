@@ -19,8 +19,8 @@ namespace TankDemo
         {
             int mapSizeWidth = mapWidth / 40;
             int mapSizeHeight = mapHeight / 40;
-            this.setX(mapSizeWidth / 2 - 2);
-            this.setY(mapSizeHeight);
+            this.setX((mapSizeWidth / 2 - 2) * 40);
+            this.setY(mapSizeHeight * 40);
             //初始方向为右
             this.condition = 0;
            
@@ -31,7 +31,7 @@ namespace TankDemo
         public void Paint(Graphics g)
         {
            
-            g.FillEllipse(new SolidBrush(Color.Green), this.getX() * 40, this.getY() * 40, Tank.TANK_SIZE, Tank.TANK_SIZE);
+            g.FillEllipse(new SolidBrush(Color.Green), this.getX(), this.getY(), Tank.TANK_SIZE, Tank.TANK_SIZE);
  //           g.DrawRectangle(new Pen(new SolidBrush(Color.LightSalmon)), this.getX(), this.getY(), 1, 1);
         }
        
@@ -41,22 +41,22 @@ namespace TankDemo
             switch (condition)
             {
                 case 0:
-                    g.FillEllipse(new SolidBrush(Color.White), this.getX() * 40, this.getY() * 40, Tank.TANK_SIZE, Tank.TANK_SIZE);
+                    g.FillEllipse(new SolidBrush(Color.White), this.getX(), this.getY(), Tank.TANK_SIZE, Tank.TANK_SIZE);
                     this.setY(this.getY() - 1);
                     this.Paint(g);
                     break;
                 case 1:
-                    g.FillEllipse(new SolidBrush(Color.White), this.getX() * 40, this.getY() * 40, Tank.TANK_SIZE, Tank.TANK_SIZE);
+                    g.FillEllipse(new SolidBrush(Color.White), this.getX(), this.getY(), Tank.TANK_SIZE, Tank.TANK_SIZE);
                     this.setY(this.getY() + 1);
                     this.Paint(g);
                     break;
                 case 2:
-                    g.FillEllipse(new SolidBrush(Color.White), this.getX() * 40, this.getY() * 40, Tank.TANK_SIZE, Tank.TANK_SIZE);
+                    g.FillEllipse(new SolidBrush(Color.White), this.getX(), this.getY(), Tank.TANK_SIZE, Tank.TANK_SIZE);
                     this.setX(this.getX() - 1);
                     this.Paint(g);
                     break;
                 case 3:
-                    g.FillEllipse(new SolidBrush(Color.White), this.getX() * 40, this.getY() * 40, Tank.TANK_SIZE, Tank.TANK_SIZE);
+                    g.FillEllipse(new SolidBrush(Color.White), this.getX(), this.getY(), Tank.TANK_SIZE, Tank.TANK_SIZE);
                     this.setX(this.getX() + 1);
                     this.Paint(g);
                     break;
