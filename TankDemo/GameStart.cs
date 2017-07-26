@@ -15,11 +15,9 @@ namespace TankDemo
         [STAThread]
         static void Main()
         {
-        //    Map map = new Map();
+        
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-         //   Map map = new Map();
-        //    Application.Run(new Login());
             Application.Run(new MapTest());
 
 

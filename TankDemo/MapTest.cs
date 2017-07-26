@@ -35,33 +35,29 @@ namespace TankDemo
             //{
             //    login.Close();
             //}
-
-            
-
-
             InitializeComponent();
         }
 
         private void MapTest_Load(object sender, EventArgs e)
         {
+            ///载入前初始化地图，算是吧
             this.createHome(this.getMapHeight(), this.getMapWidth());
             this.createWall();
             this.drawHome(this.CreateGraphics());
             this.drawWall(this.CreateGraphics());
 
-            
-
-            
+            ///
+            ///
+            ///-----------------------------------------------------------------------------------------------///
             
         }
 
+        /// <summary>
+        /// 画墙
+        /// </summary>
+        /// <param name="g"></param>
         public void drawWall(Graphics g)
         {
-
-
-            //绘制Home
-
-           
             foreach (Wall wall in wallList)
             {
                 switch (wall.getType())
@@ -86,7 +82,9 @@ namespace TankDemo
             
 
         }
-
+        /// <summary>
+        /// 创造墙
+        /// </summary>
         public void createWall()
         {
             int mapHeight = getMapHeight();
@@ -113,7 +111,11 @@ namespace TankDemo
                 wallList.Add(wall);
                 }
         }
-
+        /// <summary>
+        /// 创造水晶
+        /// </summary>
+        /// <param name="mapHeight"></param>
+        /// <param name="mapWidth"></param>
         public void createHome(int mapHeight, int mapWidth)
         {
             int mapSizeWidth = mapWidth / 40;
@@ -143,6 +145,10 @@ namespace TankDemo
                 startY += 1;
             }
         }
+        /// <summary>
+        /// 画水晶
+        /// </summary>
+        /// <param name="g"></param>
         public void drawHome(Graphics g)
         {
             foreach (Wall wall in homeList)
@@ -177,6 +183,8 @@ namespace TankDemo
         /// 这里设置为private
         ///因为出错 参数类型权限与函数权限
         ///Wall中某些参数是private的
+        ///创建墙的判断
+        ///是否重合
         /// </summary>
         /// <param name="wallSelf"></param>
         /// <returns></returns>
@@ -191,7 +199,12 @@ namespace TankDemo
             }
             return false;
         }
-
+        /// <summary>
+        /// 创建墙的判断
+        /// 墙是否和水晶重合
+        /// </summary>
+        /// <param name="wallSelf"></param>
+        /// <returns></returns>
         private Boolean isInHome(Wall wallSelf)
         {
             //foreach (Wall wall in homeList)
@@ -209,6 +222,7 @@ namespace TankDemo
             }
             return false;
         }
+        
         public int getMapHeight()
         {
             return this.Height - Wall.WALL_SIZE;
