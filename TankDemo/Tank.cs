@@ -16,11 +16,35 @@ namespace TankDemo
         // 初始坐标
         //颜色，图片》》》  外观
         //方法 移动 发子弹 判断是否撞 （墙 敌人 子弹）
-        public int startX;
-        public int startY;
+        public const int TANK_STEP = 40;
+        public const int TANK_SIZE = 40;
+        private int startX;
+        private int startY;
         //初始方向
         //condition 0123 代表上下左右
         public int condition;
+        //   0   1
+        //   我  敌
+        public int type;
+
+
+        public void setX(int X)
+        {
+            this.startX = X;
+        }
+        public void setY(int Y)
+        {
+            this.startY = Y;
+        }
+        public int getX()
+        {
+            return this.startX;
+        }
+        public int getY()
+        {
+            return this.startY;
+        }
+
 
         public void move() { }
         public void fire() { }

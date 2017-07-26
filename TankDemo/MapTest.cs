@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -40,16 +41,42 @@ namespace TankDemo
 
         private void MapTest_Load(object sender, EventArgs e)
         {
+            this.initMap();
+
+            //---------------------------------------------------------------------//
+            //                       创建坦克之类的开战了
+            //--------------------------------------------------------------------//
+
+    //        this.drawPlayer(this.CreateGraphics());
+            //另开一个线程显示了Player
+    //        Thread th = new Thread(aaa);
+     //       th.Start();
+        }
+
+        public void aaa()
+        {
+            this.drawPlayer(this.CreateGraphics());
+        }
+        public void drawPlayer(Graphics g)
+        {
+            Player p = new Player(this.getMapHeight(), this.getMapWidth());
+            p.Paint(g);
+        }
+        public void initMapRan()
+        {
             ///载入前初始化地图，算是吧
             this.createHome(this.getMapHeight(), this.getMapWidth());
             this.createWall();
             this.drawHome(this.CreateGraphics());
             this.drawWall(this.CreateGraphics());
-
-            ///
-            ///
-            ///-----------------------------------------------------------------------------------------------///
-            
+        }
+        public void initMap()
+        {
+            ///载入前初始化地图，算是吧
+            this.createHome(this.getMapHeight(), this.getMapWidth());
+            this.createWall2();
+            this.drawHome(this.CreateGraphics());
+            this.drawWall(this.CreateGraphics());
         }
 
         /// <summary>
@@ -69,7 +96,8 @@ namespace TankDemo
                         g.FillRectangle(new SolidBrush(Color.Red), wall.getX() * 40, wall.getY() * 40, Wall.WALL_SIZE, Wall.WALL_SIZE);
                         break;
                     case 2:
-                        g.FillRectangle(new SolidBrush(Color.Yellow), wall.getX() * 40, wall.getY() * 40, Wall.WALL_SIZE, Wall.WALL_SIZE);
+                        g.FillRectangle(new SolidBrush(Color.BurlyWood), wall.getX() * 40, wall.getY() * 40, Wall.WALL_SIZE, Wall.WALL_SIZE);
+             //           g.FillRectangle(new SolidBrush(Color.Red), wall.getX() * 40, wall.getY() * 40, 1,1);
                         break;
                     case 3:
                         g.FillRectangle(new SolidBrush(Color.Blue), wall.getX() * 40, wall.getY() * 40, Wall.WALL_SIZE, Wall.WALL_SIZE);
@@ -80,6 +108,62 @@ namespace TankDemo
             }
 
             
+
+        }
+
+        public void createWall2()
+        {
+            
+            int mapHeight = getMapHeight();
+            int mapWidth = getMapWidth();
+            int mapSizeWidth = mapWidth / 40;
+            int mapSizeHeight = mapHeight / 40;
+            //      --------------------------第一步
+            for (int i = 0; i < 10; i++)
+            {
+                int x = 5;
+                int y = 6;
+                Wall wall = new Wall();
+                wall.setX(x + i);
+                wall.setY(y);
+                wall.setType(1);
+                wallList.Add(wall);
+            }
+            //      --------------------------  第二步
+            for (int i = 0; i < 20; i++)
+            {
+                int x = 10;
+                int y = 8;
+                Wall wall = new Wall();
+                wall.setX(x + i);
+                wall.setY(y);
+                wall.setType(1);
+                wallList.Add(wall);
+            }
+            //      --------------------------  第三步
+            for (int i = 0; i < 30; i++)
+            {
+                int x = 8;
+                int y = 15;
+                Wall wall = new Wall();
+                wall.setX(x + i);
+                wall.setY(y);
+                wall.setType(2);
+                wallList.Add(wall);
+            }
+            //      --------------------------  第四步
+            for (int i = 0; i < 10; i++)
+            {
+                int x = 33;
+                int y = 2;
+                Wall wall = new Wall();
+                wall.setX(x);
+                wall.setY(y + i);
+                wall.setType(3);
+                wallList.Add(wall);
+            }
+            
+
 
         }
         /// <summary>
@@ -207,15 +291,7 @@ namespace TankDemo
         /// <returns></returns>
         private Boolean isInHome(Wall wallSelf)
         {
-            //foreach (Wall wall in homeList)
-            //{
-            //    if (wall.getX() == wallSelf.getX() && wall.getY() == wallSelf.getY())
-            //    {
-            //        return true;
-            //    }
-                
-            //}
-
+         
             if (wallSelf.getX() >= homeList[0].getX() - 1 && wallSelf.getX() <= homeList[2].getX() + 1 && wallSelf.getY() >= homeList[0].getY() - 2)
             {
                 return true;
@@ -232,6 +308,8 @@ namespace TankDemo
             return this.Width;
         }
 
+
+        
         
     }
 }

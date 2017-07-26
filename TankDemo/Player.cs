@@ -15,18 +15,26 @@ namespace TankDemo
         /// <summary>
         /// 构造函数 初始化Player
         /// </summary>
-        public Player()
+        public Player(int mapHeight, int mapWidth)
         {
+            int mapSizeWidth = mapWidth / 40;
+            int mapSizeHeight = mapHeight / 40;
+            this.setX(mapSizeWidth / 2 - 2);
+            this.setY(mapSizeHeight);
             //初始方向为右
             this.condition = 3;
-            //绘制一个小方块
-            this.startX = 300;
-            this.startY = 400;
+           
+            
+            this.type = 0;
         }
 
         public void Paint(Graphics g)
         {
-            g.DrawRectangle(new Pen(new SolidBrush(Color.Red)), 10, 10, 100, 100);
+           
+            g.FillEllipse(new SolidBrush(Color.Green), this.getX() * 40, this.getY() * 40, Tank.TANK_SIZE, Tank.TANK_SIZE);
+ //           g.DrawRectangle(new Pen(new SolidBrush(Color.LightSalmon)), this.getX(), this.getY(), 1, 1);
         }
+
+        
     }
 }
