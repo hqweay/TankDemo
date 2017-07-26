@@ -22,7 +22,7 @@ namespace TankDemo
             this.setX(mapSizeWidth / 2 - 2);
             this.setY(mapSizeHeight);
             //初始方向为右
-            this.condition = 3;
+            this.condition = 0;
            
             
             this.type = 0;
@@ -35,6 +35,43 @@ namespace TankDemo
  //           g.DrawRectangle(new Pen(new SolidBrush(Color.LightSalmon)), this.getX(), this.getY(), 1, 1);
         }
        
-        
+        public void Move(Graphics g)
+        {
+            int condition = this.condition;
+            switch (condition)
+            {
+                case 0:
+                    g.FillEllipse(new SolidBrush(Color.White), this.getX() * 40, this.getY() * 40, Tank.TANK_SIZE, Tank.TANK_SIZE);
+                    this.setY(this.getY() - 1);
+                    this.Paint(g);
+                    break;
+                case 1:
+                    g.FillEllipse(new SolidBrush(Color.White), this.getX() * 40, this.getY() * 40, Tank.TANK_SIZE, Tank.TANK_SIZE);
+                    this.setY(this.getY() + 1);
+                    this.Paint(g);
+                    break;
+                case 2:
+                    g.FillEllipse(new SolidBrush(Color.White), this.getX() * 40, this.getY() * 40, Tank.TANK_SIZE, Tank.TANK_SIZE);
+                    this.setX(this.getX() - 1);
+                    this.Paint(g);
+                    break;
+                case 3:
+                    g.FillEllipse(new SolidBrush(Color.White), this.getX() * 40, this.getY() * 40, Tank.TANK_SIZE, Tank.TANK_SIZE);
+                    this.setX(this.getX() + 1);
+                    this.Paint(g);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void initPlayer()
+        {
+            while (true)
+            {
+                Console.WriteLine("ddd");
+                
+            }
+        }
     }
 }

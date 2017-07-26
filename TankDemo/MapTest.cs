@@ -22,6 +22,7 @@ namespace TankDemo
         List<Wall> wallList = new List<Wall>();
         //Home
         List<Wall> homeList = new List<Wall>();
+        Player p;
 
         public MapTest()
         {
@@ -41,25 +42,43 @@ namespace TankDemo
 
         private void MapTest_Load(object sender, EventArgs e)
         {
-            this.initMap();
+            this.initMapRan();
 
             //---------------------------------------------------------------------//
             //                       创建坦克之类的开战了
             //--------------------------------------------------------------------//
 
-    //        this.drawPlayer(this.CreateGraphics());
+            //        this.drawPlayer(this.CreateGraphics());
             //另开一个线程显示了Player
-            Thread th = new Thread(initPlayer);
-            th.Start();
+                     Thread thPlayer = new Thread(initPlayer);
+                     thPlayer.Start();
+                    
+            // thPlayer.
+
+           
+
         }
 
         public void initPlayer()
         {
             this.drawPlayer(this.CreateGraphics());
+            while (true)
+            {
+                try
+                {
+                    p.Move(this.CreateGraphics());
+                    Thread.Sleep(1000);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+                
+            }
         }
         public void drawPlayer(Graphics g)
         {
-            Player p = new Player(this.getMapHeight(), this.getMapWidth());
+            p = new Player(this.getMapHeight(), this.getMapWidth());
             p.Paint(g);
         }
         public void initMapRan()
@@ -188,7 +207,6 @@ namespace TankDemo
                 wall.setY(y);
                 wall.setType(type);
                 if (isInHome(wall) || isInSelf(wall))
-           //     if (isInSelf(wall))
                 {
                     continue;
                 }
@@ -311,19 +329,38 @@ namespace TankDemo
 
         private void MapTest_KeyDown(object sender, KeyEventArgs e)
         {
-            int k, d = 0;
-              k = e.KeyValue;
-              if (k == 37) //左
-                  d = 3;
-              else if (k == 40) //下
-                  d = 2;
-              else if (k == 38) //上
-                  d = 0;
-              else if (k == 39) //右
-                  d = 1;
-           //   this.p
+            switch (e.KeyData)
+            {
+                case Keys.Up:
+                    p.condition = 0;
+                    break;
+                case Keys.Down:
+                    p.condition = 1;
+                    break;
+                case Keys.Left:
+                    p.condition = 2;
+                    break;
+                case Keys.Right:
+                    p.condition = 3;
+                    break;
+                default:
+                    break;
+            }
         }
         
-        
+
+        private void MapTest_FormClosed(object sender, FormClosedEventArgs e)
+        {
+    //        this.Close();
+    //        Application.Exit();//退出整个应用程序
+        }
+
+        private void MapTest_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            //        Application.Exit();//退出整个应用程序
+            //退出时关闭所有线程
+            System.Environment.Exit(0);
+        }
+    
     }
 }
