@@ -19,7 +19,7 @@ namespace TankDemo
         //
         //墙的集合
         List<Wall> wallList = new List<Wall>();
-        //水晶
+        //Home
         List<Wall> homeList = new List<Wall>();
 
         public MapTest()
@@ -45,9 +45,10 @@ namespace TankDemo
         private void MapTest_Load(object sender, EventArgs e)
         {
             this.createHome(this.getMapHeight(), this.getMapWidth());
-            this.drawHome(this.CreateGraphics());
             this.createWall();
+            this.drawHome(this.CreateGraphics());
             this.drawWall(this.CreateGraphics());
+
             
 
             
@@ -94,7 +95,7 @@ namespace TankDemo
             int mapSizeHeight = mapHeight / 40;
 
             Random ran = new Random();
-            while(wallList.Count() != 300)
+            while(wallList.Count() != 200)
             {
 
                 int x = ran.Next(mapSizeWidth);
@@ -104,7 +105,8 @@ namespace TankDemo
                 wall.setX(x);
                 wall.setY(y);
                 wall.setType(type);
-                if (isInSelf(wall) || isInHome())
+                if (isInHome(wall) || isInSelf(wall))
+           //     if (isInSelf(wall))
                 {
                     continue;
                 }
@@ -161,11 +163,11 @@ namespace TankDemo
                 }
             }
             //在窗口上显示字符串
-            //Font f = new Font("宋体", 34);
-            //Brush b;
-            //b = new SolidBrush(Color.Red);
-            //g.DrawString("家", f, b, homeList[4].getX() + 10, homeList[4].getY() + 20);
-            //g.Dispose(); 
+            Font f = new Font("宋体", 34);
+            Brush b;
+            b = new SolidBrush(Color.White);
+            g.DrawString("家", f, b, homeList[4].getX() * 40 - 10, homeList[4].getY() * 40);
+            g.Dispose(); 
 
         }
 
@@ -190,14 +192,20 @@ namespace TankDemo
             return false;
         }
 
-        private Boolean isInHome()
+        private Boolean isInHome(Wall wallSelf)
         {
-            foreach (Wall wall in wallList)
+            //foreach (Wall wall in homeList)
+            //{
+            //    if (wall.getX() == wallSelf.getX() && wall.getY() == wallSelf.getY())
+            //    {
+            //        return true;
+            //    }
+                
+            //}
+
+            if (wallSelf.getX() >= homeList[0].getX() - 1 && wallSelf.getX() <= homeList[2].getX() + 1 && wallSelf.getY() >= homeList[0].getY() - 2)
             {
-                if (wall.getX() > homeList[0].getX() - 1 && wall.getX() < homeList[2].getX() + 1 && wall.getY() > homeList[0].getY() - 1) 
-                {
-                    return true;
-                }
+                return true;
             }
             return false;
         }
