@@ -48,6 +48,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="enemy.cs" />
+    <Compile Include="Home.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>
