@@ -74,6 +74,12 @@
     <Compile Include="Tank.cs" />
     <Compile Include="Tb_User.cs" />
     <Compile Include="Wall.cs" />
+    <Compile Include="Wlecome.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Wlecome.Designer.cs">
+      <DependentUpon>Wlecome.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -92,6 +98,9 @@
     </Compile>
     <EmbeddedResource Include="Register.resx">
       <DependentUpon>Register.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Wlecome.resx">
+      <DependentUpon>Wlecome.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
