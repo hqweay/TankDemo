@@ -41,7 +41,7 @@ namespace TankDemo
 
         private void MapTest_Load(object sender, EventArgs e)
         {
-            this.initMapRan();
+            this.initMap();
 
             //---------------------------------------------------------------------//
             //                       创建坦克之类的开战了
@@ -311,11 +311,17 @@ namespace TankDemo
 
         private void MapTest_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Up)
-            {
-                //codes what you want 
-                MessageBox.Show("dddd");
-            }
+            int k, d = 0;
+              k = e.KeyValue;
+              if (k == 37) //左
+                  d = 3;
+              else if (k == 40) //下
+                  d = 2;
+              else if (k == 38) //上
+                  d = 0;
+              else if (k == 39) //右
+                  d = 1;
+           //   this.p
         }
         
         
