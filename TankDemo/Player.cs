@@ -34,7 +34,7 @@ namespace TankDemo
             g.FillEllipse(new SolidBrush(Color.Green), this.getX() * 40, this.getY() * 40, Tank.TANK_SIZE, Tank.TANK_SIZE);
  //           g.DrawRectangle(new Pen(new SolidBrush(Color.LightSalmon)), this.getX(), this.getY(), 1, 1);
         }
-
+       
         
     }
 }
