@@ -20,7 +20,7 @@ namespace TankDemo
         //墙的集合
         List<Wall> wallList = new List<Wall>();
         //水晶
-        Home home = new Home();
+        List<Wall> homeList = new List<Wall>();
 
         public MapTest()
         {
@@ -44,13 +44,17 @@ namespace TankDemo
 
         private void MapTest_Load(object sender, EventArgs e)
         {
-            this.crateWall();
-            Graphics g = Graphics.FromHwnd(Handle);
-            this.drawHome(g);
-            this.Paint(this.CreateGraphics());
+            this.createHome(this.getMapHeight(), this.getMapWidth());
+            this.drawHome(this.CreateGraphics());
+            this.createWall();
+            this.drawWall(this.CreateGraphics());
+            
+
+            
+            
         }
 
-        public void Paint(Graphics g)
+        public void drawWall(Graphics g)
         {
 
 
@@ -82,7 +86,7 @@ namespace TankDemo
 
         }
 
-        public void crateWall()
+        public void createWall()
         {
             int mapHeight = getMapHeight();
             int mapWidth = getMapWidth();
@@ -90,7 +94,7 @@ namespace TankDemo
             int mapSizeHeight = mapHeight / 40;
 
             Random ran = new Random();
-            while(wallList.Count() != 100)
+            while(wallList.Count() != 300)
             {
 
                 int x = ran.Next(mapSizeWidth);
@@ -100,7 +104,7 @@ namespace TankDemo
                 wall.setX(x);
                 wall.setY(y);
                 wall.setType(type);
-                if (isInSelf(wall) || isInHome(wall))
+                if (isInSelf(wall) || isInHome())
                 {
                     continue;
                 }
@@ -108,20 +112,64 @@ namespace TankDemo
                 }
         }
 
-        private void drawHome(Graphics g)
+        public void createHome(int mapHeight, int mapWidth)
         {
-            home.setX(this.getMapWidth() / 2 - Wall.WALL_SIZE);
-            home.setY(this.getMapHeight() - Wall.WALL_SIZE * 2);
-            home.Paint(g);
+            int mapSizeWidth = mapWidth / 40;
+            int mapSizeHeight = mapHeight / 40;
+            int startX = mapSizeWidth / 2 - 1;
+            int startY = mapSizeHeight - 1;
+            for (int i = 0; i < 2; i++)
+            {
+                int temp = 0;
+                for (int j = 0; j < 3; j++)
+                {
+                    
+                    Wall wall = new Wall();
+                    wall.setX(startX + temp );
+                    wall.setY(startY);
+                    temp++;
+                    if (i == 1 && j == 1)
+                    {
+                        wall.setType(5);
+                    }
+                    else
+                    {
+                        wall.setType(4);
+                    }
+                    homeList.Add(wall);
+                }
+                startY += 1;
+            }
+        }
+        public void drawHome(Graphics g)
+        {
+            foreach (Wall wall in homeList)
+            {
+                switch (wall.getType())
+                {
+                        
+                    case 4:
+                        
+                        g.FillRectangle(new SolidBrush(Color.Black), wall.getX() * 40, wall.getY() * 40, Wall.WALL_SIZE, Wall.WALL_SIZE);
+                        break;
+                    case 5:
+                        g.FillRectangle(new SolidBrush(Color.Red), wall.getX() * 40, wall.getY() * 40, Wall.WALL_SIZE, Wall.WALL_SIZE);
+                        break;
+                    default:
+                        break;
 
+                }
+            }
             //在窗口上显示字符串
-            Font f = new Font("宋体", 34);
-            Brush b;
-            b = new SolidBrush(Color.Red);
-            g.DrawString("家", f, b, home.getX() + 10, home.getY() + 20);
-            g.Dispose(); 
+            //Font f = new Font("宋体", 34);
+            //Brush b;
+            //b = new SolidBrush(Color.Red);
+            //g.DrawString("家", f, b, homeList[4].getX() + 10, homeList[4].getY() + 20);
+            //g.Dispose(); 
 
         }
+
+       
 
         /// <summary>
         /// 这里设置为private
@@ -142,11 +190,11 @@ namespace TankDemo
             return false;
         }
 
-        private Boolean isInHome(Wall wallSelf)
+        private Boolean isInHome()
         {
             foreach (Wall wall in wallList)
             {
-                if (wall.getX() * 40 > home.getX() &&wall.getX() *40 < home.getX() - 40&&wall.getY() *40 > home.getY() && wall.getY() < this.getMapHeight() - 40)
+                if (wall.getX() > homeList[0].getX() - 1 && wall.getX() < homeList[2].getX() + 1 && wall.getY() > homeList[0].getY() - 1) 
                 {
                     return true;
                 }

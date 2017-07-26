@@ -15,6 +15,8 @@ namespace TankDemo
         //type 代表Wall类型
         //0   1   2   3
         //绿  红  黄   蓝
+
+        //特别的  5    代表水晶（Home）   4 代表家墙
         private int type;
 
         public int getX()
