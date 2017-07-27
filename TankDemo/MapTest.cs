@@ -12,19 +12,11 @@ namespace TankDemo
 {
     public partial class MapTest : Form
     {
-
-
-        //分成40 * 40的格子
-        //1080*1920   分为27*48个
-        //
-        //
-        //墙的集合
         List<Wall> wallList = new List<Wall>();
-        //Home
         List<Wall> homeList = new List<Wall>();
 
         public static List<Bullet> planeBullets = new List<Bullet>();
-//        Player p;
+
         private Graphics g = null;
         //创建线程用于刷新屏幕
         private Thread threadRefresh = null;
@@ -72,7 +64,7 @@ namespace TankDemo
             //双缓冲的一些设置
             bmp = new Bitmap(this.getMapWidth(), this.getMapHeight());
             g = Graphics.FromImage(bmp);
-            g.Clear(Color.White);
+            //g.Clear(Color.White);
 
             //设置双缓冲画图
             this.DoubleBuffered = true;
@@ -84,7 +76,13 @@ namespace TankDemo
 
 
         }
-
+        //---------------------------------------------------------------------------
+        //#hqweay@qq.com
+        //写点自己的经验
+        //在不同时刻获取到的Graphics对象是不同的
+        //也就是同一个窗体可能有多个Graphics对象
+        //猜测应该是这样 但不明白为什么
+        //---------------------------------------------------------------------------
         //原来底层重绘每次会清除画布，然后再全部重新绘制，这才是导致闪烁最主要的原因
         protected override void WndProc(ref Message m)
         {
@@ -98,28 +96,33 @@ namespace TankDemo
         {
             while(true){
                 g.Clear(Color.White);
-
-
                 //显示图像
-                Gametank.Draw(g);
+                
                 drawAllWall(g);
-
-                Gametank.Updata(elapsedFrames);
-                //子弹更新
-                foreach (Bullet bullet in planeBullets)
-                {
-                    bullet.update(this);
-                }
-                //子弹绘制
-                foreach (Bullet bullet in planeBullets)
-                {
-                    bullet.Draw(this.CreateGraphics());
-                }
+                playerMove();
+                bulletMove();
                 drawMap();
                 Thread.Sleep(10);
             }
         }
 
+        private void playerMove()
+        {
+            Gametank.Draw(g);
+            Gametank.Updata(elapsedFrames);
+        }
+        private void bulletMove()
+        {
+            foreach (Bullet bullet in planeBullets)
+            {
+                bullet.update(this);
+            }
+            //子弹绘制
+            foreach (Bullet bullet in planeBullets)
+            {
+                bullet.Draw(this.CreateGraphics());
+            }
+        }
         public void drawMap()
         {
             try
@@ -130,33 +133,17 @@ namespace TankDemo
             catch
             { }
         }
-
-      
-        private void MapTest_Load(object sender, EventArgs e)
-        {
-            //开启刷新页面线程
-            threadRefresh = new Thread(new ThreadStart(RefreshUI));
-            threadRefresh.Priority = ThreadPriority.Highest;
-            threadRefresh.Start();
-            threadRefresh.IsBackground = true;
-            //    initMap();
-            //    this.createMap();
-        }
- 
-
-
-        #region 创建墙 家 绘制
         public void createAllWall()
         {
             this.createHome(this.getMapHeight(), this.getMapWidth());
             this.createWall();
 
         }
-/// <summary>
-/// 画的时候要把g传进去不要重新用this.Graphics()
-/// 不然闪屏很厉害
-/// </summary>
-/// <param name="g"></param>
+        /// <summary>
+        /// 画的时候要把g传进去不要重新用this.Graphics()
+        /// 猜测这就是闪屏的原因
+        /// </summary>
+        /// <param name="g"></param>
         public void drawAllWall(Graphics g)
         {
             //           this.drawTank(this.CreateGraphics());
@@ -202,7 +189,6 @@ namespace TankDemo
                 }
             }
         }
-            #endregion 
         public void drawTank(Graphics g)
         {
             Gametank.Draw(g);
@@ -360,7 +346,16 @@ namespace TankDemo
             return this.Width;
         }
         #endregion
-
+        private void MapTest_Load(object sender, EventArgs e)
+        {
+            //开启刷新页面线程
+            threadRefresh = new Thread(new ThreadStart(RefreshUI));
+            threadRefresh.Priority = ThreadPriority.Highest;
+            threadRefresh.Start();
+            threadRefresh.IsBackground = true;
+            //    initMap();
+            //    this.createMap();
+        }
         private void MapTest_FormClosing(object sender, FormClosingEventArgs e)
         {
             //        Application.Exit();//退出整个应用程序
