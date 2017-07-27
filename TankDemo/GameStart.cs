@@ -20,7 +20,10 @@ namespace TankDemo
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
         //    MapTest map = new MapTest();
+       //     Application.Run(new MapTest());
+
             Application.Run(new MapTest());
+
             //map.Show();
             //Player p = new Player(map.getMapHeight(), map.getMapWidth());
             //p.Paint(map.CreateGraphics());

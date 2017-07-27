@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace TankDemo
@@ -23,6 +22,14 @@ namespace TankDemo
         //Home
         List<Wall> homeList = new List<Wall>();
         Player p;
+        //
+        //------------------------------------------------------
+        //
+
+
+        public static MapTest GameForm;
+        public static tank Gametank;
+        public static int elapsedFrames = 0;
 
         public MapTest()
         {
@@ -38,27 +45,47 @@ namespace TankDemo
             //    login.Close();
             //}
             InitializeComponent();
+            GameForm = this;
+            Gametank=new tank();
+
         }
 
-        private void MapTest_Load(object sender, EventArgs e)
+        protected override void OnPaint(PaintEventArgs e)
         {
+            //获得绘画设备
+            Graphics g = e.Graphics;
+            //绘制内容
+
             this.initMapRan();
+            //绘制内容---坦克
+            Gametank.Draw(g);
+            
+            
+        }
 
-            //---------------------------------------------------------------------//
-            //                       创建坦克之类的开战了
-            //--------------------------------------------------------------------//
-
-            //        this.drawPlayer(this.CreateGraphics());
-            //另开一个线程显示了Player
-                     Thread thPlayer = new Thread(initPlayer);
-                     thPlayer.Start();
-                    
-            // thPlayer.
-
-           
+        private void GameUI_Load(object sender, EventArgs e)
+        {
 
         }
 
+        private void Update(int elapsedFrames)
+
+        {
+            Gametank.Updata(elapsedFrames);
+        }
+   
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            elapsedFrames++;
+            Update(elapsedFrames);
+            this.Refresh();
+           
+        }
+
+
+        //----------------------------------------------------------------------------------------
+        //------------------------------------以下为原代码
         public void initPlayer()
         {
             this.drawPlayer(this.CreateGraphics());
@@ -66,14 +93,14 @@ namespace TankDemo
             {
                 try
                 {
-                    p.Move(this.CreateGraphics());
-                    Thread.Sleep(30);
+                    p.Move(this.CreateGraphics(), this);
+                    Thread.Sleep(300);
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine(e.Message);
                 }
-                
+
             }
         }
         public void drawPlayer(Graphics g)
@@ -116,7 +143,7 @@ namespace TankDemo
                         break;
                     case 2:
                         g.FillRectangle(new SolidBrush(Color.BurlyWood), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
-             //           g.FillRectangle(new SolidBrush(Color.Red), wall.getX() * 40, wall.getY() * 40, 1,1);
+                        //           g.FillRectangle(new SolidBrush(Color.Red), wall.getX() * 40, wall.getY() * 40, 1,1);
                         break;
                     case 3:
                         g.FillRectangle(new SolidBrush(Color.Blue), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
@@ -126,13 +153,13 @@ namespace TankDemo
                 }
             }
 
-            
+
 
         }
 
         public void createWall2()
         {
-            
+
             int mapHeight = getMapHeight();
             int mapWidth = getMapWidth();
             int mapSizeWidth = mapWidth / 40;
@@ -181,7 +208,7 @@ namespace TankDemo
                 wall.setType(3);
                 wallList.Add(wall);
             }
-            
+
 
 
         }
@@ -196,7 +223,7 @@ namespace TankDemo
             int mapSizeHeight = mapHeight / 40;
 
             Random ran = new Random();
-            while(wallList.Count() != 200)
+            while (wallList.Count() != 200)
             {
 
                 int x = ran.Next(mapSizeWidth);
@@ -211,7 +238,7 @@ namespace TankDemo
                     continue;
                 }
                 wallList.Add(wall);
-                }
+            }
         }
         /// <summary>
         /// 创造水晶
@@ -229,7 +256,7 @@ namespace TankDemo
                 int temp = 0;
                 for (int j = 0; j < 3; j++)
                 {
-                    
+
                     Wall wall = new Wall();
                     wall.setX((startX + temp) * 40);
                     wall.setY(startY * 40);
@@ -257,9 +284,9 @@ namespace TankDemo
             {
                 switch (wall.getType())
                 {
-                        
+
                     case 4:
-                        
+
                         g.FillRectangle(new SolidBrush(Color.Black), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
                         break;
                     case 5:
@@ -275,11 +302,11 @@ namespace TankDemo
             Brush b;
             b = new SolidBrush(Color.White);
             g.DrawString("家", f, b, homeList[4].getX() - 10, homeList[4].getY());
-            g.Dispose(); 
+            g.Dispose();
 
         }
 
-       
+
 
         /// <summary>
         /// 这里设置为private
@@ -309,14 +336,14 @@ namespace TankDemo
         /// <returns></returns>
         private Boolean isInHome(Wall wallSelf)
         {
-         
+
             if (wallSelf.getX() >= homeList[0].getX() - 40 && wallSelf.getX() <= homeList[2].getX() + 40 && wallSelf.getY() >= homeList[0].getY() - 2 * 40)
             {
                 return true;
             }
             return false;
         }
-        
+
         public int getMapHeight()
         {
             return this.Height - Wall.WALL_SIZE;
@@ -327,40 +354,40 @@ namespace TankDemo
         }
 
 
-        private void MapTest_KeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.KeyData)
-            {
-                case Keys.Up:
-                    p.condition = 0;
-                    break;
-                case Keys.Down:
-                    p.condition = 1;
-                    break;
-                case Keys.Left:
-                    p.condition = 2;
-                    break;
-                case Keys.Right:
-                    p.condition = 3;
-                    break;
-                default:
-                    break;
-            }
-        }
-        
+        //private void MapTest_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    switch (e.KeyData)
+        //    {
+        //        case Keys.Up:
+        //            p.condition = 0;
+        //            break;
+        //        case Keys.Down:
+        //            p.condition = 1;
+        //            break;
+        //        case Keys.Left:
+        //            p.condition = 2;
+        //            break;
+        //        case Keys.Right:
+        //            p.condition = 3;
+        //            break;
+        //        default:
+        //            break;
+        //    }
+        //}
 
         private void MapTest_FormClosed(object sender, FormClosedEventArgs e)
         {
-    //        this.Close();
-    //        Application.Exit();//退出整个应用程序
+            //        this.Close();
+            //        Application.Exit();//退出整个应用程序
         }
 
         private void MapTest_FormClosing(object sender, FormClosingEventArgs e)
         {
             //        Application.Exit();//退出整个应用程序
             //退出时关闭所有线程
-            System.Environment.Exit(0);
+                  System.Environment.Exit(0);
         }
-    
+       
+
     }
 }

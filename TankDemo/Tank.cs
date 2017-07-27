@@ -2,51 +2,123 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Drawing;
 
 namespace TankDemo
 {
-    /// <summary>
-    /// Tank 作为一个父类
-    /// 子类有敌人和玩家两类
-    /// </summary>
-    class Tank
+    public enum MoveDiretion
     {
-        //坦克有什么属性
-        // 初始坐标
-        //颜色，图片》》》  外观
-        //方法 移动 发子弹 判断是否撞 （墙 敌人 子弹）
-        public const int TANK_STEP = 40;
-        public const int TANK_SIZE = 40;
-        private int startX;
-        private int startY;
-        //初始方向
-        //condition 0123 代表上下左右
-        public int condition;
-        //   0   1
-        //   我  敌
-        public int type;
+        Stop,Left,Right,Up,Down
+    }
 
 
-        public void setX(int X)
+    public class tank
+    {
+        //坦克的坐标，图片，移动速度，开火状态，宽度，高度
+        int x;
+        int y;
+        Image image;
+        int speed;
+        bool isShooting = false;
+        int width;
+        int height;
+        MoveDiretion xMove;
+        MoveDiretion yMove;
+       
+        
+        public tank()
         {
-            this.startX = X;
+            image = TankDemo.Properties.Resources.p2tankU;
+            width = image.Width;
+            height = image.Height;
+            x = 20;
+            y = 20;
+            speed = 10;
+      //      MapTest.GameForm.KeyDown += new System.Windows.Forms.KeyEventHandler(GameForm_KeyDown);
+      //      MapTest.GameForm.KeyUp +=new System.Windows.Forms.KeyEventHandler(GameForm_KeyUp);
+
+            MapTest.GameForm.KeyDown += new System.Windows.Forms.KeyEventHandler(GameForm_KeyDown);
+            MapTest.GameForm.KeyUp +=new System.Windows.Forms.KeyEventHandler(GameForm_KeyUp);
+
+
+
         }
-        public void setY(int Y)
+         
+        private void GameForm_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            this.startY = Y;
-        }
-        public int getX()
-        {
-            return this.startX;
-        }
-        public int getY()
-        {
-            return this.startY;
+            switch (e.KeyCode)
+            { 
+                case System.Windows.Forms.Keys.Up:
+                    yMove = MoveDiretion.Up;
+                    break;
+                case System.Windows.Forms.Keys.Down:
+                    yMove = MoveDiretion.Down;
+                    break;
+                case System.Windows.Forms.Keys.Left:
+                    xMove = MoveDiretion.Left;
+                    break;
+                case System.Windows.Forms.Keys.Right:
+                    xMove = MoveDiretion.Right;
+                    break;
+            }
         }
 
 
-        public void move() { }
-        public void fire() { }
+        private void GameForm_KeyUp(object sender, System.Windows.Forms.KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case System.Windows.Forms.Keys.Up:
+                case System.Windows.Forms.Keys.Down:
+                    yMove = MoveDiretion.Stop;
+                    break;
+                case System.Windows.Forms.Keys.Left:
+                case System.Windows.Forms.Keys.Right:
+                    xMove = MoveDiretion.Stop;
+                    break;
+                case System.Windows.Forms.Keys.ControlKey:
+                    isShooting = false;
+                    break;
+            }
+        }
+
+
+        public void Draw(Graphics g)
+        {
+            g.DrawImage(image, x, y);
+
+        }
+
+        int lastShooTime;
+        public void Updata(int frame)
+        {
+            //水平移动；
+            switch  (xMove)
+            {
+                case MoveDiretion.Left:
+                    x-=speed;
+                    break;
+                case MoveDiretion.Right:
+                    x+=speed;
+                    break;
+            
+            }
+            
+
+            //竖直移动
+            switch (yMove)
+            {
+                case MoveDiretion.Up:
+                    y -= speed;
+                    break;
+                case MoveDiretion.Down:
+                    y += speed;
+                    break;
+            
+
+            }
+            
+        }
+      
     }
 }

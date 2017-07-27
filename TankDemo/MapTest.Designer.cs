@@ -28,29 +28,33 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
-            // MapTest
+            // timer1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.timer1.Enabled = true;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // GameUI
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(282, 253);
+            this.ClientSize = new System.Drawing.Size(212, 202);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
-            this.KeyPreview = true;
-            this.Name = "MapTest";
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.WindowsDefaultBounds;
-            this.Text = "MapTest";
+            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Name = "GameUI";
+            this.Text = "GameUI";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MapTest_FormClosing);
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MapTest_FormClosed);
-            this.Load += new System.EventHandler(this.MapTest_Load);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MapTest_KeyDown);
+            this.Load += new System.EventHandler(this.GameUI_Load);
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Timer timer1;
+
     }
 }

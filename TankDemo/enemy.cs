@@ -9,7 +9,7 @@ namespace TankDemo
     /// <summary>
     /// 敌人继承自 Tank
     /// </summary>
-    class enemy:Tank
+    class enemy:TankMe
     {
     }
 }
