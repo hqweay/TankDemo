@@ -92,9 +92,9 @@ namespace TankDemo.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap steels {
+        internal static System.Drawing.Bitmap soil {
             get {
-                object obj = ResourceManager.GetObject("steels", resourceCulture);
+                object obj = ResourceManager.GetObject("soil", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -102,9 +102,9 @@ namespace TankDemo.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap walls {
+        internal static System.Drawing.Bitmap steels {
             get {
-                object obj = ResourceManager.GetObject("walls", resourceCulture);
+                object obj = ResourceManager.GetObject("steels", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

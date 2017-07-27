@@ -25,6 +25,9 @@ namespace TankDemo
         public static List<Bullet> planeBullets = new List<Bullet>();
         Player p;
 
+        Image imageMapSoil;
+
+
         //
         //------------------------------------------------------
         //
@@ -50,8 +53,8 @@ namespace TankDemo
                
 
             //
-            
 
+            imageMapSoil = Properties.Resources.soil;
 
 
             InitializeComponent();
@@ -155,7 +158,8 @@ namespace TankDemo
                 switch (wall.getType())
                 {
                     case 0:
-                        g.FillRectangle(new SolidBrush(Color.Green), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
+                        g.DrawImage(imageMapSoil, wall.getX(), wall.getY());
+                 //       g.FillRectangle(new SolidBrush(Color.Green), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
                         break;
                     case 1:
                         g.FillRectangle(new SolidBrush(Color.Red), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
