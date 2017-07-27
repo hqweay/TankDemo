@@ -13,6 +13,8 @@ namespace TankDemo
     public partial class MapTest : Form
     {
 
+        
+
         //分成40 * 40的格子
         //1080*1920   分为27*48个
         //
@@ -398,7 +400,15 @@ namespace TankDemo
             //退出时关闭所有线程
                   System.Environment.Exit(0);
         }
-       
+
+        /// <summary>
+        /// 返回墙的集合
+        /// </summary>
+        /// <returns></returns>
+        public List<Wall> getWallList()
+        {
+            return wallList;
+        }
 
     }
 }
