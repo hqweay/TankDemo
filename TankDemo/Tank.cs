@@ -34,8 +34,6 @@ namespace TankDemo
             x = 20;
             y = 20;
             speed = 10;
-      //      MapTest.GameForm.KeyDown += new System.Windows.Forms.KeyEventHandler(GameForm_KeyDown);
-      //      MapTest.GameForm.KeyUp +=new System.Windows.Forms.KeyEventHandler(GameForm_KeyUp);
 
             MapTest.GameForm.KeyDown += new System.Windows.Forms.KeyEventHandler(GameForm_KeyDown);
             MapTest.GameForm.KeyUp +=new System.Windows.Forms.KeyEventHandler(GameForm_KeyUp);

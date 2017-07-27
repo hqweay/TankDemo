@@ -66,13 +66,10 @@ namespace TankDemo
             }
         }
 
-        public void initPlayer()
-        {
-            while (true)
-            {
-                Console.WriteLine("ddd");
-                
-            }
-        }
+      
+       
+
     }
 }
+
+

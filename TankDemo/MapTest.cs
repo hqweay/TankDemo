@@ -44,9 +44,19 @@ namespace TankDemo
             //{
             //    login.Close();
             //}
+               
+
+            //
+            
+
+
+
             InitializeComponent();
+
+   
             GameForm = this;
             Gametank=new tank();
+
 
         }
 
@@ -56,16 +66,21 @@ namespace TankDemo
             Graphics g = e.Graphics;
             //绘制内容
 
-            this.initMapRan();
+
             //绘制内容---坦克
-            Gametank.Draw(g);
-            
-            
+   //         this.drawTank(this.CreateGraphics());
+            Thread thPlayer = new Thread(initPlayer);
+            thPlayer.Start();
+                    
+
+
+            this.initMapRan();
+
         }
 
-        private void GameUI_Load(object sender, EventArgs e)
+        private void MapTest_Load(object sender, EventArgs e)
         {
-
+         //   this.initMapRan();
         }
 
         private void Update(int elapsedFrames)
@@ -78,9 +93,17 @@ namespace TankDemo
         private void timer1_Tick(object sender, EventArgs e)
         {
             elapsedFrames++;
+      //      elapsedFrames += 40;
             Update(elapsedFrames);
             this.Refresh();
-           
+         }
+
+        //**************************************************************************************************//
+        //----------------------------------加入代码
+
+        public void drawTank(Graphics g)
+        {
+            Gametank.Draw(g);
         }
 
 
@@ -88,20 +111,7 @@ namespace TankDemo
         //------------------------------------以下为原代码
         public void initPlayer()
         {
-            this.drawPlayer(this.CreateGraphics());
-            while (true)
-            {
-                try
-                {
-                    p.Move(this.CreateGraphics(), this);
-                    Thread.Sleep(300);
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e.Message);
-                }
-
-            }
+            this.drawTank(this.CreateGraphics());
         }
         public void drawPlayer(Graphics g)
         {
@@ -352,6 +362,7 @@ namespace TankDemo
         {
             return this.Width;
         }
+        
 
 
         //private void MapTest_KeyDown(object sender, KeyEventArgs e)
