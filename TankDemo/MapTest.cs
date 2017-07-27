@@ -13,6 +13,7 @@ namespace TankDemo
     public partial class MapTest : Form
     {
 
+
         //分成40 * 40的格子
         //1080*1920   分为27*48个
         //
@@ -61,17 +62,17 @@ namespace TankDemo
             imageMapWater = Properties.Resources.water;
 
             g = this.CreateGraphics();
-            //            initMap();
-            createMap();
+            GameForm = this;
+            Gametank = new tank();
+            createAllWall();
             
 
-                        GameForm = this;
-                        Gametank=new tank();
+                        
             //---------------------------------------
             //双缓冲的一些设置
             bmp = new Bitmap(this.getMapWidth(), this.getMapHeight());
             g = Graphics.FromImage(bmp);
-            g.Clear(Color.Black);
+            g.Clear(Color.White);
 
             //设置双缓冲画图
             this.DoubleBuffered = true;
@@ -97,11 +98,12 @@ namespace TankDemo
         {
             while(true){
                 g.Clear(Color.White);
-               
-            
+
+
                 //显示图像
-                drawMap();
                 Gametank.Draw(g);
+                drawAllWall(g);
+
                 Gametank.Updata(elapsedFrames);
                 //子弹更新
                 foreach (Bullet bullet in planeBullets)
@@ -113,12 +115,12 @@ namespace TankDemo
                 {
                     bullet.Draw(this.CreateGraphics());
                 }
-                clearMap();
+                drawMap();
                 Thread.Sleep(10);
             }
         }
 
-        public void clearMap()
+        public void drawMap()
         {
             try
             {
@@ -129,23 +131,7 @@ namespace TankDemo
             { }
         }
 
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            //获得绘画设备
-            Graphics g = e.Graphics;
-
-            //绘制内容---坦克
-
-            foreach (Bullet bullet in planeBullets)
-            {
-                bullet.Draw(this.CreateGraphics());
-            }
-
- 
-    //         this.drawMap();
-       //     this.initMapRan();
-
-        }
+      
         private void MapTest_Load(object sender, EventArgs e)
         {
             //开启刷新页面线程
@@ -156,51 +142,34 @@ namespace TankDemo
             //    initMap();
             //    this.createMap();
         }
-        private void Update(int elapsedFrames)
+ 
 
-        {
-            //Gametank.Updata(elapsedFrames);
-
-
-            //foreach (Bullet bullet in planeBullets)
-            //{
-            //    bullet.update(this);
-            //}
-        }
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            elapsedFrames++;
-      //      elapsedFrames += 40;
-            Update(elapsedFrames);
-       //     this.Refresh();
-         }
 
         #region 创建墙 家 绘制
-        public void createMap()
+        public void createAllWall()
         {
             this.createHome(this.getMapHeight(), this.getMapWidth());
             this.createWall();
 
         }
-        public void drawMap()
+/// <summary>
+/// 画的时候要把g传进去不要重新用this.Graphics()
+/// 不然闪屏很厉害
+/// </summary>
+/// <param name="g"></param>
+        public void drawAllWall(Graphics g)
         {
             //           this.drawTank(this.CreateGraphics());
-            this.drawHome(this.CreateGraphics());
-            this.drawWall(this.CreateGraphics());
-        }
-        public void drawTank(Graphics g)
-        {
-            Gametank.Draw(g);
-        }      
-        public void drawWall(Graphics g)
-        {
+            //  this.drawWall(g);
+            //   this.drawHome(g);
+            #region   画wall
             foreach (Wall wall in wallList)
             {
                 switch (wall.getType())
                 {
                     case 0:
                         g.DrawImage(imageMapSoil, wall.getX(), wall.getY());
-                 //       g.FillRectangle(new SolidBrush(Color.Green), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
+                        //       g.FillRectangle(new SolidBrush(Color.Green), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
                         break;
                     case 1:
                         g.DrawImage(imageMapSteel, wall.getX(), wall.getY());
@@ -215,10 +184,30 @@ namespace TankDemo
                         break;
                 }
             }
+            #endregion
+            #region 画home
+            foreach (Wall wall in homeList)
+            {
+                switch (wall.getType())
+                {
 
-
-
+                    case 4:
+                        g.DrawImage(imageMapSoil, wall.getX(), wall.getY());
+                        break;
+                    case 5:
+                        g.DrawImage(imageMapWater, wall.getX(), wall.getY());
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
+            #endregion 
+        public void drawTank(Graphics g)
+        {
+            Gametank.Draw(g);
+        }      
+
         public void createWall2()
         {
 
@@ -328,32 +317,7 @@ namespace TankDemo
                 startY += 1;
             }
         }
-        public void drawHome(Graphics g)
-        {
-            foreach (Wall wall in homeList)
-            {
-                switch (wall.getType())
-                {
 
-                    case 4:
-                        g.DrawImage(imageMapSoil, wall.getX(), wall.getY());
-                        break;
-                    case 5:
-                        g.DrawImage(imageMapWater, wall.getX(), wall.getY());
-                        break;
-                    default:
-                        break;
-
-                }
-            }
-            //在窗口上显示字符串
-            Font f = new Font("宋体", 34);
-            Brush b;
-            b = new SolidBrush(Color.White);
-            g.DrawString("家", f, b, homeList[4].getX() - 10, homeList[4].getY());
-            g.Dispose();
-
-        }
         #endregion
 
 
