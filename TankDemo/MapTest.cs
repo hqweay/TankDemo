@@ -26,11 +26,9 @@ namespace TankDemo
         Player p;
 
         Image imageMapSoil;
-
-
-        //
-        //------------------------------------------------------
-        //
+        Image imageMapSteel;
+        Image imageMapWater;
+        Image imageMapGrass;
 
 
         public static MapTest GameForm;
@@ -50,12 +48,9 @@ namespace TankDemo
             //{
             //    login.Close();
             //}
-               
-
-            //
-
             imageMapSoil = Properties.Resources.soil;
-
+            imageMapSteel = Properties.Resources.steel;
+            imageMapWater = Properties.Resources.water;
 
             InitializeComponent();
 
@@ -65,6 +60,15 @@ namespace TankDemo
             Gametank=new tank();
 
 
+        }
+
+        public void initMap()
+        {
+            ///载入前初始化地图，算是吧
+            this.createHome(this.getMapHeight(), this.getMapWidth());
+            this.createWall2();
+            this.drawHome(this.CreateGraphics());
+            this.drawWall(this.CreateGraphics());
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -77,10 +81,6 @@ namespace TankDemo
 
             //绘制内容---坦克
 
-
-            Thread thPlayer = new Thread(this.drawMap);
-            thPlayer.Start();
-
             foreach (Bullet bullet in planeBullets)
             {
                 bullet.Draw(this.CreateGraphics());
@@ -91,24 +91,11 @@ namespace TankDemo
        //     this.initMapRan();
 
         }
-
-        public void createMap()
-        {
-            this.createHome(this.getMapHeight(), this.getMapWidth());
-            this.createWall();
-        }
-        public void drawMap(){
-            this.drawTank(this.CreateGraphics());
-            this.drawHome(this.CreateGraphics());
-            this.drawWall(this.CreateGraphics());
-        }
-
         private void MapTest_Load(object sender, EventArgs e)
         {
-         //   this.initMapRan();
-            this.createMap();
+            initMap();
+        //    this.createMap();
         }
-
         private void Update(int elapsedFrames)
 
         {
@@ -120,37 +107,30 @@ namespace TankDemo
                 bullet.update(this);
             }
         }
-   
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             elapsedFrames++;
       //      elapsedFrames += 40;
             Update(elapsedFrames);
-            this.Refresh();
+       //     this.Refresh();
          }
 
-        //**************************************************************************************************//
-        //----------------------------------加入代码
-
+        #region 创建墙 家 绘制
+        public void createMap()
+        {
+            this.createHome(this.getMapHeight(), this.getMapWidth());
+            this.createWall();
+        }
+        public void drawMap()
+        {
+            //           this.drawTank(this.CreateGraphics());
+            this.drawHome(this.CreateGraphics());
+            this.drawWall(this.CreateGraphics());
+        }
         public void drawTank(Graphics g)
         {
             Gametank.Draw(g);
-        }
-
-
-        //----------------------------------------------------------------------------------------
-        //------------------------------------以下为原代码
-      
-       
-       
-        
-       
-
-        /// <summary>
-        /// 画墙
-        /// </summary>
-        /// <param name="g"></param>
+        }      
         public void drawWall(Graphics g)
         {
             foreach (Wall wall in wallList)
@@ -162,11 +142,10 @@ namespace TankDemo
                  //       g.FillRectangle(new SolidBrush(Color.Green), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
                         break;
                     case 1:
-                        g.FillRectangle(new SolidBrush(Color.Red), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
+                        g.DrawImage(imageMapSteel, wall.getX(), wall.getY());
                         break;
                     case 2:
-                        g.FillRectangle(new SolidBrush(Color.BurlyWood), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
-                        //           g.FillRectangle(new SolidBrush(Color.Red), wall.getX() * 40, wall.getY() * 40, 1,1);
+                        g.DrawImage(imageMapWater, wall.getX(), wall.getY());
                         break;
                     case 3:
                         g.FillRectangle(new SolidBrush(Color.Blue), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
@@ -179,7 +158,6 @@ namespace TankDemo
 
 
         }
-
         public void createWall2()
         {
 
@@ -235,9 +213,6 @@ namespace TankDemo
 
 
         }
-        /// <summary>
-        /// 创造墙
-        /// </summary>
         public void createWall()
         {
             int mapHeight = getMapHeight();
@@ -263,11 +238,6 @@ namespace TankDemo
                 wallList.Add(wall);
             }
         }
-        /// <summary>
-        /// 创造水晶
-        /// </summary>
-        /// <param name="mapHeight"></param>
-        /// <param name="mapWidth"></param>
         public void createHome(int mapHeight, int mapWidth)
         {
             int mapSizeWidth = mapWidth / 40;
@@ -297,10 +267,6 @@ namespace TankDemo
                 startY += 1;
             }
         }
-        /// <summary>
-        /// 画水晶
-        /// </summary>
-        /// <param name="g"></param>
         public void drawHome(Graphics g)
         {
             foreach (Wall wall in homeList)
@@ -328,7 +294,7 @@ namespace TankDemo
             g.Dispose();
 
         }
-
+        #endregion
 
 
         /// <summary>
@@ -351,12 +317,6 @@ namespace TankDemo
             }
             return false;
         }
-        /// <summary>
-        /// 创建墙的判断
-        /// 墙是否和水晶重合
-        /// </summary>
-        /// <param name="wallSelf"></param>
-        /// <returns></returns>
         private Boolean isInHome(Wall wallSelf)
         {
 
@@ -366,7 +326,7 @@ namespace TankDemo
             }
             return false;
         }
-
+        #region  获得窗口长宽
         public int getMapHeight()
         {
             return this.Height - Wall.WALL_SIZE;
@@ -375,35 +335,7 @@ namespace TankDemo
         {
             return this.Width;
         }
-        
-
-
-        //private void MapTest_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    switch (e.KeyData)
-        //    {
-        //        case Keys.Up:
-        //            p.condition = 0;
-        //            break;
-        //        case Keys.Down:
-        //            p.condition = 1;
-        //            break;
-        //        case Keys.Left:
-        //            p.condition = 2;
-        //            break;
-        //        case Keys.Right:
-        //            p.condition = 3;
-        //            break;
-        //        default:
-        //            break;
-        //    }
-        //}
-
-        private void MapTest_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            //        this.Close();
-            //        Application.Exit();//退出整个应用程序
-        }
+        #endregion
 
         private void MapTest_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -420,9 +352,5 @@ namespace TankDemo
         {
             return this.homeList;
         }
-        //public List<Bullet> getBulletList()
-        //{
-        //    return this.planeBullets;
-        //}
     }
 }
