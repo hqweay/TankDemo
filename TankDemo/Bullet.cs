@@ -47,7 +47,7 @@ namespace TankDemo
         public Bullet(MoveDiretion bulletDirection)
         {
 
-  //          image = Resource.planeBullet1_Power1;
+            image = Properties.Resources.bullet_1;
             width = image.Width;
             height = image.Height;
             this.bulletDirection = bulletDirection;
@@ -88,13 +88,13 @@ namespace TankDemo
             }
             if (x <= 0)
             {
-                map.getBulletList().Remove(this);
+               MapTest.planeBullets .Remove(this);
                 
             }
             if (y <= 0)
             {
         //       MapTest.planeBullets.Remove(this);
-                map.getBulletList().Remove(this);
+                MapTest.planeBullets.Remove(this);
                
             }
 

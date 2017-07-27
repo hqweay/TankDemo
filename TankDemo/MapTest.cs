@@ -22,7 +22,7 @@ namespace TankDemo
         //Home
         List<Wall> homeList = new List<Wall>();
 
-        public List<Bullet> planeBullets = new List<Bullet>();
+        public static List<Bullet> planeBullets = new List<Bullet>();
         Player p;
 
         //
@@ -78,6 +78,11 @@ namespace TankDemo
             Thread thPlayer = new Thread(this.drawMap);
             thPlayer.Start();
 
+            foreach (Bullet bullet in planeBullets)
+            {
+                bullet.Draw(this.CreateGraphics());
+            }
+
  
     //         this.drawMap();
        //     this.initMapRan();
@@ -105,6 +110,12 @@ namespace TankDemo
 
         {
             Gametank.Updata(elapsedFrames);
+
+
+            foreach (Bullet bullet in planeBullets)
+            {
+                bullet.update(this);
+            }
         }
    
 
@@ -405,9 +416,9 @@ namespace TankDemo
         {
             return this.homeList;
         }
-        public List<Bullet> getBulletList()
-        {
-            return this.planeBullets;
-        }
+        //public List<Bullet> getBulletList()
+        //{
+        //    return this.planeBullets;
+        //}
     }
 }

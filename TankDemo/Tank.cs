@@ -24,6 +24,8 @@ namespace TankDemo
         int height;
         MoveDiretion xMove;
         MoveDiretion yMove;
+
+        MoveDiretion bulletDirection;
        
         
         public tank()
@@ -48,16 +50,26 @@ namespace TankDemo
             { 
                 case System.Windows.Forms.Keys.Up:
                     yMove = MoveDiretion.Up;
+                    bulletDirection = MoveDiretion.Up;
                     break;
                 case System.Windows.Forms.Keys.Down:
                     yMove = MoveDiretion.Down;
+                    bulletDirection = MoveDiretion.Down;
                     break;
                 case System.Windows.Forms.Keys.Left:
                     xMove = MoveDiretion.Left;
+                    bulletDirection = MoveDiretion.Left;
                     break;
                 case System.Windows.Forms.Keys.Right:
                     xMove = MoveDiretion.Right;
+                    bulletDirection = MoveDiretion.Right;
                     break;
+                case System.Windows.Forms.Keys.Space:
+                    isShooting = true;
+                    break;
+
+
+
             }
         }
 
@@ -74,7 +86,7 @@ namespace TankDemo
                 case System.Windows.Forms.Keys.Right:
                     xMove = MoveDiretion.Stop;
                     break;
-                case System.Windows.Forms.Keys.ControlKey:
+                case System.Windows.Forms.Keys.Space:
                     isShooting = false;
                     break;
             }
@@ -114,6 +126,14 @@ namespace TankDemo
                     break;
             
 
+            }
+
+            if (isShooting)
+            {
+                Bullet bullet = new Bullet(bulletDirection);
+                bullet.X = this.x;
+                bullet.Y = this.y;
+                MapTest.planeBullets.Add(bullet);
             }
             
         }

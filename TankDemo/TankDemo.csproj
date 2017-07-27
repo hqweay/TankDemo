@@ -115,13 +115,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="image\App.config" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <None Include="bgm\bgm.wav" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bullet_1.png" />
+    <Content Include="image\bullet_1.png" />
     <Content Include="image\p2tankD.gif" />
     <Content Include="image\p2tankL.gif" />
     <Content Include="image\p2tankR.gif" />
