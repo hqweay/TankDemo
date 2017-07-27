@@ -23,13 +23,18 @@ namespace TankDemo
         List<Wall> homeList = new List<Wall>();
 
         public static List<Bullet> planeBullets = new List<Bullet>();
-        Player p;
+//        Player p;
+        private Graphics g = null;
+        //创建线程用于刷新屏幕
+        private Thread threadRefresh = null;
+
+        private Bitmap bmp = null;
 
         Image imageMapSoil;
         Image imageMapSteel;
         Image imageMapWater;
-        Image imageMapGrass;
-
+//        Image imageMapGrass;
+        
 
         public static MapTest GameForm;
         public static tank Gametank;
@@ -48,28 +53,61 @@ namespace TankDemo
             //{
             //    login.Close();
             //}
+
+            InitializeComponent();
+
             imageMapSoil = Properties.Resources.soil;
             imageMapSteel = Properties.Resources.steel;
             imageMapWater = Properties.Resources.water;
 
-            InitializeComponent();
-
+            g = this.CreateGraphics();
+            //            initMap();
+            createMap();
             
 
-            GameForm = this;
-            Gametank=new tank();
+            //            GameForm = this;
+            //            Gametank=new tank();
+            //---------------------------------------
+            //双缓冲的一些设置
+            bmp = new Bitmap(this.getMapWidth(), this.getMapHeight());
+            g = Graphics.FromImage(bmp);
+            g.Clear(Color.Black);
+
+            //设置双缓冲画图
+            this.DoubleBuffered = true;
+            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.DoubleBuffer, true);
+
+
 
 
         }
 
-        public void initMap()
+        //原来底层重绘每次会清除画布，然后再全部重新绘制，这才是导致闪烁最主要的原因
+        protected override void WndProc(ref Message m)
         {
-            ///载入前初始化地图，算是吧
-            this.createHome(this.getMapHeight(), this.getMapWidth());
-            this.createWall2();
-            this.drawHome(this.CreateGraphics());
-            this.drawWall(this.CreateGraphics());
+            // 禁掉清除背景消息
+            if (m.Msg == 0x0014)
+                return;
+            base.WndProc(ref m);
         }
+
+        private void RefreshUI()
+        {
+            {
+                g.Clear(Color.Black);
+               
+
+                //显示图像
+                drawMap();
+
+                Thread.Sleep(10);
+            }
+        }
+        /// <summary>
+        /// 绘制地图
+        /// </summary>
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -93,19 +131,24 @@ namespace TankDemo
         }
         private void MapTest_Load(object sender, EventArgs e)
         {
-            initMap();
-        //    this.createMap();
+            //开启刷新页面线程
+            threadRefresh = new Thread(new ThreadStart(RefreshUI));
+            threadRefresh.Priority = ThreadPriority.Highest;
+            threadRefresh.Start();
+            threadRefresh.IsBackground = true;
+            //    initMap();
+            //    this.createMap();
         }
         private void Update(int elapsedFrames)
 
         {
-            Gametank.Updata(elapsedFrames);
+            //Gametank.Updata(elapsedFrames);
 
 
-            foreach (Bullet bullet in planeBullets)
-            {
-                bullet.update(this);
-            }
+            //foreach (Bullet bullet in planeBullets)
+            //{
+            //    bullet.update(this);
+            //}
         }
         private void timer1_Tick(object sender, EventArgs e)
         {

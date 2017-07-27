@@ -99,7 +99,7 @@ namespace TankDemo
 
         }
 
-        int lastShooTime;
+//        int lastShooTime;
         public void Updata(int frame)
         {
             //水平移动；

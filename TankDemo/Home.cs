@@ -35,7 +35,7 @@ namespace TankDemo
                 startY += Wall.WALL_SIZE;
             }
         }
-        public void PaintHome(Graphics g)
+        public void paintHome(Graphics g)
         {
             foreach (Wall wall in homeList)
             {
