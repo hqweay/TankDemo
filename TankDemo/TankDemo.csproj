@@ -55,7 +55,6 @@
     <Compile Include="MapTest.Designer.cs">
       <DependentUpon>MapTest.cs</DependentUpon>
     </Compile>
-    <Compile Include="Home.cs" />
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
     </Compile>

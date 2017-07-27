@@ -65,8 +65,8 @@ namespace TankDemo
             createMap();
             
 
-            //            GameForm = this;
-            //            Gametank=new tank();
+                        GameForm = this;
+                        Gametank=new tank();
             //---------------------------------------
             //双缓冲的一些设置
             bmp = new Bitmap(this.getMapWidth(), this.getMapHeight());
@@ -95,27 +95,44 @@ namespace TankDemo
 
         private void RefreshUI()
         {
-            {
-                g.Clear(Color.Black);
+            while(true){
+                g.Clear(Color.White);
                
-
+            
                 //显示图像
                 drawMap();
-
+                Gametank.Draw(g);
+                Gametank.Updata(elapsedFrames);
+                //子弹更新
+                foreach (Bullet bullet in planeBullets)
+                {
+                    bullet.update(this);
+                }
+                //子弹绘制
+                foreach (Bullet bullet in planeBullets)
+                {
+                    bullet.Draw(this.CreateGraphics());
+                }
+                clearMap();
                 Thread.Sleep(10);
             }
         }
-        /// <summary>
-        /// 绘制地图
-        /// </summary>
+
+        public void clearMap()
+        {
+            try
+            {
+                Graphics g = this.CreateGraphics();
+                g.DrawImage(bmp, 0, 0);
+            }
+            catch
+            { }
+        }
 
         protected override void OnPaint(PaintEventArgs e)
         {
             //获得绘画设备
             Graphics g = e.Graphics;
-
-
-
 
             //绘制内容---坦克
 
@@ -163,6 +180,7 @@ namespace TankDemo
         {
             this.createHome(this.getMapHeight(), this.getMapWidth());
             this.createWall();
+
         }
         public void drawMap()
         {
@@ -318,11 +336,10 @@ namespace TankDemo
                 {
 
                     case 4:
-
-                        g.FillRectangle(new SolidBrush(Color.Black), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
+                        g.DrawImage(imageMapSoil, wall.getX(), wall.getY());
                         break;
                     case 5:
-                        g.FillRectangle(new SolidBrush(Color.Red), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
+                        g.DrawImage(imageMapWater, wall.getX(), wall.getY());
                         break;
                     default:
                         break;
