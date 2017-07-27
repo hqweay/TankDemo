@@ -39,7 +39,7 @@ namespace TankDemo
             MapTest.GameForm.KeyUp +=new System.Windows.Forms.KeyEventHandler(GameForm_KeyUp);
 
 
-            
+
         }
          
         private void GameForm_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)

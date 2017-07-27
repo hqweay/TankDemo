@@ -35,7 +35,6 @@
             // mapRefresh
             // 
             this.mapRefresh.Enabled = true;
-            this.mapRefresh.Interval = 25;
             this.mapRefresh.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // MapTest
