@@ -21,7 +21,10 @@ namespace TankDemo
         List<Wall> wallList = new List<Wall>();
         //Home
         List<Wall> homeList = new List<Wall>();
+
+        public List<Bullet> planeBullets = new List<Bullet>();
         Player p;
+
         //
         //------------------------------------------------------
         //
@@ -53,7 +56,8 @@ namespace TankDemo
 
             InitializeComponent();
 
-   
+            
+
             GameForm = this;
             Gametank=new tank();
 
@@ -64,23 +68,37 @@ namespace TankDemo
         {
             //获得绘画设备
             Graphics g = e.Graphics;
-            //绘制内容
+
+
 
 
             //绘制内容---坦克
-   //         this.drawTank(this.CreateGraphics());
-            Thread thPlayer = new Thread(initPlayer);
+
+
+            Thread thPlayer = new Thread(this.drawMap);
             thPlayer.Start();
-                    
 
+ 
+    //         this.drawMap();
+       //     this.initMapRan();
 
-            this.initMapRan();
+        }
 
+        public void createMap()
+        {
+            this.createHome(this.getMapHeight(), this.getMapWidth());
+            this.createWall();
+        }
+        public void drawMap(){
+            this.drawTank(this.CreateGraphics());
+            this.drawHome(this.CreateGraphics());
+            this.drawWall(this.CreateGraphics());
         }
 
         private void MapTest_Load(object sender, EventArgs e)
         {
          //   this.initMapRan();
+            this.createMap();
         }
 
         private void Update(int elapsedFrames)
@@ -109,31 +127,11 @@ namespace TankDemo
 
         //----------------------------------------------------------------------------------------
         //------------------------------------以下为原代码
-        public void initPlayer()
-        {
-            this.drawTank(this.CreateGraphics());
-        }
-        public void drawPlayer(Graphics g)
-        {
-            p = new Player(this.getMapHeight(), this.getMapWidth());
-            p.Paint(g);
-        }
-        public void initMapRan()
-        {
-            ///载入前初始化地图，算是吧
-            this.createHome(this.getMapHeight(), this.getMapWidth());
-            this.createWall();
-            this.drawHome(this.CreateGraphics());
-            this.drawWall(this.CreateGraphics());
-        }
-        public void initMap()
-        {
-            ///载入前初始化地图，算是吧
-            this.createHome(this.getMapHeight(), this.getMapWidth());
-            this.createWall2();
-            this.drawHome(this.CreateGraphics());
-            this.drawWall(this.CreateGraphics());
-        }
+      
+       
+       
+        
+       
 
         /// <summary>
         /// 画墙
@@ -398,7 +396,18 @@ namespace TankDemo
             //退出时关闭所有线程
                   System.Environment.Exit(0);
         }
-       
 
+        private List<Wall> getWallList()
+        {
+            return this.wallList;
+        }
+        private List<Wall> getHomeList()
+        {
+            return this.homeList;
+        }
+        public List<Bullet> getBulletList()
+        {
+            return this.planeBullets;
+        }
     }
 }

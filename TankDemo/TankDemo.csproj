@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bullet.cs" />
     <Compile Include="enemy.cs" />
     <Compile Include="MapTest.cs">
       <SubType>Form</SubType>
@@ -125,6 +126,9 @@
     <Content Include="image\p2tankL.gif" />
     <Content Include="image\p2tankR.gif" />
     <Content Include="image\p2tankU.gif" />
+    <Content Include="image\steels.gif" />
+    <Content Include="image\walls.gif" />
+    <Content Include="image\water.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
