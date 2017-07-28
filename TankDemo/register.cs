@@ -84,12 +84,12 @@ namespace TankDemo
             }
             //操作数据库
             //对数据库进行插入数据操作
-            SqlConnection con = new SqlConnection("server=B412-008;initial catalog=TankDemo;integrated security=SSPI");
-           
+            SqlConnection con = new SqlConnection("server=LAPTOP-Q3STI184;initial catalog=TankDemo;integrated security=SSPI");
+
             //插入操作返回的结果是 受影响的行数   是一个  int 值
             //而查询操作返回的是一个 集合
             //可以在sql中试试 insert 和 select 操作 观察返回结果
-            SqlCommand com = new SqlCommand("insert into userinfor(userName,userPassword,userEmail) values('" + tb_user.UserName + "','" + tb_user.UserPWD + "','" + tb_user.UserEmail + "'" +  ")", con);
+            SqlCommand com = new SqlCommand("insert into userinfor(userName,userPassword,userEmail,userScore) values('" + tb_user.UserName + "','" + tb_user.UserPWD + "','" + tb_user.UserEmail + "','" + "0" + "'" + ")", con);
 
 
             //判断用户名是否存在
