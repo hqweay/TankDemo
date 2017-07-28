@@ -100,7 +100,7 @@ namespace TankDemo
                 
                 drawAllWall(g);
                 playerMove();
-                bulletMove();
+                bulletMove(g);
                 drawMap();
                 Thread.Sleep(10);
             }
@@ -111,11 +111,11 @@ namespace TankDemo
             Gametank.Draw(g);
             Gametank.Updata(elapsedFrames);
         }
-        private void bulletMove()
+        private void bulletMove(Graphics g)
         {
-            foreach (Bullet bullet in planeBullets)
+            for (int i = 0; i < planeBullets.Count; i++)
             {
-                bullet.update(this);
+                planeBullets[i].update(this);
             }
             //子弹绘制
             foreach (Bullet bullet in planeBullets)
@@ -146,9 +146,6 @@ namespace TankDemo
         /// <param name="g"></param>
         public void drawAllWall(Graphics g)
         {
-            //           this.drawTank(this.CreateGraphics());
-            //  this.drawWall(g);
-            //   this.drawHome(g);
             #region   画wall
             foreach (Wall wall in wallList)
             {

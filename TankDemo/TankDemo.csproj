@@ -121,7 +121,6 @@
     <None Include="bgm\bgm.wav" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bullet_1.png" />
     <Content Include="image\bullet_1.png" />
     <Content Include="image\p2tankD.gif" />
     <Content Include="image\p2tankL.gif" />
