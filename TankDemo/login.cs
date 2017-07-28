@@ -16,13 +16,14 @@ namespace TankDemo
 {
     public partial class Login : Form
     {
+        SoundPlayer sp;
         public Boolean flag;
         public Login()
         {
             //播放音乐
-            //string str = System.IO.Directory.GetCurrentDirectory();
-            //SoundPlayer sp = new SoundPlayer(Properties.Resources.bgm);
-            //sp.PlayLooping();
+            string str = System.IO.Directory.GetCurrentDirectory();
+            sp = new SoundPlayer(Properties.Resources.bgm);
+            sp.PlayLooping();
 
 
             InitializeComponent();
@@ -75,6 +76,7 @@ namespace TankDemo
                 //map.Show();
                 // this.DialogResult = DialogResult.OK;
                 this.Hide();
+                sp.Stop();
                 Welcome welcome = new Welcome();
                 welcome.Show();
             }
