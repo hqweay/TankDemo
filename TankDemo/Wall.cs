@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TankDemo
 {
-    class Wall
+   public class Wall
     {
         public const int WALL_SIZE = 40;
         private int x;

@@ -12,21 +12,30 @@ namespace TankDemo
 {
     public partial class MapTest : Form
     {
-        List<Wall> wallList = new List<Wall>();
+        KeyMouseMessage keyMouse;
+        Move move;
+        Collider coll = new Collider();
+
+
+        public static List<Wall> wallList = new List<Wall>();
         List<Wall> homeList = new List<Wall>();
+        List<enemyTank> enemyList = new List<enemyTank>();
 
         public static List<Bullet> planeBullets = new List<Bullet>();
 
         private Graphics g = null;
         //创建线程用于刷新屏幕
         private Thread threadRefresh = null;
+        //敌人坦克
+        private Thread threadEnemy = null;
 
         private Bitmap bmp = null;
 
         Image imageMapSoil;
         Image imageMapSteel;
         Image imageMapWater;
-//        Image imageMapGrass;
+        Image imageMapGrass;
+        Image imageHome;
         
 
         public static MapTest GameForm;
@@ -52,11 +61,14 @@ namespace TankDemo
             imageMapSoil = Properties.Resources.soil;
             imageMapSteel = Properties.Resources.steel;
             imageMapWater = Properties.Resources.water;
+            imageMapGrass = Properties.Resources.grass;
+            imageHome = Properties.Resources.home;
 
             g = this.CreateGraphics();
             GameForm = this;
-            Gametank = new tank();
+            Gametank = new tank(this);
             createAllWall();
+            createEnemy();
             
 
                         
@@ -73,6 +85,19 @@ namespace TankDemo
             SetStyle(ControlStyles.DoubleBuffer, true);
 
 
+            Point scale, location;
+
+            
+            keyMouse = new KeyMouseMessage(this);
+            keyMouse.setKeyPreView(true);
+            keyMouse.add();
+
+            scale.x = 40;
+            scale.y = 40;
+            location.x = Gametank.getX();
+            location.y = Gametank.getY();
+
+            move = new Move(location, scale);
 
 
         }
@@ -94,34 +119,80 @@ namespace TankDemo
 
         private void RefreshUI()
         {
+            Point TrankLocation;
+
+            Random r = new Random();
             while(true){
-                g.Clear(Color.White);
+                g.Clear(Color.Black);
+                TrankLocation = move.getNewxy();
+          //      Gametank.x = (int)TrankLocation.x;
+          //      Gametank.y = (int)TrankLocation.y;
                 //显示图像
-                
-                drawAllWall(g);
                 playerMove();
-                bulletMove(g);
+
+                for (int i = 0; i < planeBullets.Count; i++)
+                {
+                    if (Crash.isCrashWall (planeBullets[i]))
+                    {
+                        planeBullets.Remove(planeBullets[i]);
+                    }
+                }
+
+                    drawEnemy(g);
+
+                drawAllWall(g);
+                
+                bulletMove();
+
+   //             enemyMove(g);
+
                 drawMap();
                 Thread.Sleep(10);
             }
         }
 
+        public void enemyMove(Graphics g)
+        {
+
+            //            Thread thread = new Thread(new ParameterizedThreadStart(showmessage));
+            //string o = "hello";
+            //thread.Start((object)o);
+            //private static void showmessage(object message)
+            //{
+            //string temp = (string)message;
+            //Console.WriteLine(message);
+            //}
+            //开启敌人坦克
+    //        threadEnemy = new Thread(new ParameterizedThreadStart(drawEnemy));
+         //   string ob = (String)(g);
+     //       threadEnemy.Start(g);  
+     //       drawEnemy(g);
+
+   
+        }
         private void playerMove()
         {
             Gametank.Draw(g);
+
+     //       if (MapTest.Gametank.isTouchWall())
+     //       {
+     //           return;
+     //       }
+            
+
             Gametank.Updata(elapsedFrames);
         }
-        private void bulletMove(Graphics g)
+        private void bulletMove()
         {
             for (int i = 0; i < planeBullets.Count; i++)
             {
                 planeBullets[i].update(this);
             }
-            //子弹绘制
-            foreach (Bullet bullet in planeBullets)
-            {
-                bullet.Draw(this.CreateGraphics());
-            }
+                //子弹绘制
+                foreach (Bullet bullet in planeBullets)
+                {
+                    bullet.Draw(this.CreateGraphics());
+                }
         }
         public void drawMap()
         {
@@ -138,6 +209,7 @@ namespace TankDemo
             this.createHome(this.getMapHeight(), this.getMapWidth());
             this.createWall();
 
+
         }
         /// <summary>
         /// 画的时候要把g传进去不要重新用this.Graphics()
@@ -146,6 +218,9 @@ namespace TankDemo
         /// <param name="g"></param>
         public void drawAllWall(Graphics g)
         {
+            //           this.drawTank(this.CreateGraphics());
+            //  this.drawWall(g);
+            //   this.drawHome(g);
             #region   画wall
             foreach (Wall wall in wallList)
             {
@@ -162,14 +237,15 @@ namespace TankDemo
                         g.DrawImage(imageMapWater, wall.getX(), wall.getY());
                         break;
                     case 3:
-                        g.FillRectangle(new SolidBrush(Color.Blue), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
+                //        g.FillRectangle(new SolidBrush(Color.Blue), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
+                        g.DrawImage(imageMapGrass, wall.getX(), wall.getY());
                         break;
                     default:
                         break;
                 }
             }
             #endregion
-            #region 画home
+ 
             foreach (Wall wall in homeList)
             {
                 switch (wall.getType())
@@ -179,17 +255,27 @@ namespace TankDemo
                         g.DrawImage(imageMapSoil, wall.getX(), wall.getY());
                         break;
                     case 5:
-                        g.DrawImage(imageMapWater, wall.getX(), wall.getY());
+                        g.DrawImage(imageHome, wall.getX(), wall.getY());
                         break;
                     default:
                         break;
                 }
             }
         }
-        public void drawTank(Graphics g)
+        //public void drawTank(Graphics g)
+        //{
+        //    Gametank.Draw(g);
+        //}
+        public void drawEnemy(Object g)
         {
-            Gametank.Draw(g);
-        }      
+            Random r = new Random();
+            foreach (enemyTank enemy in enemyList)
+            {
+             //   enemy.newDirect(r);
+                enemy.Move(this, r);
+                enemy.Draw((Graphics)g);
+            }
+        }
 
         public void createWall2()
         {
@@ -245,7 +331,8 @@ namespace TankDemo
 
 
 
-        }
+      }
+        #region  create wall
         public void createWall()
         {
             int mapHeight = getMapHeight();
@@ -271,6 +358,9 @@ namespace TankDemo
                 wallList.Add(wall);
             }
         }
+        #endregion
+
+        #region  create home
         public void createHome(int mapHeight, int mapWidth)
         {
             int mapSizeWidth = mapWidth / 40;
@@ -303,6 +393,19 @@ namespace TankDemo
 
         #endregion
 
+        #region create enemy
+
+        public void createEnemy()
+        {
+            Random r = new Random();
+            while (enemyList.Count < 6)
+            {
+                enemyTank enemy = new enemyTank(r);
+                enemyList.Add(enemy);
+            }
+        }
+
+        #endregion
 
         /// <summary>
         /// 这里设置为private
@@ -350,8 +453,8 @@ namespace TankDemo
             threadRefresh.Priority = ThreadPriority.Highest;
             threadRefresh.Start();
             threadRefresh.IsBackground = true;
-            //    initMap();
-            //    this.createMap();
+           
+            //
         }
         private void MapTest_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -360,13 +463,20 @@ namespace TankDemo
                   System.Environment.Exit(0);
         }
 
-        private List<Wall> getWallList()
-        {
-            return this.wallList;
-        }
+       
         private List<Wall> getHomeList()
         {
             return this.homeList;
+        }
+
+        public tank getPlayer()
+        {
+            return Gametank;
+        }
+
+        private void MapTest_FormClosing_1(object sender, FormClosingEventArgs e)
+        {
+            System.Environment.Exit(0);
         }
     }
 }

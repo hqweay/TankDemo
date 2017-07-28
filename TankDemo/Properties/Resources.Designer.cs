@@ -72,9 +72,9 @@ namespace TankDemo.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap bullet_down {
+        internal static System.Drawing.Bitmap bomb {
             get {
-                object obj = ResourceManager.GetObject("bullet_down", resourceCulture);
+                object obj = ResourceManager.GetObject("bomb", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -82,9 +82,9 @@ namespace TankDemo.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap bullet_left {
+        internal static System.Drawing.Bitmap bullet {
             get {
-                object obj = ResourceManager.GetObject("bullet_left", resourceCulture);
+                object obj = ResourceManager.GetObject("bullet", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -92,9 +92,9 @@ namespace TankDemo.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap bullet_right {
+        internal static System.Drawing.Bitmap bullet_1 {
             get {
-                object obj = ResourceManager.GetObject("bullet_right", resourceCulture);
+                object obj = ResourceManager.GetObject("bullet_1", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -102,9 +102,9 @@ namespace TankDemo.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap bullet_up {
+        internal static System.Drawing.Bitmap grass {
             get {
-                object obj = ResourceManager.GetObject("bullet_up", resourceCulture);
+                object obj = ResourceManager.GetObject("grass", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -112,9 +112,9 @@ namespace TankDemo.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
-        internal static System.Drawing.Bitmap p2tankU {
+        internal static System.Drawing.Bitmap home {
             get {
-                object obj = ResourceManager.GetObject("p2tankU", resourceCulture);
+                object obj = ResourceManager.GetObject("home", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -132,9 +132,69 @@ namespace TankDemo.Properties {
         /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
+        internal static System.Drawing.Bitmap star {
+            get {
+                object obj = ResourceManager.GetObject("star", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
         internal static System.Drawing.Bitmap steel {
             get {
                 object obj = ResourceManager.GetObject("steel", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap tankD {
+            get {
+                object obj = ResourceManager.GetObject("tankD", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap tankL {
+            get {
+                object obj = ResourceManager.GetObject("tankL", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap tankR {
+            get {
+                object obj = ResourceManager.GetObject("tankR", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap tankU {
+            get {
+                object obj = ResourceManager.GetObject("tankU", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap timer {
+            get {
+                object obj = ResourceManager.GetObject("timer", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

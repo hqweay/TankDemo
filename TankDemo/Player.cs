@@ -17,7 +17,7 @@ namespace TankDemo
         /// </summary>
         public Player(int mapHeight, int mapWidth)
         {
-            this.image = Properties.Resources.p2tankU;
+            this.image = Properties.Resources.tankU;
             int mapSizeWidth = mapWidth / 40;
             int mapSizeHeight = mapHeight / 40;
             this.setX((mapSizeWidth / 2 - 2) * 40);

@@ -41,6 +41,7 @@
             this.Name = "MapTest";
             this.Text = "GameUI";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MapTest_FormClosing_1);
             this.Load += new System.EventHandler(this.MapTest_Load);
             this.ResumeLayout(false);
 

@@ -41,7 +41,7 @@
             // button_login
             // 
             this.button_login.Location = new System.Drawing.Point(169, 290);
-            this.button_login.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_login.Margin = new System.Windows.Forms.Padding(4);
             this.button_login.Name = "button_login";
             this.button_login.Size = new System.Drawing.Size(100, 29);
             this.button_login.TabIndex = 0;
@@ -52,7 +52,7 @@
             // button_register
             // 
             this.button_register.Location = new System.Drawing.Point(295, 290);
-            this.button_register.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_register.Margin = new System.Windows.Forms.Padding(4);
             this.button_register.Name = "button_register";
             this.button_register.Size = new System.Drawing.Size(100, 29);
             this.button_register.TabIndex = 1;
@@ -64,7 +64,7 @@
             // 
             this.button_reset.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.button_reset.Location = new System.Drawing.Point(417, 290);
-            this.button_reset.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_reset.Margin = new System.Windows.Forms.Padding(4);
             this.button_reset.Name = "button_reset";
             this.button_reset.Size = new System.Drawing.Size(100, 29);
             this.button_reset.TabIndex = 2;
@@ -75,7 +75,7 @@
             // text_username
             // 
             this.text_username.Location = new System.Drawing.Point(169, 155);
-            this.text_username.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.text_username.Margin = new System.Windows.Forms.Padding(4);
             this.text_username.Name = "text_username";
             this.text_username.Size = new System.Drawing.Size(347, 25);
             this.text_username.TabIndex = 3;
@@ -85,7 +85,7 @@
             // text_password
             // 
             this.text_password.Location = new System.Drawing.Point(169, 222);
-            this.text_password.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.text_password.Margin = new System.Windows.Forms.Padding(4);
             this.text_password.Name = "text_password";
             this.text_password.PasswordChar = '*';
             this.text_password.Size = new System.Drawing.Size(347, 25);
@@ -129,9 +129,10 @@
             this.Controls.Add(this.button_register);
             this.Controls.Add(this.button_login);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Login";
             this.Text = "Tank";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Login_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

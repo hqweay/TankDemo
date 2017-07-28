@@ -73,7 +73,10 @@ namespace TankDemo
                 //this.Hide();
                 //MapTest map = new MapTest();
                 //map.Show();
-                this.DialogResult = DialogResult.OK;
+                // this.DialogResult = DialogResult.OK;
+                this.Hide();
+                Welcome welcome = new Welcome();
+                welcome.Show();
             }
             else
             {
@@ -115,6 +118,11 @@ namespace TankDemo
         {
             text_username.Text= "";
             text_password.Text = "";
+        }
+
+        private void Login_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            System.Environment.Exit(0);
         }
     }
 }

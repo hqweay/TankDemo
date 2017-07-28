@@ -48,7 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bullet.cs" />
-    <Compile Include="enemy.cs" />
+    <Compile Include="Crash.cs" />
+    <Compile Include="enemyTank.cs" />
     <Compile Include="MapTest.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -65,6 +66,12 @@
     <Compile Include="OnPaintEventArgs.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ranking.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Ranking.Designer.cs">
+      <DependentUpon>Ranking.cs</DependentUpon>
+    </Compile>
     <Compile Include="Register.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -75,11 +82,11 @@
     <Compile Include="TankMe.cs" />
     <Compile Include="Tb_User.cs" />
     <Compile Include="Wall.cs" />
-    <Compile Include="Wlecome.cs">
+    <Compile Include="Welcome.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Wlecome.Designer.cs">
-      <DependentUpon>Wlecome.cs</DependentUpon>
+    <Compile Include="Welcome.Designer.cs">
+      <DependentUpon>Welcome.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="MapTest.resx">
       <DependentUpon>MapTest.cs</DependentUpon>
@@ -97,11 +104,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Ranking.resx">
+      <DependentUpon>Ranking.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Register.resx">
       <DependentUpon>Register.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Wlecome.resx">
-      <DependentUpon>Wlecome.cs</DependentUpon>
+    <EmbeddedResource Include="Welcome.resx">
+      <DependentUpon>Welcome.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -121,16 +131,21 @@
     <None Include="bgm\bgm.wav" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="image\bullet.up.jpg" />
+    <Content Include="bullet_1.png" />
+    <Content Include="image\16.png" />
     <Content Include="image\bullet_1.png" />
-    <Content Include="image\bullet_down.png" />
-    <Content Include="image\bullet_left.png" />
-    <Content Include="image\bullet_right.png" />
+    <Content Include="image\grass.png" />
+    <Content Include="image\home.jpg" />
     <Content Include="image\p2tankD.gif" />
     <Content Include="image\p2tankL.gif" />
     <Content Include="image\p2tankR.gif" />
     <Content Include="image\p2tankU.gif" />
+    <Content Include="image\Prop\bomb.gif" />
+    <Content Include="image\Prop\star.gif" />
+    <Content Include="image\Prop\bullet.gif" />
+    <Content Include="image\Prop\timer.gif" />
     <Content Include="image\steels.gif" />
+    <Content Include="image\timg.jpg" />
     <Content Include="image\walls.gif" />
     <Content Include="image\water.gif" />
   </ItemGroup>

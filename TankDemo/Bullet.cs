@@ -8,72 +8,49 @@ namespace TankDemo
 {
     public class Bullet
     {
-        Image image;         //子弹图像
+        Image image;
         private int x;
         private int y;
 
 
         private int width;   //子弹宽度
-        private int height;  //子弹高度
-        MoveDiretion bulletDirection;    //子弹方向
+        private int height;
+        MoveDiretion bulletDirection ;
 
-        int speed = 20;     //子弹速度
+        int speed = 4;
 
-        public int X         //get set  
+        public int X
         {
             get { return x; }
             set { x = value; }
         }
 
-        public int Y            //get set
+        public int Y
         {
             get { return y; }
             set { y = value; }
         }
 
-        public int Width         //  get set
+        public int Width
         {
             get { return width; }
             set { Width = value; }
         }
-        public int Height          //get set
+        public int Height
         {
             get { return height; }
             set { height = value; }
         }
 
 
-        //子弹构造函数  方向由坦克传入
+
         public Bullet(MoveDiretion bulletDirection)
         {
 
-            switch (bulletDirection)
-            {
-
-                case MoveDiretion.Up:
-                    this.bulletDirection = MoveDiretion.Up;     //若方向向上
-                    image = Properties.Resources.bullet_up;               //则为设置子弹图片向上，以此类推
-                    break;
-                case MoveDiretion.Right:
-                    this.bulletDirection = MoveDiretion.Right;
-                    image = Properties.Resources.bullet_right;
-                    break;
-                case MoveDiretion.Left:
-                    this.bulletDirection = MoveDiretion.Left;
-                    image = Properties.Resources.bullet_left;  
-                    break;
-                case MoveDiretion.Down:
-                    this.bulletDirection = MoveDiretion.Down;
-
-                    image = Properties.Resources.bullet_down;  
-                    break;
-
-            }
-
-
-            width = image.Width;         //设置子弹的宽
-            height = image.Height;         //设置子弹的高
-
+            image = Properties.Resources.bullet;
+            width = image.Width;
+            height = image.Height;
+            this.bulletDirection = bulletDirection;
 
 
 
@@ -81,17 +58,16 @@ namespace TankDemo
         }
 
 
-        //绘制子弹
         public void Draw(Graphics g)
         {
 
-            g.DrawImage(image, x, y);
+            g.DrawImage(image, x+10, y+10);
 
 
 
         }
 
-        //子弹的行为刷新
+
         public void update(MapTest map)
         {
             switch (bulletDirection)
@@ -110,7 +86,6 @@ namespace TankDemo
                     break;
 
             }
-
             if (x <= 0)            //向上飞出
             {
                 MapTest.planeBullets.Remove(this);    //移除子弹
@@ -131,10 +106,47 @@ namespace TankDemo
             {
                 MapTest.planeBullets.Remove(this);
             }
+            
+            
+            crashWall();    //判断砖墙及清除的一些操作
+
+
 
 
 
         }
+
+        public Rectangle getRectangle()
+        {
+            return new Rectangle(x,y,width, height);
+        }
+
+        public void crashWall()
+        {
+
+            for (int i = 0; i < MapTest.wallList.Count; i++)   //遍历墙的集合
+            {
+                if (this.getRectangle().IntersectsWith(new Rectangle(MapTest.wallList[i].getX(), MapTest.wallList[i].getY(), 40, 40)))
+                {
+                    if (MapTest.wallList[i].getType() == 0)
+                    {
+                        MapTest.planeBullets.Remove(this);           //remove 这颗子弹
+                        MapTest.wallList.Remove(MapTest.wallList[i]);   //remove 这面墙
+                    }
+                    if (MapTest.wallList[i].getType() == 1)   //判断是否撞倒铁
+                    {
+                        MapTest.planeBullets.Remove(this);
+                    }
+
+                }
+            }
+
+        }   
+               
+            
+
+            
+        
 
 
     }
