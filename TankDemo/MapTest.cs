@@ -31,6 +31,8 @@ namespace TankDemo
 
         private Bitmap bmp = null;
 
+        Welcome welcome;
+
         Image imageMapSoil;
         Image imageMapSteel;
         Image imageMapWater;
@@ -44,18 +46,6 @@ namespace TankDemo
 
         public MapTest()
         {
-
-            //
-            //
-            //做Map测试
-            //先不要登录界面
-            //
-            //Login login = new Login();
-            //if (login.ShowDialog() == DialogResult.OK)
-            //{
-            //    login.Close();
-            //}
-
             InitializeComponent();
 
             imageMapSoil = Properties.Resources.soil;
@@ -101,6 +91,57 @@ namespace TankDemo
 
 
         }
+        #region  含参构造函数 主要是为了返回
+
+        public MapTest(Welcome welcome)
+        {
+            this.welcome = welcome;
+            InitializeComponent();
+
+            imageMapSoil = Properties.Resources.soil;
+            imageMapSteel = Properties.Resources.steel;
+            imageMapWater = Properties.Resources.water;
+            imageMapGrass = Properties.Resources.grass;
+            imageHome = Properties.Resources.home;
+
+            g = this.CreateGraphics();
+            GameForm = this;
+            Gametank = new tank(this);
+            createAllWall();
+            createEnemy();
+
+
+
+            //---------------------------------------
+            //双缓冲的一些设置
+            bmp = new Bitmap(this.getMapWidth(), this.getMapHeight());
+            g = Graphics.FromImage(bmp);
+            //g.Clear(Color.White);
+
+            //设置双缓冲画图
+            this.DoubleBuffered = true;
+            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(ControlStyles.DoubleBuffer, true);
+
+
+            Point scale, location;
+
+
+            keyMouse = new KeyMouseMessage(this);
+            keyMouse.setKeyPreView(true);
+            keyMouse.add();
+
+            scale.x = 40;
+            scale.y = 40;
+            location.x = Gametank.getX();
+            location.y = Gametank.getY();
+
+            move = new Move(location, scale);
+
+
+        }
+        #endregion
         //---------------------------------------------------------------------------
         //#hqweay@qq.com
         //写点自己的经验
@@ -476,7 +517,8 @@ namespace TankDemo
 
         private void MapTest_FormClosing_1(object sender, FormClosingEventArgs e)
         {
-            System.Environment.Exit(0);
+            //    System.Environment.Exit(0);
+            welcome.Show();
         }
     }
 }
