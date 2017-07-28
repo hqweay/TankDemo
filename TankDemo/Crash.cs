@@ -24,13 +24,12 @@ namespace TankDemo
                     }
                     if (MapTest.wallList[i].getType() == 2)
                     {
-        //                MapTest.wallList.Remove(MapTest.wallList[i]);
-                        return false;
+                         return false;
 
                     }
                     if (MapTest.wallList[i].getType() == 3)
                     {
-                        MapTest.wallList.Remove(MapTest.wallList[i]);
+                        return false;
                     }
                     
 
