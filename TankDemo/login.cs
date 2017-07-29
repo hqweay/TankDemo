@@ -46,45 +46,65 @@ namespace TankDemo
             /*
             查询一般用SqlDataAdapter
             在注册时因为用的插入 所以用的是SqlCommand
-              
-            /*
 
             DataAdapter对象在DataSet与数据之间起桥梁作用
             DataSet，DataAdapter读取数据。 
-             
             */
-            SqlDataAdapter da = new SqlDataAdapter("select * from userinfor where username='" + text_username.Text.Trim() + "' and userpassword='" + text_password.Text.Trim() + "'", con);
-            DataSet ds = new DataSet();
-            //使用DataAdapter的Fill方法(填充)，调用SELECT命令
-            da.Fill(ds, "userinfor");
-            
-            /*
-            
-                                  这里Count  是计数的意思
-                                  查询的结果大于  0   则说明在数据库中有该用户信息 且用户名与密码匹配正确
-            
-            
-            */
-            if (ds.Tables["userinfor"].Rows.Count > 0)
+
+            try
             {
-                MessageBox.Show("登录成功，转向游戏界面");
-                //
-                //这行代码是为了在游戏界面前成功显示登录界面
-                //
-                //this.Hide();
-                //MapTest map = new MapTest();
-                //map.Show();
-                // this.DialogResult = DialogResult.OK;
-                this.Hide();
-                sp.Stop();
-                Welcome welcome = new Welcome();
-                welcome.Show();
+                con.Open();
+            }
+            catch (SqlException err)
+            {
+
+                MessageBox.Show("抱歉连接失败，请检查自己的网络连接\n或联系供应商\nQq10086");
+            }
+            finally
+            {
+                con.Close();
+            }
+
+
+            if (con.State == ConnectionState.Open)
+            {
+                SqlDataAdapter da = new SqlDataAdapter("select * from userinfor where username='" + text_username.Text.Trim() + "' and userpassword='" + text_password.Text.Trim() + "'", con);
+                DataSet ds = new DataSet();
+                //使用DataAdapter的Fill方法(填充)，调用SELECT命令
+                da.Fill(ds, "userinfor");
+
+                /*
+            
+                                      这里Count  是计数的意思
+                                      查询的结果大于  0   则说明在数据库中有该用户信息 且用户名与密码匹配正确
+            
+            
+                */
+                if (ds.Tables["userinfor"].Rows.Count > 0)
+                {
+                    MessageBox.Show("登录成功，转向游戏界面");
+                    //
+                    //这行代码是为了在游戏界面前成功显示登录界面
+                    //
+                    //this.Hide();
+                    //MapTest map = new MapTest();
+                    //map.Show();
+                    // this.DialogResult = DialogResult.OK;
+                    this.Hide();
+                    sp.Stop();
+                    Welcome welcome = new Welcome();
+                    welcome.Show();
+                }
+                else
+                {
+                    MessageBox.Show("用户名或密码有误，请输入正确的用户和密码！");
+                    text_password.Text = "";
+                    text_username.Focus();
+
+                }
             }
             else
             {
-                MessageBox.Show("用户名或密码有误，请输入正确的用户和密码！");
-                text_password.Text = "";
-                text_username.Focus();
 
             }
 }

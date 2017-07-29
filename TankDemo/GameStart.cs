@@ -24,6 +24,8 @@ namespace TankDemo
             //  Application.Run(new MapTest());
             Application.Run(new Login());
 
+        //    Application.Run(new Welcome());
+
         }
     }
 
