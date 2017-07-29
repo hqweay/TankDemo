@@ -85,7 +85,7 @@ namespace TankDemo
             }
             //操作数据库
             //对数据库进行插入数据操作
-            SqlConnection con = new SqlConnection("server=LAPTOP-Q3STI184;initial catalog=TankDemo;integrated security=SSPI");
+            SqlConnection con = Sql.getCon();
 
             
 
@@ -132,10 +132,6 @@ namespace TankDemo
                 {
         //            MessageBox.Show(er.ToString());
                     MessageBox.Show("抱歉连接失败，请检查自己的网络连接\n或联系供应商\nQq10086");
-
-                }
-                finally
-                {
                     con.Close();
                 }
 

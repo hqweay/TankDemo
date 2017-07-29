@@ -40,10 +40,9 @@
             // 
             // button_login
             // 
-            this.button_login.Location = new System.Drawing.Point(169, 290);
-            this.button_login.Margin = new System.Windows.Forms.Padding(4);
+            this.button_login.Location = new System.Drawing.Point(127, 232);
             this.button_login.Name = "button_login";
-            this.button_login.Size = new System.Drawing.Size(100, 29);
+            this.button_login.Size = new System.Drawing.Size(75, 23);
             this.button_login.TabIndex = 0;
             this.button_login.Text = "登录";
             this.button_login.UseVisualStyleBackColor = true;
@@ -51,10 +50,9 @@
             // 
             // button_register
             // 
-            this.button_register.Location = new System.Drawing.Point(295, 290);
-            this.button_register.Margin = new System.Windows.Forms.Padding(4);
+            this.button_register.Location = new System.Drawing.Point(221, 232);
             this.button_register.Name = "button_register";
-            this.button_register.Size = new System.Drawing.Size(100, 29);
+            this.button_register.Size = new System.Drawing.Size(75, 23);
             this.button_register.TabIndex = 1;
             this.button_register.Text = "注册";
             this.button_register.UseVisualStyleBackColor = true;
@@ -63,10 +61,9 @@
             // button_reset
             // 
             this.button_reset.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button_reset.Location = new System.Drawing.Point(417, 290);
-            this.button_reset.Margin = new System.Windows.Forms.Padding(4);
+            this.button_reset.Location = new System.Drawing.Point(313, 232);
             this.button_reset.Name = "button_reset";
-            this.button_reset.Size = new System.Drawing.Size(100, 29);
+            this.button_reset.Size = new System.Drawing.Size(75, 23);
             this.button_reset.TabIndex = 2;
             this.button_reset.Text = "清空";
             this.button_reset.UseVisualStyleBackColor = true;
@@ -74,31 +71,28 @@
             // 
             // text_username
             // 
-            this.text_username.Location = new System.Drawing.Point(169, 155);
-            this.text_username.Margin = new System.Windows.Forms.Padding(4);
+            this.text_username.Location = new System.Drawing.Point(127, 124);
             this.text_username.Name = "text_username";
-            this.text_username.Size = new System.Drawing.Size(347, 25);
+            this.text_username.Size = new System.Drawing.Size(261, 21);
             this.text_username.TabIndex = 3;
             this.text_username.Text = "hqweay";
             this.text_username.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // text_password
             // 
-            this.text_password.Location = new System.Drawing.Point(169, 222);
-            this.text_password.Margin = new System.Windows.Forms.Padding(4);
+            this.text_password.Location = new System.Drawing.Point(127, 178);
             this.text_password.Name = "text_password";
             this.text_password.PasswordChar = '*';
-            this.text_password.Size = new System.Drawing.Size(347, 25);
+            this.text_password.Size = new System.Drawing.Size(261, 21);
             this.text_password.TabIndex = 4;
             this.text_password.Text = "123";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(109, 159);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(82, 127);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(37, 15);
+            this.label1.Size = new System.Drawing.Size(29, 12);
             this.label1.TabIndex = 5;
             this.label1.Text = "用户";
             this.label1.Click += new System.EventHandler(this.label1_Click);
@@ -106,21 +100,20 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(109, 226);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Location = new System.Drawing.Point(82, 181);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 15);
+            this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 6;
             this.label2.Text = "密码";
             this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // Login
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(601, 360);
+            this.ClientSize = new System.Drawing.Size(451, 288);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.text_password);
@@ -129,7 +122,6 @@
             this.Controls.Add(this.button_register);
             this.Controls.Add(this.button_login);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Login";
             this.Text = "Tank";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Login_FormClosing);

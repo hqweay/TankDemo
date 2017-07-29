@@ -28,7 +28,7 @@ namespace TankDemo
 
         private void button1_Click(object sender, EventArgs e)
         {
-            SqlConnection con = new SqlConnection("server=LAPTOP-Q3STI184;initial catalog=TankDemo;integrated security=SSPI");//链接数据库
+            SqlConnection con = Sql.getCon();//链接数据库
             try
             {
                 con.Open();
@@ -43,11 +43,9 @@ namespace TankDemo
                 research.Width = 400;//设置lable宽度
                 research.Location = new System.Drawing.Point(50, 50);
                 groupBox1.Controls.Add(research);
-            }
-            finally
-            {
                 con.Close();
             }
+
 
             if (con.State == ConnectionState.Open)
             {

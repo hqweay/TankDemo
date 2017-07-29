@@ -78,6 +78,7 @@
     <Compile Include="Register.designer.cs">
       <DependentUpon>Register.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sql.cs" />
     <Compile Include="tank.cs" />
     <Compile Include="TankMe.cs" />
     <Compile Include="Tb_User.cs" />

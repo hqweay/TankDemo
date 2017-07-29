@@ -16,6 +16,14 @@ namespace TankDemo
 {
     public partial class Login : Form
     {
+
+
+
+        //
+
+
+
+
         SoundPlayer sp;
         public Boolean flag;
         public Login()
@@ -42,7 +50,7 @@ namespace TankDemo
             */
             //    SqlConnection con = new SqlConnection("server=B412-008;initial catalog=TankDemo;integrated security=SSPI");
 
-            SqlConnection con = new SqlConnection("server=LAPTOP-Q3STI184;initial catalog=TankDemo;integrated security=SSPI");
+            SqlConnection con = Sql.getCon();
             /*
             查询一般用SqlDataAdapter
             在注册时因为用的插入 所以用的是SqlCommand
@@ -59,11 +67,9 @@ namespace TankDemo
             {
 
                 MessageBox.Show("抱歉连接失败，请检查自己的网络连接\n或联系供应商\nQq10086");
-            }
-            finally
-            {
                 con.Close();
             }
+
 
 
             if (con.State == ConnectionState.Open)
@@ -133,7 +139,6 @@ namespace TankDemo
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
         }
 
         private void button_reset_Click(object sender, EventArgs e)
