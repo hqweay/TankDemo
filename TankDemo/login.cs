@@ -151,5 +151,20 @@ namespace TankDemo
         {
             System.Environment.Exit(0);
         }
+
+        private void pictureBox2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void text_password_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox2_Click_1(object sender, EventArgs e)
+        {
+
+        }
     }
 }

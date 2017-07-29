@@ -134,6 +134,10 @@
   <ItemGroup>
     <Content Include="bullet_1.png" />
     <Content Include="image\16.png" />
+    <None Include="image\background\start.gif" />
+    <None Include="image\background\login.gif" />
+    <None Include="image\background\name.png" />
+    <None Include="image\background\radar.gif" />
     <Content Include="image\bullet_1.png" />
     <Content Include="image\grass.png" />
     <Content Include="image\home.jpg" />
