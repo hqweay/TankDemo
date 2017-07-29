@@ -166,5 +166,44 @@ namespace TankDemo
         {
 
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+
+
+
+        System.Drawing.Point mouseOff;//鼠标移动位置变量
+        bool leftFlag;//标记是否为左键
+
+        private void Login_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                mouseOff = new System.Drawing.Point(-e.X, -e.Y);//Point(-e.X, -e.Y); //得到变量的值
+                leftFlag = true;             //点击左键按下时标注为true;
+            }
+        }
+
+        private void Login_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (leftFlag)
+            {
+                System.Drawing.Point mouseSet = Control.MousePosition;
+                mouseSet.Offset(mouseOff.X, mouseOff.Y);  //设置移动后的位置
+                Location = mouseSet;
+            }
+        }
+
+        private void Login_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (leftFlag)
+            {
+                leftFlag = false;//释放鼠标后标注为false;
+            }
+        }
+
     }
 }

@@ -37,8 +37,8 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
-            this.text_username = new TankDemo.newTextBox();
             this.text_password = new TankDemo.newTextBox();
+            this.text_username = new TankDemo.newTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -114,6 +114,7 @@
             this.pictureBox1.Size = new System.Drawing.Size(546, 253);
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
             // pictureBox3
             // 
@@ -125,15 +126,6 @@
             this.pictureBox3.TabIndex = 9;
             this.pictureBox3.TabStop = false;
             // 
-            // text_username
-            // 
-            this.text_username.Location = new System.Drawing.Point(381, 15);
-            this.text_username.Name = "text_username";
-            this.text_username.Size = new System.Drawing.Size(133, 21);
-            this.text_username.TabIndex = 10;
-            this.text_username.Text = "hqweay";
-            this.text_username.WatermarkText = null;
-            // 
             // text_password
             // 
             this.text_password.Location = new System.Drawing.Point(381, 52);
@@ -143,6 +135,15 @@
             this.text_password.TabIndex = 11;
             this.text_password.Text = "123";
             this.text_password.WatermarkText = "";
+            // 
+            // text_username
+            // 
+            this.text_username.Location = new System.Drawing.Point(381, 15);
+            this.text_username.Name = "text_username";
+            this.text_username.Size = new System.Drawing.Size(133, 21);
+            this.text_username.TabIndex = 10;
+            this.text_username.Text = "hqweay";
+            this.text_username.WatermarkText = null;
             // 
             // Login
             // 
