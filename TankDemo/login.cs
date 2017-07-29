@@ -16,14 +16,6 @@ namespace TankDemo
 {
     public partial class Login : Form
     {
-
-
-
-        //
-
-
-
-
         SoundPlayer sp;
         public Boolean flag;
         public Login()
@@ -50,67 +42,49 @@ namespace TankDemo
             */
             //    SqlConnection con = new SqlConnection("server=B412-008;initial catalog=TankDemo;integrated security=SSPI");
 
-            SqlConnection con = Sql.getCon();
+            SqlConnection con = new SqlConnection("server=LAPTOP-Q3STI184;initial catalog=TankDemo;integrated security=SSPI");
             /*
             查询一般用SqlDataAdapter
             在注册时因为用的插入 所以用的是SqlCommand
+              
+            /*
 
             DataAdapter对象在DataSet与数据之间起桥梁作用
             DataSet，DataAdapter读取数据。 
+             
             */
-
-            try
-            {
-                con.Open();
-            }
-            catch (SqlException err)
-            {
-
-                MessageBox.Show("抱歉连接失败，请检查自己的网络连接\n或联系供应商\nQq10086");
-                con.Close();
-            }
-
-
-
-            if (con.State == ConnectionState.Open)
-            {
-                SqlDataAdapter da = new SqlDataAdapter("select * from userinfor where username='" + text_username.Text.Trim() + "' and userpassword='" + text_password.Text.Trim() + "'", con);
-                DataSet ds = new DataSet();
-                //使用DataAdapter的Fill方法(填充)，调用SELECT命令
-                da.Fill(ds, "userinfor");
-
-                /*
+            SqlDataAdapter da = new SqlDataAdapter("select * from userinfor where username='" + text_username.Text.Trim() + "' and userpassword='" + text_password.Text.Trim() + "'", con);
+            DataSet ds = new DataSet();
+            //使用DataAdapter的Fill方法(填充)，调用SELECT命令
+            da.Fill(ds, "userinfor");
             
-                                      这里Count  是计数的意思
-                                      查询的结果大于  0   则说明在数据库中有该用户信息 且用户名与密码匹配正确
+            /*
+            
+                                  这里Count  是计数的意思
+                                  查询的结果大于  0   则说明在数据库中有该用户信息 且用户名与密码匹配正确
             
             
-                */
-                if (ds.Tables["userinfor"].Rows.Count > 0)
-                {
-                    MessageBox.Show("登录成功，转向游戏界面");
-                    //
-                    //这行代码是为了在游戏界面前成功显示登录界面
-                    //
-                    //this.Hide();
-                    //MapTest map = new MapTest();
-                    //map.Show();
-                    // this.DialogResult = DialogResult.OK;
-                    this.Hide();
-                    sp.Stop();
-                    Welcome welcome = new Welcome();
-                    welcome.Show();
-                }
-                else
-                {
-                    MessageBox.Show("用户名或密码有误，请输入正确的用户和密码！");
-                    text_password.Text = "";
-                    text_username.Focus();
-
-                }
+            */
+            if (ds.Tables["userinfor"].Rows.Count > 0)
+            {
+                MessageBox.Show("登录成功，转向游戏界面");
+                //
+                //这行代码是为了在游戏界面前成功显示登录界面
+                //
+                //this.Hide();
+                //MapTest map = new MapTest();
+                //map.Show();
+                // this.DialogResult = DialogResult.OK;
+                this.Hide();
+                sp.Stop();
+                Welcome welcome = new Welcome();
+                welcome.Show();
             }
             else
             {
+                MessageBox.Show("用户名或密码有误，请输入正确的用户和密码！");
+                text_password.Text = "";
+                text_username.Focus();
 
             }
 }
@@ -139,6 +113,7 @@ namespace TankDemo
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
         }
 
         private void button_reset_Click(object sender, EventArgs e)
@@ -151,30 +126,6 @@ namespace TankDemo
         {
             System.Environment.Exit(0);
         }
-
-        private void pictureBox2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void text_password_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox2_Click_1(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pictureBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
-
-
         System.Drawing.Point mouseOff;//鼠标移动位置变量
         bool leftFlag;//标记是否为左键
 
@@ -191,7 +142,7 @@ namespace TankDemo
         {
             if (leftFlag)
             {
-                System.Drawing.Point mouseSet = Control.MousePosition;
+               System.Drawing .Point mouseSet = Control.MousePosition;
                 mouseSet.Offset(mouseOff.X, mouseOff.Y);  //设置移动后的位置
                 Location = mouseSet;
             }
@@ -205,5 +156,14 @@ namespace TankDemo
             }
         }
 
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void waterBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

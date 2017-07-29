@@ -12,25 +12,25 @@ namespace TankDemo
 {
     public partial class MapTest : Form
     {
-        //---------------------
         KeyMouseMessage keyMouse;
         Move move;
         Collider coll = new Collider();
 
-        //各种链表
+
         public static List<Wall> wallList = new List<Wall>();
         List<Wall> homeList = new List<Wall>();
         List<enemyTank> enemyList = new List<enemyTank>();
+
         public static List<Bullet> planeBullets = new List<Bullet>();
 
-        //应对双缓存
         private Graphics g = null;
-        private Bitmap bmp = null;
         //创建线程用于刷新屏幕
         private Thread threadRefresh = null;
-        //敌人坦克线程
+        //敌人坦克
         private Thread threadEnemy = null;
-        //父窗口的对象，进行该窗口关闭打开父窗口操作
+
+        private Bitmap bmp = null;
+
         Welcome welcome;
 
         Image imageMapSoil;
@@ -92,6 +92,7 @@ namespace TankDemo
 
         }
         #region  含参构造函数 主要是为了返回
+
         public MapTest(Welcome welcome)
         {
             this.welcome = welcome;
@@ -115,7 +116,6 @@ namespace TankDemo
             //双缓冲的一些设置
             bmp = new Bitmap(this.getMapWidth(), this.getMapHeight());
             g = Graphics.FromImage(bmp);
-            //进游戏时擦除背景
             //g.Clear(Color.White);
 
             //设置双缓冲画图
@@ -142,8 +142,7 @@ namespace TankDemo
 
         }
         #endregion
-
-        //-------------重绘闪屏的一点经验------------------
+        //---------------------------------------------------------------------------
         //#hqweay@qq.com
         //写点自己的经验
         //在不同时刻获取到的Graphics对象是不同的
@@ -192,6 +191,7 @@ namespace TankDemo
                 Thread.Sleep(10);
             }
         }
+
         public void enemyMove(Graphics g)
         {
 
@@ -232,7 +232,7 @@ namespace TankDemo
                 //子弹绘制
                 foreach (Bullet bullet in planeBullets)
                 {
-                    bullet.Draw(g);
+                    bullet.Draw(this.CreateGraphics());
                 }
         }
         public void drawMap()
@@ -245,15 +245,13 @@ namespace TankDemo
             catch
             { }
         }
-
-        #region 创造所有墙块 障碍物 家
         public void createAllWall()
         {
             this.createHome(this.getMapHeight(), this.getMapWidth());
             this.createWall();
-        }
-        #endregion
 
+
+        }
         /// <summary>
         /// 画的时候要把g传进去不要重新用this.Graphics()
         /// 猜测这就是闪屏的原因
@@ -261,6 +259,9 @@ namespace TankDemo
         /// <param name="g"></param>
         public void drawAllWall(Graphics g)
         {
+            //           this.drawTank(this.CreateGraphics());
+            //  this.drawWall(g);
+            //   this.drawHome(g);
             #region   画wall
             foreach (Wall wall in wallList)
             {
@@ -285,7 +286,7 @@ namespace TankDemo
                 }
             }
             #endregion
-            #region 画Home
+ 
             foreach (Wall wall in homeList)
             {
                 switch (wall.getType())
@@ -301,19 +302,22 @@ namespace TankDemo
                         break;
                 }
             }
-            #endregion
         }
+        //public void drawTank(Graphics g)
+        //{
+        //    Gametank.Draw(g);
+        //}
         public void drawEnemy(Object g)
         {
             Random r = new Random();
             foreach (enemyTank enemy in enemyList)
             {
+             //   enemy.newDirect(r);
                 enemy.Move(this, r);
                 enemy.Draw((Graphics)g);
             }
         }
 
-        #region 按规律create 墙的集合
         public void createWall2()
         {
 
@@ -365,9 +369,10 @@ namespace TankDemo
                 wall.setType(3);
                 wallList.Add(wall);
             }
-        }
-        #endregion
 
+
+
+      }
         #region  create wall
         public void createWall()
         {
@@ -449,7 +454,6 @@ namespace TankDemo
         ///Wall中某些参数是private的
         ///创建墙的判断
         ///是否重合
-        ///创建墙调用 判断是否新建墙是否和已知墙重合
         /// </summary>
         /// <param name="wallSelf"></param>
         /// <returns></returns>
@@ -473,7 +477,6 @@ namespace TankDemo
             }
             return false;
         }
-
         #region  获得窗口长宽
         public int getMapHeight()
         {
@@ -481,7 +484,7 @@ namespace TankDemo
         }
         public int getMapWidth()
         {
-            return this.Width - 500;
+            return this.Width;
         }
         #endregion
         private void MapTest_Load(object sender, EventArgs e)

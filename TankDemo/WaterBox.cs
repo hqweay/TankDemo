@@ -11,9 +11,9 @@ using System.Runtime.InteropServices;
 
 namespace TankDemo
 {
-    public partial class newTextBox : TextBox
+    public partial class WaterBox : TextBox
     {
-        public newTextBox()
+        public WaterBox()
         {
             InitializeComponent();
         }

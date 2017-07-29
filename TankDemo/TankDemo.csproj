@@ -49,7 +49,6 @@
   <ItemGroup>
     <Compile Include="Bullet.cs" />
     <Compile Include="Crash.cs" />
-    <Compile Include="enemy.cs" />
     <Compile Include="enemyTank.cs" />
     <Compile Include="MapTest.cs">
       <SubType>Form</SubType>
@@ -64,12 +63,6 @@
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="GameStart.cs" />
-    <Compile Include="newTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="newTextBox.Designer.cs">
-      <DependentUpon>newTextBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="OnPaintEventArgs.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -85,11 +78,16 @@
     <Compile Include="Register.designer.cs">
       <DependentUpon>Register.cs</DependentUpon>
     </Compile>
-    <Compile Include="Sql.cs" />
     <Compile Include="tank.cs" />
     <Compile Include="TankMe.cs" />
     <Compile Include="Tb_User.cs" />
     <Compile Include="Wall.cs" />
+    <Compile Include="WaterBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WaterBox.Designer.cs">
+      <DependentUpon>WaterBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Welcome.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -141,10 +139,6 @@
   <ItemGroup>
     <Content Include="bullet_1.png" />
     <Content Include="image\16.png" />
-    <None Include="image\background\start.gif" />
-    <None Include="image\background\login.gif" />
-    <None Include="image\background\name.png" />
-    <None Include="image\background\radar.gif" />
     <Content Include="image\bullet_1.png" />
     <Content Include="image\grass.png" />
     <Content Include="image\home.jpg" />
@@ -160,6 +154,7 @@
     <Content Include="image\timg.jpg" />
     <Content Include="image\walls.gif" />
     <Content Include="image\water.gif" />
+    <None Include="Resources\背景.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
