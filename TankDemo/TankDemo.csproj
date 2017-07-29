@@ -90,12 +90,6 @@
     <Compile Include="TankMe.cs" />
     <Compile Include="Tb_User.cs" />
     <Compile Include="Wall.cs" />
-    <Compile Include="WaterBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="WaterBox.Designer.cs">
-      <DependentUpon>WaterBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="Welcome.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -123,9 +117,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Register.resx">
       <DependentUpon>Register.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WaterBox.resx">
-      <DependentUpon>WaterBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Welcome.resx">
       <DependentUpon>Welcome.cs</DependentUpon>
