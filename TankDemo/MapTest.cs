@@ -481,7 +481,7 @@ namespace TankDemo
         }
         public int getMapWidth()
         {
-            return this.Width;
+            return this.Width - 500;
         }
         #endregion
         private void MapTest_Load(object sender, EventArgs e)

@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="Bullet.cs" />
     <Compile Include="Crash.cs" />
+    <Compile Include="enemy.cs" />
     <Compile Include="enemyTank.cs" />
     <Compile Include="MapTest.cs">
       <SubType>Form</SubType>
@@ -63,6 +64,12 @@
       <DependentUpon>Login.cs</DependentUpon>
     </Compile>
     <Compile Include="GameStart.cs" />
+    <Compile Include="newTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="newTextBox.Designer.cs">
+      <DependentUpon>newTextBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="OnPaintEventArgs.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -83,6 +90,12 @@
     <Compile Include="TankMe.cs" />
     <Compile Include="Tb_User.cs" />
     <Compile Include="Wall.cs" />
+    <Compile Include="WaterBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WaterBox.Designer.cs">
+      <DependentUpon>WaterBox.cs</DependentUpon>
+    </Compile>
     <Compile Include="Welcome.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -110,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Register.resx">
       <DependentUpon>Register.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WaterBox.resx">
+      <DependentUpon>WaterBox.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Welcome.resx">
       <DependentUpon>Welcome.cs</DependentUpon>

@@ -32,13 +32,13 @@
             this.button_login = new System.Windows.Forms.Button();
             this.button_register = new System.Windows.Forms.Button();
             this.button_reset = new System.Windows.Forms.Button();
-            this.text_username = new System.Windows.Forms.TextBox();
-            this.text_password = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.text_username = new TankDemo.newTextBox();
+            this.text_password = new TankDemo.newTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
@@ -74,25 +74,6 @@
             this.button_reset.Text = "清空";
             this.button_reset.UseVisualStyleBackColor = true;
             this.button_reset.Click += new System.EventHandler(this.button_reset_Click);
-            // 
-            // text_username
-            // 
-            this.text_username.Location = new System.Drawing.Point(381, 12);
-            this.text_username.Name = "text_username";
-            this.text_username.Size = new System.Drawing.Size(133, 21);
-            this.text_username.TabIndex = 3;
-            this.text_username.Text = "hqweay";
-            this.text_username.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            // 
-            // text_password
-            // 
-            this.text_password.Location = new System.Drawing.Point(381, 52);
-            this.text_password.Name = "text_password";
-            this.text_password.PasswordChar = '*';
-            this.text_password.Size = new System.Drawing.Size(133, 21);
-            this.text_password.TabIndex = 4;
-            this.text_password.Text = "123";
-            this.text_password.TextChanged += new System.EventHandler(this.text_password_TextChanged);
             // 
             // label1
             // 
@@ -144,19 +125,38 @@
             this.pictureBox3.TabIndex = 9;
             this.pictureBox3.TabStop = false;
             // 
+            // text_username
+            // 
+            this.text_username.Location = new System.Drawing.Point(381, 15);
+            this.text_username.Name = "text_username";
+            this.text_username.Size = new System.Drawing.Size(133, 21);
+            this.text_username.TabIndex = 10;
+            this.text_username.Text = "hqweay";
+            this.text_username.WatermarkText = null;
+            // 
+            // text_password
+            // 
+            this.text_password.Location = new System.Drawing.Point(381, 52);
+            this.text_password.Name = "text_password";
+            this.text_password.PasswordChar = '*';
+            this.text_password.Size = new System.Drawing.Size(133, 21);
+            this.text_password.TabIndex = 11;
+            this.text_password.Text = "123";
+            this.text_password.WatermarkText = "";
+            // 
             // Login
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(546, 245);
+            this.Controls.Add(this.text_password);
+            this.Controls.Add(this.text_username);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.button_reset);
             this.Controls.Add(this.button_register);
             this.Controls.Add(this.button_login);
-            this.Controls.Add(this.text_password);
-            this.Controls.Add(this.text_username);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pictureBox1);
@@ -178,13 +178,13 @@
         private System.Windows.Forms.Button button_login;
         private System.Windows.Forms.Button button_register;
         private System.Windows.Forms.Button button_reset;
-        private System.Windows.Forms.TextBox text_username;
-        private System.Windows.Forms.TextBox text_password;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
+        private newTextBox text_username;
+        private newTextBox text_password;
     }
 }
 
