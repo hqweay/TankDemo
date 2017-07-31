@@ -12,6 +12,8 @@ namespace TankDemo
 {
     public partial class Map : Form
     {
+        public int score = 0;
+
 
         public int ENEMY_SPEED = 0;
         public int ENEMYBULLET_SPEED = 0;
@@ -149,7 +151,8 @@ namespace TankDemo
                 // bulletCrash();
 
 
-                if (Gametank.isKill() || Gametank.isICrahTank())
+          //      if (Gametank.isKill() || Gametank.isICrahTank())
+                if(Gametank == null)
                 {
                     break;
                 }
@@ -177,6 +180,7 @@ namespace TankDemo
             }
 
     //        upScore.uploadSorre("hqweay", 15255535);
+             upScore.uploadScore(Login.userName, score);
             this.BackgroundImage = Properties.Resources.Gameover;
             this.BackgroundImageLayout = ImageLayout.Stretch;
             
@@ -250,6 +254,7 @@ namespace TankDemo
                 {
                     if (Crash.crash(enemyList[j].getRectangle(), planeBullets[i].getRectangle()))
                     {
+                        score += 10;
                         planeBullets.Remove(planeBullets[i]);
                         enemyList.Remove(enemyList[j]);
                         break;
@@ -753,7 +758,7 @@ namespace TankDemo
         private void MapTest_FormClosing(object sender, FormClosingEventArgs e)
         {
             //测试先删
-     //       welcome.Show();
+           welcome.Show();
             
         }
     }

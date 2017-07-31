@@ -17,7 +17,7 @@ namespace TankDemo
     public partial class Login : Form
     {
 
-
+        public static String userName;
 
         //
 
@@ -88,6 +88,7 @@ namespace TankDemo
                 */
                 if (ds.Tables["userinfor"].Rows.Count > 0)
                 {
+                    userName = text_username.Text.ToString();
                     MessageBox.Show("登录成功，转向游戏界面");
                     //
                     //这行代码是为了在游戏界面前成功显示登录界面

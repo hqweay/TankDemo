@@ -12,28 +12,34 @@ namespace TankDemo
     class upScore
     {
 
-        public static void uploadSorre(string name, int score)
+        public static void uploadScore(string name, int score)
         {
-
             int SC;
-            SqlConnection con = new SqlConnection("server=B412-009;initial catalog=TankDemo;integrated security=SSPI");
-            SqlDataAdapter da = new SqlDataAdapter("select * from userinfor where username='" + name + "'", con);
+            SqlConnection con = Sql.getCon();
+            SqlDataAdapter da = new SqlDataAdapter("select * from userinfor where userName='" + name + "'", con);
             DataSet ds = new DataSet();
             da.Fill(ds, "userinfor");
 
-            SC = Convert.ToInt32(ds.Tables["userinfor"].Rows[1]["userScore"].ToString());//ds.Tables["userinfor"].Rows[1]["userScore"].ToString();
+            SC = (int)ds.Tables["userinfor"].Rows[0]["userScore"];
             if (SC < score)
             {
-                con.Open();
+
                 SqlCommand cmd = con.CreateCommand();
-                cmd.CommandText = "update userinfor set userScore='" + score.ToString() + "'";
-                
+
+                cmd.CommandText = "update userinfor set userScore ='" + score + "'where userName='" + name + "'";
+                con.Open();
+                cmd.ExecuteNonQuery();
                 con.Close();
 
 
 
             }
             else return;
+        }
+
+        internal void ups()
+        {
+            throw new NotImplementedException();
         }
     }
 }
