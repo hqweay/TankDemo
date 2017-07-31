@@ -8,16 +8,16 @@ namespace TankDemo
 {
     public class Bullet
     {
-        Image image;
+        public Image image;
         private int x;
         private int y;
 
 
         private int width;   //子弹宽度
         private int height;
-        MoveDiretion bulletDirection ;
+        MoveDiretion bulletDirection;
 
-        int speed = 4;
+        public int speed = 4;
 
         public int X
         {
@@ -61,14 +61,15 @@ namespace TankDemo
         public void Draw(Graphics g)
         {
 
-            g.DrawImage(image, x+10, y+10);
+            //  g.DrawImage(image, x+10, y+10);
+            g.DrawImage(image, x, y);
 
 
 
         }
 
 
-        public void update(MapTest map)
+        public void update(Map map)
         {
             switch (bulletDirection)
             {
@@ -88,27 +89,27 @@ namespace TankDemo
             }
             if (x <= 0)            //向上飞出
             {
-                MapTest.planeBullets.Remove(this);    //移除子弹
+                Map.planeBullets.Remove(this);    //移除子弹
 
             }
-            if (y <= 0)
+            if (y < 0)
             {
                 //       MapTest.planeBullets.Remove(this);
-                MapTest.planeBullets.Remove(this);
+                Map.planeBullets.Remove(this);
 
             }
             if (x >= map.getMapWidth())
             {
-                MapTest.planeBullets.Remove(this);
+                Map.planeBullets.Remove(this);
             }
 
             if (y >= map.getMapHeight())
             {
-                MapTest.planeBullets.Remove(this);
+                Map.planeBullets.Remove(this);
             }
-            
-            
-            crashWall();    //判断砖墙及清除的一些操作
+
+
+            //   crashWall();    //判断砖墙及清除的一些操作
 
 
 
@@ -118,35 +119,33 @@ namespace TankDemo
 
         public Rectangle getRectangle()
         {
-            return new Rectangle(x,y,width, height);
+            return new Rectangle(x, y, width, height);
         }
 
-        public void crashWall()
-        {
 
-            for (int i = 0; i < MapTest.wallList.Count; i++)   //遍历墙的集合
-            {
-                if (this.getRectangle().IntersectsWith(new Rectangle(MapTest.wallList[i].getX(), MapTest.wallList[i].getY(), 40, 40)))
-                {
-                    if (MapTest.wallList[i].getType() == 0)
-                    {
-                        MapTest.planeBullets.Remove(this);           //remove 这颗子弹
-                        MapTest.wallList.Remove(MapTest.wallList[i]);   //remove 这面墙
-                    }
-                    if (MapTest.wallList[i].getType() == 1)   //判断是否撞倒铁
-                    {
-                        MapTest.planeBullets.Remove(this);
-                    }
 
-                }
-            }
 
-        }   
-               
-            
 
-            
         
+
+        public Bullet()
+        {
+        }
+
+
+        public Boolean killMyTank()
+        {         
+                if (this.getRectangle().IntersectsWith(Map.Gametank.getRectangle()))
+                {
+                    Map.Gametank = null;
+                    Map.enemyBullets.Remove(this);
+                    return true;
+                }
+            //if()  打水晶
+            return false;
+        }
+
+
 
 
     }

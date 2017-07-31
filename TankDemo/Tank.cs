@@ -17,40 +17,42 @@ namespace TankDemo
         //坦克的坐标，图片，移动速度，开火状态，宽度，高度
         public int x;
         public int y;
+        public int life;
+
         Image image_tankright;
         Image image_tankleft;
         Image image_tankup;
         Image image_tankdown;
         int speed;
-        bool isShooting = false;
+        public bool isShooting = false;
         int width;
         int height;
         MoveDiretion xMove;
         MoveDiretion yMove;
-        MoveDiretion lastMove;
+        MoveDiretion lastMove = MoveDiretion.Left;
 
-        MoveDiretion bulletDirection;
+        MoveDiretion bulletDirection = MoveDiretion.Left;
 
         public tank()
         {
 
         }
-        public tank(MapTest map)
+        public tank(Map map)
         {
 
             image_tankleft = TankDemo.Properties.Resources.tankL;
             image_tankup = TankDemo.Properties.Resources.tankU;
-            image_tankdown = TankDemo.Properties.Resources.tankD;           
+            image_tankdown = TankDemo.Properties.Resources.tankD;
             image_tankright = TankDemo.Properties.Resources.tankR;
 
             width = image_tankup.Width;
             height = image_tankup.Height;
-            x = map.getMapWidth()/2 - 90;
-            y = map.getMapHeight() - 30;
-            speed = 20;
+            x = map.getMapWidth() / 2 - 90;
+            y = map.getMapHeight() - 40;
+            speed = 10;
 
-            MapTest.GameForm.KeyDown += new System.Windows.Forms.KeyEventHandler(GameForm_KeyDown);
-            MapTest.GameForm.KeyUp += new System.Windows.Forms.KeyEventHandler(GameForm_KeyUp);
+            Map.GameForm.KeyDown += new System.Windows.Forms.KeyEventHandler(GameForm_KeyDown);
+            Map.GameForm.KeyUp += new System.Windows.Forms.KeyEventHandler(GameForm_KeyUp);
 
 
 
@@ -69,19 +71,23 @@ namespace TankDemo
                     yMove = MoveDiretion.Down;
                     bulletDirection = MoveDiretion.Down;
                     lastMove = MoveDiretion.Down;
+
                     break;
                 case System.Windows.Forms.Keys.Left:
                     xMove = MoveDiretion.Left;
                     bulletDirection = MoveDiretion.Left;
                     lastMove = MoveDiretion.Left;
+
                     break;
                 case System.Windows.Forms.Keys.Right:
                     xMove = MoveDiretion.Right;
                     bulletDirection = MoveDiretion.Right;
                     lastMove = MoveDiretion.Right;
+
                     break;
                 case System.Windows.Forms.Keys.Space:
                     isShooting = true;
+
                     break;
 
 
@@ -103,6 +109,7 @@ namespace TankDemo
                     xMove = MoveDiretion.Stop;
                     break;
                 case System.Windows.Forms.Keys.Space:
+
                     isShooting = false;
                     break;
             }
@@ -161,38 +168,44 @@ namespace TankDemo
         }
 
         //        int lastShooTime;
-        public void Updata(int frame)
+        public void Updata()
         {
-            switch (xMove)
+
+            if (isTouchWall(lastMove))//检测到碰撞
             {
-                case MoveDiretion.Left:
-                    x -= speed;
-                    break;
-                case MoveDiretion.Right:
-                    x += speed;
-                    break;
+                return;
+            }
+            else
+            {
+                switch (xMove)
+                {
+                    case MoveDiretion.Left:
+                        x -= speed;
+                        break;
+                    case MoveDiretion.Right:
+                        x += speed;
+                        break;
+                }
+                //竖直移动
+                switch (yMove)
+                {
+                    case MoveDiretion.Up:
+                        y -= speed;
+                        break;
+                    case MoveDiretion.Down:
+                        y += speed;
+                        break;
+
+                }
             }
 
-
-            //竖直移动
-            switch (yMove)
-            {
-                case MoveDiretion.Up:
-                    y -= speed;
-                    break;
-                case MoveDiretion.Down:
-                    y += speed;
-                    break;
-
-
-            }
-
-            if (isShooting)
+            if (Map.planeBullets.Count <= 0 && isShooting)
             {
                 Bullet bullet = new Bullet(bulletDirection);
                 bullet.X = this.x;
                 bullet.Y = this.y;
-                MapTest.planeBullets.Add(bullet);
+                Map.planeBullets.Add(bullet);
+                bullet.speed = 30;
             }
 
         }
@@ -200,28 +213,115 @@ namespace TankDemo
         {
             return new Rectangle(x, y, width, height);
         }
-        public Boolean isTouchWall()
+        public Boolean isTouchWall(MoveDiretion direction)
         {
-            
-            for (int i = 0; i < MapTest.wallList.Count; i++)   //遍历墙的集合
+            foreach (Wall wall in Map.wallList)
             {
-                if (this.getRectangle().IntersectsWith(new Rectangle(MapTest.wallList[i].getX(), MapTest.wallList[i].getY(), 40, 40)))
+
+                if (this.getRectangle().IntersectsWith(new Rectangle(wall.getX(), wall.getY(), 40, 40)))
                 {
+                    if (3 == wall.getType())
+                    {
+                        return false;
+                    }
+
+                    switch (direction)
+                    {
+                        case MoveDiretion.Up:
+                            this.y = (this.y / 40 + 1) * 40;
+                            break;
+                        case MoveDiretion.Down:
+                            this.y = (this.y / 40) * 40;
+                            break;
+                        case MoveDiretion.Left:
+                            this.x = (this.x / 40 + 1) * 40;
+                            break;
+                        case MoveDiretion.Right:
+                            this.x = (this.x / 40) * 40;
+                            break;
+                        default:
+                            break;
+                    }
                     return true;
 
-                }        
+                }
+
             }
+
             return false;
         }
 
-        #region  get 
-        public int getX(){
+        public void isTouchBorder(Map map)
+        {
+            if (Map.Gametank.x < 0)
+            {
+                Map.Gametank.x = 0;
+            }
+            else if (Map.Gametank.x + 40 > map.getMapWidth())
+            {
+                Map.Gametank.x = map.getMapWidth() - 40;
+            }
+            else if (Map.Gametank.y < 0)
+            {
+                Map.Gametank.y = 0;
+            }
+            else if (Map.Gametank.y > map.getMapHeight())
+            {
+                Map.Gametank.y = map.getMapHeight() - 40;
+            }
+
+        }
+
+        #region  get
+        public int getX()
+        {
             return this.x;
         }
-        public int getY(){
+        public int getY()
+        {
             return this.y;
         }
         #endregion
-        
+        public bool isKill()
+        {
+            //foreach (Bullet enemyBullet in Map.enemyBullets)
+            //{
+            //    if (enemyBullet.killMyTank())
+            //    {
+            //        Map.Gametank = null;
+            //        return true;
+            //    }
+
+
+            //}
+            for (int i = 0; i < Map.enemyBullets.Count; i++)
+            {
+                if (Map.enemyBullets[i].killMyTank())
+                {
+                    Map.Gametank = null;
+                    return true;
+                }
+            }
+            return false;
+        }
+        public void setMyTankLocation(Map map)
+        {
+            this.x = map.getMapWidth() / 2 - 90;
+            this.y = map.getMapHeight() - 40;
+        }
+         public int eatProp()
+        {
+            for(int i = 0; i < Map.propList.Count; i++)
+            {
+                int type = Map.propList[i].getType();
+                 if(Crash.crash(Map.Gametank.getRectangle(), Map.propList[i].getRectangle())){
+                        Map.propList.Remove(Map.propList[i]);
+                        return type;
+                  }
+            }
+            return -1;
+        }
+
     }
+    
 }

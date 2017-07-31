@@ -49,13 +49,12 @@
   <ItemGroup>
     <Compile Include="Bullet.cs" />
     <Compile Include="Crash.cs" />
-    <Compile Include="enemy.cs" />
-    <Compile Include="enemyTank.cs" />
-    <Compile Include="MapTest.cs">
+    <Compile Include="EnemyTank.cs" />
+    <Compile Include="Map.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MapTest.Designer.cs">
-      <DependentUpon>MapTest.cs</DependentUpon>
+    <Compile Include="Map.Designer.cs">
+      <DependentUpon>Map.cs</DependentUpon>
     </Compile>
     <Compile Include="Login.cs">
       <SubType>Form</SubType>
@@ -71,7 +70,6 @@
       <DependentUpon>newTextBox.cs</DependentUpon>
     </Compile>
     <Compile Include="OnPaintEventArgs.cs" />
-    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ranking.cs">
       <SubType>Form</SubType>
@@ -87,8 +85,8 @@
     </Compile>
     <Compile Include="Sql.cs" />
     <Compile Include="tank.cs" />
-    <Compile Include="TankMe.cs" />
     <Compile Include="Tb_User.cs" />
+    <Compile Include="upScore.cs" />
     <Compile Include="Wall.cs" />
     <Compile Include="Welcome.cs">
       <SubType>Form</SubType>
@@ -96,8 +94,8 @@
     <Compile Include="Welcome.Designer.cs">
       <DependentUpon>Welcome.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="MapTest.resx">
-      <DependentUpon>MapTest.cs</DependentUpon>
+    <EmbeddedResource Include="Map.resx">
+      <DependentUpon>Map.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
@@ -139,13 +137,13 @@
     <None Include="bgm\bgm.wav" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bullet_1.png" />
     <Content Include="image\16.png" />
     <None Include="image\background\start.gif" />
     <None Include="image\background\login.gif" />
     <None Include="image\background\name.png" />
     <None Include="image\background\radar.gif" />
     <Content Include="image\bullet_1.png" />
+    <None Include="image\Gameover.jpg" />
     <Content Include="image\grass.png" />
     <Content Include="image\home.jpg" />
     <Content Include="image\p2tankD.gif" />
@@ -153,6 +151,8 @@
     <Content Include="image\p2tankR.gif" />
     <Content Include="image\p2tankU.gif" />
     <Content Include="image\Prop\bomb.gif" />
+    <None Include="image\Prop\myBullet.gif" />
+    <None Include="image\Prop\Enemybullet.gif" />
     <Content Include="image\Prop\star.gif" />
     <Content Include="image\Prop\bullet.gif" />
     <Content Include="image\Prop\timer.gif" />

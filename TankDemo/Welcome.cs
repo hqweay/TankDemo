@@ -35,7 +35,7 @@ namespace TankDemo
         private void button3_Click(object sender, EventArgs e)
         {
             this.Hide();
-            MapTest map = new MapTest(this);
+            Map map = new Map(this);
             map.Show();
         }
 

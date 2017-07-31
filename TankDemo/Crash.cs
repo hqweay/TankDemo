@@ -9,27 +9,39 @@ namespace TankDemo
 {
     class Crash
     {
+        //子弹碰墙检测
         public static bool isCrashWall(Bullet bullet)
         {
 
-            for (int i = 0; i < MapTest.wallList.Count; i++)   //遍历墙的集合
+            for (int i = 0; i < Map.wallList.Count; i++)   //遍历墙的集合
             {
-                if (bullet.getRectangle().IntersectsWith(new Rectangle(MapTest.wallList[i].getX(), MapTest.wallList[i].getY(), 40, 40)))
+                if (bullet.getRectangle().IntersectsWith(new Rectangle(Map.wallList[i].getX(), Map.wallList[i].getY(), 40, 40)))
                 {
-                    if (MapTest.wallList[i].getType() == 0)
+                    if (Map.wallList[i].getType() == 0)
                     {
-                        MapTest.wallList.Remove(MapTest.wallList[i]);
-
+                        if (Map.wallList[i].Life == 2)
+                        {
+                            Map.wallList[i].Life--;
+                        }
+                        else
+                        {
+                            Map.wallList.Remove(Map.wallList[i]);
+                        }
 
                     }
-                    if (MapTest.wallList[i].getType() == 2)
+                    else if (Map.wallList[i].getType() == 2)                
                     {
-                         return false;
+        
+                        return false;
 
                     }
-                    if (MapTest.wallList[i].getType() == 3)
+                    else if (Map.wallList[i].getType() == 3)      // 3 水
                     {
                         return false;
+                    }
+
+                    else if(Map.wallList[i].getType() == 5){
+                        Map.Gametank = null;
                     }
                     
 
@@ -50,6 +62,7 @@ namespace TankDemo
 
         }
 
+        //广义两个矩形
         public static bool crash(Rectangle rectangle1, Rectangle rectangle2)
         {
             if (rectangle1.IntersectsWith(rectangle2))
@@ -59,5 +72,22 @@ namespace TankDemo
             return false;
 
         }
+
+
+
+        public static bool isCrashTank(EnemyTank enemy)
+        {
+            for (int i = 0; i < Map.enemyList.Count; i++)
+            {
+                //          if (crash(enemy.getRectangle(), MapTest.enemyList[i].getRectangle()),)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+    
+
     }
 }
