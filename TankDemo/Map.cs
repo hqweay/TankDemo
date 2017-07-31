@@ -147,9 +147,9 @@ namespace TankDemo
                 myBulletMove();
                 enemyBulletMove();
                 // bulletCrash();
-                
 
-                if (Gametank == null)
+
+                if (Gametank.isKill() || Gametank.isICrahTank())
                 {
                     break;
                 }
@@ -278,7 +278,7 @@ namespace TankDemo
 
                 for (int i = 0; i < enemyList.Count; i++)
                 {
-                    if (enemyList[i].isCrash() || enemyList[i].isCrashBoder(this))
+                    if (enemyList[i].isCrash() || enemyList[i].isCrashBoder(this)||enemyList[i].isCrahTank())
                     {
                         int oldDirection = enemyList[i].direct;       //存储原来的方向
                         while (oldDirection == enemyList[i].createDirect())    //产生一个新方向  直到和原来的方向不同
@@ -575,7 +575,7 @@ namespace TankDemo
             Random r = new Random();
             int i = 400;
             //创造敌人
-            while (enemyList.Count < 1)
+            while (enemyList.Count < 10)
             {
                 EnemyTank enemy = new EnemyTank(i, 0);
                 enemy.speed = 2 + ENEMY_SPEED;

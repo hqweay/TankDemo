@@ -189,5 +189,35 @@ namespace TankDemo
             return false;
         }
 
+        public bool isCrahTank()
+        {
+            for (int i = 0; i < Map.enemyList.Count; i++)
+            {
+                if (this != Map.enemyList[i] && Crash.crash(this.getRectangle(), Map.enemyList[i].getRectangle()))
+                {
+                    switch (this.bulletDirection)
+                    {
+                        case MoveDiretion.Up:
+                            this.y = (y / 40 + 1) * 40;
+                            break;
+                        case MoveDiretion.Down:
+                            this.y = y / 40 * 40;
+                            break;
+                        case MoveDiretion.Left:
+                            this.x = (x / 40 + 1) * 40;
+                            break;
+                        case MoveDiretion.Right:
+                            this.x = x / 40 * 40;
+                            break;
+                        default:
+                            break;
+                    }
+                    this.speed = 0;         //是碰撞瞬间坦克的速度变为零
+                    return true;
+                }
+            }
+            return false;
+        }
+
     }
 }

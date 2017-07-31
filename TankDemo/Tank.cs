@@ -322,6 +322,19 @@ namespace TankDemo
             return -1;
         }
 
+         public bool isICrahTank()
+         {
+             for (int i = 0; i < Map.enemyList.Count; i++)
+             {
+                 if (Crash.crash(this.getRectangle(), Map.enemyList[i].getRectangle()))
+                 {
+                     Map.Gametank = null;
+                     return true;
+                 }
+             }
+             return false;
+         }
+
     }
     
 }
