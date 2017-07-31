@@ -42,24 +42,11 @@ namespace TankDemo
 
                     else if(Map.wallList[i].getType() == 5){
                         Map.Gametank = null;
-                    }
-                    
-
-
-
+                    }    
                     return true;
-
-
-
-
-
-
                 }
-
-
             }
             return false;
-
         }
 
         //广义两个矩形
@@ -70,24 +57,6 @@ namespace TankDemo
                 return true;
             }
             return false;
-
-        }
-
-
-
-        public static bool isCrashTank(EnemyTank enemy)
-        {
-            for (int i = 0; i < Map.enemyList.Count; i++)
-            {
-                //          if (crash(enemy.getRectangle(), MapTest.enemyList[i].getRectangle()),)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-    
-
+        }    
     }
 }

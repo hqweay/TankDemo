@@ -15,10 +15,11 @@ namespace TankDemo
 
         private int width;   //子弹宽度
         private int height;
+        public int speed = 4;
         MoveDiretion bulletDirection;
 
-        public int speed = 4;
-
+        
+        #region Set Get X Y Width Height Get子弹矩形
         public int X
         {
             get { return x; }
@@ -41,35 +42,29 @@ namespace TankDemo
             get { return height; }
             set { height = value; }
         }
-
+        public Rectangle getRectangle()
+        {
+            return new Rectangle(x, y, width, height);
+        }
+        #endregion
 
 
         public Bullet(MoveDiretion bulletDirection)
         {
-
             image = Properties.Resources.bullet;
             width = image.Width;
             height = image.Height;
             this.bulletDirection = bulletDirection;
-
-
-
-
         }
 
 
         public void Draw(Graphics g)
         {
-
-            //  g.DrawImage(image, x+10, y+10);
             g.DrawImage(image, x, y);
-
-
-
         }
 
 
-        public void update(Map map)
+        public void Move(Map map)
         {
             switch (bulletDirection)
             {
@@ -94,7 +89,6 @@ namespace TankDemo
             }
             if (y < 0)
             {
-                //       MapTest.planeBullets.Remove(this);
                 Map.planeBullets.Remove(this);
 
             }
@@ -107,32 +101,12 @@ namespace TankDemo
             {
                 Map.planeBullets.Remove(this);
             }
-
-
-            //   crashWall();    //判断砖墙及清除的一些操作
-
-
-
-
-
         }
 
-        public Rectangle getRectangle()
-        {
-            return new Rectangle(x, y, width, height);
-        }
-
-
-
-
-
-        
-
+       
         public Bullet()
         {
         }
-
-
         public Boolean killMyTank()
         {         
                 if (this.getRectangle().IntersectsWith(Map.Gametank.getRectangle()))
@@ -140,12 +114,7 @@ namespace TankDemo
                     Map.enemyBullets.Remove(this);
                     return true;
                 }
-            //if()  打水晶
             return false;
         }
-
-
-
-
     }
 }

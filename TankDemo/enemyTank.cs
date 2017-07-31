@@ -21,7 +21,22 @@ namespace TankDemo
 
         public  MoveDiretion bulletDirection ;
 
+       
+        public EnemyTank(int x, int y)
+        {
+            this.x = x;
+            this.y = y;
+            image = TankDemo.Properties.Resources.tankD;
+            width = image.Width;
+            height = image.Height;
+        }
 
+        public void Draw(Graphics g)
+        {
+            g.DrawImage(image, this.x, this.y);
+        }
+
+        #region Set Get X，Y Get敌人矩形 判断撞各种东西要用
         public int X
         {
             get { return x; }
@@ -33,46 +48,26 @@ namespace TankDemo
             get { return y; }
             set { y = value; }
         }
-
-        public EnemyTank(int x, int y)
+        public Rectangle getRectangle()
         {
-            this.x = x;
-            this.y = y;
-            image = TankDemo.Properties.Resources.tankD;
-            width = image.Width;
-            height = image.Height;
-
+            return new Rectangle(this.x, this.y, 40, 40);
         }
+        #endregion
 
-        public void Draw(Graphics g)
-        {
-            g.DrawImage(image, this.x, this.y);
-        }
-
-        public  void createDirectByMe()
-        {
-             Random r = new Random();
-            int direct;
-            do
-            {
-               direct = r.Next(0, 6);
-            } while (direct % 4==this.direct);
-            this.direct = direct;
-        }
+        #region 敌人的移动逻辑 随机创方向
         public int createDirect()
         {
             Random r = new Random();
-
             for (int i = 0; i < 2; i++)
             {
                 direct = r.Next(0, 6);
-            }//产生0—3的数 0shang 1 xia 2 左 3 右
-            
-    
+            }//产生0—3的数 0shang 1 xia 2 左 3 右   
              return direct = direct%4; 
         }
+        #endregion
 
-        public void move()
+        #region 敌人移动
+        public void Move()
         {
             switch (direct)
             {
@@ -99,15 +94,10 @@ namespace TankDemo
             }
 
         }
+        #endregion
 
-
-        public Rectangle getRectangle()
-        {
-            return new Rectangle(this.x, this.y, 40,  40);
-        }
-
-        //判断撞碍物
-        public bool isCrash()
+        #region 判断敌方坦克是否撞墙 撞墙后随机给一个新方向  新方向哦
+        public bool isTouchWall()
         {
             for (int j = 0; j < Map.wallList.Count; j++)
             {
@@ -119,7 +109,6 @@ namespace TankDemo
                     }
                     else
                     {
-
                         switch (this.bulletDirection)
                         {
                             case MoveDiretion.Up:
@@ -142,20 +131,15 @@ namespace TankDemo
                     }
                     this.speed = 0;         //是碰撞瞬间坦克的速度变为零
                     return true; 
-                }
-
-               
-            }
-            
+                }              
+            }           
             return false;
         }
-        
-        //判断撞边界  这个感觉没问题了
-        public bool isCrashBoder(Map map)
-       {
-        
+        #endregion
 
-            //-----------------------this.x<=0
+        #region 判断敌方坦克是否撞边界
+        public bool isTouchBorder(Map map)
+       {
             if (this.x <= 0)
             {
 
@@ -184,12 +168,12 @@ namespace TankDemo
                 this.speed = 0;
                 return true;
             }
-            
-
             return false;
         }
+        #endregion
 
-        public bool isCrahTank()
+        #region 判断敌方坦克是否撞到玩家坦克
+        public bool isTouchMyTank()
         {
             for (int i = 0; i < Map.enemyList.Count; i++)
             {
@@ -218,6 +202,6 @@ namespace TankDemo
             }
             return false;
         }
-
+        #endregion
     }
 }

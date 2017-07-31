@@ -19,15 +19,16 @@ namespace TankDemo
         public int x;
         public int y;
         public int life;
-
-        Image image_tankright;
-        Image image_tankleft;
-        Image image_tankup;
-        Image image_tankdown;
         int speed;
         public bool isShooting = false;
         int width;
         int height;
+        Image image_tankright;
+        Image image_tankleft;
+        Image image_tankup;
+        Image image_tankdown;
+        
+        
         MoveDiretion xMove;
         MoveDiretion yMove;
         MoveDiretion lastMove = MoveDiretion.Left;
@@ -54,9 +55,6 @@ namespace TankDemo
 
             Map.GameForm.KeyDown += new System.Windows.Forms.KeyEventHandler(GameForm_KeyDown);
             Map.GameForm.KeyUp += new System.Windows.Forms.KeyEventHandler(GameForm_KeyUp);
-
-
-
         }
 
         private void GameForm_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
@@ -169,8 +167,7 @@ namespace TankDemo
 
         }
 
-        //        int lastShooTime;
-        public void Updata()
+        public void Move()
         {
 
             if (isTouchWall(lastMove))//检测到碰撞
@@ -211,10 +208,8 @@ namespace TankDemo
             }
 
         }
-        public Rectangle getRectangle()
-        {
-            return new Rectangle(x, y, width, height);
-        }
+       
+        #region 判断玩家是否碰到墙
         public Boolean isTouchWall(MoveDiretion direction)
         {
             foreach (Wall wall in Map.wallList)
@@ -252,7 +247,8 @@ namespace TankDemo
 
             return false;
         }
-
+        #endregion
+        #region 判断玩家是否碰到地图边界
         public void isTouchBorder(Map map)
         {
             if (Map.Gametank.x < 0)
@@ -273,8 +269,9 @@ namespace TankDemo
             }
 
         }
+        #endregion
 
-        #region  get
+        #region  Get 玩家坦克 X Y坐标  以及Get玩家坦克的矩形 判断撞各种东西会用到
         public int getX()
         {
             return this.x;
@@ -283,25 +280,27 @@ namespace TankDemo
         {
             return this.y;
         }
+        public Rectangle getRectangle()
+        {
+            return new Rectangle(x, y, width, height);
+        }
         #endregion
-        public bool isKill()
+        #region 判断是否被敌人子弹杀了
+        public bool isKillByBullet()
         {
             for (int i = 0; i < Map.enemyBullets.Count; i++)
             {
                 if (Map.enemyBullets[i].killMyTank())
                 {
-       //             Map.Gametank = null;
                     return true;
                 }
             }
             return false;
         }
-        public void setMyTankLocation(Map map)
-        {
-            this.x = map.getMapWidth() / 2 - 90;
-            this.y = map.getMapHeight() - 40;
-        }
-         public int eatProp()
+        #endregion
+
+        #region 判断是否吃到道具
+        public int isEatProp()
         {
             for(int i = 0; i < Map.propList.Count; i++)
             {
@@ -313,20 +312,29 @@ namespace TankDemo
             }
             return -1;
         }
-
-         public Boolean isICrahTank()
+        #endregion
+        #region 判断玩家是否撞敌人 若撞则游戏结束
+        public Boolean isTouchEnemy()
          {
              for (int i = 0; i < Map.enemyList.Count; i++)
              {
                  if (Crash.crash(Map.Gametank.getRectangle(), Map.enemyList[i].getRectangle()))
                  {
-       //              Map.Gametank = null;
                      return true;
                  }
              }
              return false;
          }
-         public Boolean inSmog(Wall wall)
+        #endregion
+        #region 重新加载地图时 玩家回到初始位置
+        public void setMyTankLocation(Map map)
+        {
+            this.x = map.getMapWidth() / 2 - 90;
+            this.y = map.getMapHeight() - 40;
+        }
+        #endregion
+        #region 迷雾模式必须的三个重载判断 与墙 与敌人子弹 与敌人
+        public Boolean inSmog(Wall wall)
          {
              if (wall.getX() > Map.Gametank.getX() - 300 && wall.getX() < Map.Gametank.getX() + 300 && wall.getY() > Map.Gametank.getY() - 300 && wall.getY() < Map.Gametank.getY() + 300)
              {
@@ -350,8 +358,7 @@ namespace TankDemo
              }
              return true;
          }
-
- 
+        #endregion
 
     }
 

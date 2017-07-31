@@ -183,7 +183,7 @@ namespace TankDemo
         {
             if (Gametank != null)
             {
-                if (Gametank.isKill() || Gametank.isICrahTank())
+                if (Gametank.isKillByBullet() || Gametank.isTouchEnemy())
                 {
                     return false;
                 }
@@ -228,7 +228,7 @@ namespace TankDemo
         {
             for (int i = 0; i < enemyBullets.Count; i++)
             {
-                enemyBullets[i].update(this);
+                enemyBullets[i].Move(this);
             }
 
             for (int i = 0; i < enemyBullets.Count; i++)
@@ -245,7 +245,7 @@ namespace TankDemo
         {
             for (int i = 0; i < planeBullets.Count; i++)
             {
-                planeBullets[i].update(this);
+                planeBullets[i].Move(this);
             }
 
             for (int i = 0; i < planeBullets.Count; i++)
@@ -287,7 +287,7 @@ namespace TankDemo
 
                 for (int i = 0; i < enemyList.Count; i++)
                 {
-                    if (enemyList[i].isCrash() || enemyList[i].isCrashBoder(this)||enemyList[i].isCrahTank())
+                    if (enemyList[i].isTouchWall() || enemyList[i].isTouchBorder(this)||enemyList[i].isTouchMyTank())
                     {
                         int oldDirection = enemyList[i].direct;       //存储原来的方向
                         while (oldDirection == enemyList[i].createDirect())    //产生一个新方向  直到和原来的方向不同
@@ -299,7 +299,7 @@ namespace TankDemo
                 }
                 for (int i = 0; i < enemyList.Count; i++)
                 {
-                    enemyList[i].move();
+                    enemyList[i].Move();
                 }
         }
         #endregion
@@ -310,7 +310,7 @@ namespace TankDemo
         public void myTankMove()
         {
             //吃道具逻辑
-            int type = Gametank.eatProp();
+            int type = Gametank.isEatProp();
             if (type > 0)
             {
                 switch (type)
@@ -351,7 +351,7 @@ namespace TankDemo
             }
 
             Gametank.isTouchBorder(this);
-            Gametank.Updata();
+            Gametank.Move();
         }
         #endregion
         /// 绘制的时候要把g传进去不要重新用this.Graphics()
@@ -762,7 +762,7 @@ namespace TankDemo
         private void MapTest_FormClosing(object sender, FormClosingEventArgs e)
         {
             //测试先删
-       //    welcome.Show();
+           welcome.Show();
             
         }
     }
