@@ -151,8 +151,8 @@ namespace TankDemo
                 // bulletCrash();
 
 
-          //      if (Gametank.isKill() || Gametank.isICrahTank())
-                if(Gametank == null)
+                if (Gametank.isKill() || Gametank.isICrahTank())
+          //      if(Gametank == null)
                 {
                     break;
                 }
