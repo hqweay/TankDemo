@@ -6,6 +6,7 @@ using System.Drawing;
 
 namespace TankDemo
 {
+    //枚举玩家坦克状态 移动方向 不动
     public enum MoveDiretion
     {
         Stop, Left, Right, Up, Down
@@ -349,6 +350,9 @@ namespace TankDemo
              }
              return true;
          }
+
+ 
+
     }
-    
+
 }

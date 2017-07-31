@@ -18,7 +18,6 @@ namespace TankDemo
         public int ENEMY_SPEED = 0;
         public int ENEMYBULLET_SPEED = 0;
         public static List<Wall> wallList = new List<Wall>();
-//        public static List<Wall> homeList = new List<Wall>();
         public static List<EnemyTank> enemyList = new List<EnemyTank>();
         public static List<Bullet> planeBullets = new List<Bullet>();    //我方子弹
         public static List<Bullet> enemyBullets = new List<Bullet>();
@@ -29,8 +28,9 @@ namespace TankDemo
         private Graphics g = null;
         //创建线程用于刷新屏幕
         private Thread threadRefresh = null;
-        //敌人坦克
-        private Thread threadEnemy = null;
+
+        //敌人坦克线程  暂时没用
+        //private Thread threadEnemy = null;
 
         private Bitmap bmp = null;
 
@@ -68,19 +68,12 @@ namespace TankDemo
             //双缓冲的一些设置
             bmp = new Bitmap(this.getMapWidth(), this.getMapHeight());
             g = Graphics.FromImage(bmp);
-            //g.Clear(Color.White);
 
             //设置双缓冲画图
             this.DoubleBuffered = true;
             SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.DoubleBuffer, true);
-
-
-
-
-
-
         }
         public Map(Welcome welcome)
         {
@@ -113,13 +106,7 @@ namespace TankDemo
             SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.DoubleBuffer, true);
-
-
-
-
-
-
-        }
+         }
         //---------------------------------------------------------------------------
         //#hqweay@qq.com
         //写点自己的经验
@@ -138,8 +125,6 @@ namespace TankDemo
 
         private void RefreshUI()
         {
-
-
             while (true)
             {
                 myTankMove();
@@ -147,21 +132,16 @@ namespace TankDemo
                 enemyMove();
     
                 myBulletMove();
+                //敌人子弹移动 以及子弹是否撞墙的判断
                 enemyBulletMove();
                 // bulletCrash();
- 
 
 
-                if(Gametank != null)
-                {
-                    if (Gametank.isKill() || Gametank.isICrahTank())
-                    {
-                        break;
-                    }
-                }else
+                if (!myTankIsLiving())
                 {
                     break;
                 }
+                
 
 
                 //显示图像
@@ -197,10 +177,25 @@ namespace TankDemo
            
         }
 
-
-       
-
-
+        #region 一段判断玩家是否还活着的代码 发弹打死老王的代码不在这哦 在 Crash类里 与敌人相碰也是会挂掉的
+        
+        public Boolean myTankIsLiving()
+        {
+            if (Gametank != null)
+            {
+                if (Gametank.isKill() || Gametank.isICrahTank())
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+            return true;
+        }
+        #endregion 
+        #region 当达到某个条件 重新生成敌人和地图 当然 敌人会更强
         public void createNewMap(){
             for (int i = 0; i < enemyBullets.Count; i++)
             {
@@ -227,23 +222,25 @@ namespace TankDemo
             Gametank.setMyTankLocation(this);
             Gametank.isShooting = false;
      }
+        #endregion
+        #region 敌人子弹移动 以及子弹是否撞墙的判断
         public void enemyBulletMove()
         {
             for (int i = 0; i < enemyBullets.Count; i++)
             {
                 enemyBullets[i].update(this);
             }
-           
+
             for (int i = 0; i < enemyBullets.Count; i++)
             {
                 if (Crash.isCrashWall(enemyBullets[i]))
                 {
                     bool a = enemyBullets.Remove(enemyBullets[i]);
                 }
-                
             }
-
         }
+        #endregion
+        #region 我的子弹的移动 以及 是否撞墙 是否击中敌人 是否与敌人子弹相撞的逻辑
         private void myBulletMove()
         {
             for (int i = 0; i < planeBullets.Count; i++)
@@ -277,17 +274,14 @@ namespace TankDemo
                         bool b = enemyBullets.Remove(enemyBullets[j]);
                         break;
                     }
-
                 }
-
-
             }
         }
+        #endregion
 
 
-        
 
-        
+        #region 敌人移动 以及敌人是否撞墙 是否超过边界的逻辑
         public void enemyMove()
         {
 
@@ -308,10 +302,11 @@ namespace TankDemo
                     enemyList[i].move();
                 }
         }
+        #endregion
 
 
 
-
+        #region 玩家的移动 吃道具 是否超边界 是否撞墙的判断放在玩家的移动里-->撞墙就不移动
         public void myTankMove()
         {
             //吃道具逻辑
@@ -358,11 +353,17 @@ namespace TankDemo
             Gametank.isTouchBorder(this);
             Gametank.Updata();
         }
-
+        #endregion
+        /// 绘制的时候要把g传进去不要重新用this.Graphics()
+        /// 猜测这就是闪屏的原因
+        #region 绘制地图上的一切
+        #region 绘制我的坦克
         private void drawMyTank()
         {
             Gametank.Draw(g);    
         }
+        #endregion
+        #region 绘制敌人
         public void drawEnemy()
         {
             foreach (EnemyTank enemy in enemyList)
@@ -373,16 +374,17 @@ namespace TankDemo
                 }
             }
         }
+        #endregion
+        #region 绘制敌我双方子弹 当然它们放在不同的集合
         private void drawAllBullet()
         {
            
-            //子弹绘制
+            //玩家子弹绘制
             for (int i = 0; i < planeBullets.Count; i++)
             {
                 planeBullets[i].Draw(g);
             }
-            //子弹绘制
-            
+            //敌人子弹绘制           
             for (int i = 0; i < enemyBullets.Count; i++)
             {
                 if (!Gametank.inSmog(enemyBullets[i]))
@@ -391,6 +393,8 @@ namespace TankDemo
                 }
             }
         }
+        #endregion
+        #region 绘制地图 准确的说 绘制背景要好些 来自网络 解决闪屏问题
         public void drawMap()
         {
             try
@@ -401,8 +405,8 @@ namespace TankDemo
             catch
             { }
         }
-
-        
+        #endregion
+        #region   绘制所有的墙 墙分多种  自己的老家要特别特别区分
         public void drawAllWall(Graphics g)
         {
 
@@ -440,19 +444,8 @@ namespace TankDemo
             #endregion
             
         }
+        #endregion
 
-        public void drawEnemy(Object g)
-        {
-
-            foreach (EnemyTank enemy in enemyList)
-            {
-                if (enemy.isCrash())
-                {
-                    return;
-                }
-                enemy.Draw((Graphics)g);
-            }
-        }
         public void drawProp()
         {
             for (int i = 0; i < propList.Count; i++)
@@ -474,6 +467,8 @@ namespace TankDemo
                 }
             }
         }
+        #endregion
+        #region 创造地图上的一切--->创建对象存在相应链表
         #region create wall 规律
         public void createWall2()
         {
@@ -620,13 +615,7 @@ namespace TankDemo
             this.createHome(this.getMapHeight(), this.getMapWidth());
             this.createWall();         
         }
-        /// 画的时候要把g传进去不要重新用this.Graphics()
-        /// 猜测这就是闪屏的原因
-
-
-        public void createProp()
-        {
-        }
+        #endregion
 
 
         /// 这里设置为private
@@ -634,6 +623,20 @@ namespace TankDemo
         ///Wall中某些参数是private的
         ///创建墙的判断
         ///是否重合
+        #region 一些创建地图的逻辑 创建道具的逻辑 创建墙的逻辑 因为随随机创建 不能重合 以及某些特殊位置不能生成墙.......... 
+        #region 道具不能创在已有道具的位置
+        public Boolean isInProp(Wall propSelf)
+        {
+            foreach (Wall prop in propList)
+            {
+                if (propSelf.getX() == prop.getX())
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+        #endregion
         private Boolean isInSelf(Wall wallSelf)
         {
             foreach (Wall wall in wallList)
@@ -645,6 +648,7 @@ namespace TankDemo
             }
             return false;
         }
+        #region 家周围不能有墙
         private Boolean isInHome(Wall wallSelf)
         {
 
@@ -654,6 +658,8 @@ namespace TankDemo
             }
             return false;
         }
+        #endregion
+        #endregion
         #region  获得窗口长宽
         public int getMapHeight()
         {
@@ -674,17 +680,7 @@ namespace TankDemo
         }
 
 
-        public Boolean isInProp(Wall propSelf)
-        {
-            foreach (Wall prop in propList)
-            {
-                if (propSelf.getX() == prop.getX())
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+       // 该定时器生产道具
         private void timer1_Tick(object sender, EventArgs e)
         {
             Random r = new Random();
@@ -733,7 +729,7 @@ namespace TankDemo
                 
             }
         }
-
+        //该定时器生产敌方子弹
         private void timer2_Tick(object sender, EventArgs e)
         {
             Random r = new Random();
