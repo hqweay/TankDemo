@@ -142,26 +142,27 @@ namespace TankDemo
 
             else
             {
-                switch (xMove)
-                {
-                    case MoveDiretion.Right:
-                        g.DrawImage(image_tankright, x, y);
-                        break;
-                    case MoveDiretion.Left:
-                        g.DrawImage(image_tankleft, x, y);
-                        break;
-                }
-
-                switch (yMove)
-                {
-                    case MoveDiretion.Up:
-                        g.DrawImage(image_tankup, x, y);
-                        break;
-                    case MoveDiretion.Down:
-                        g.DrawImage(image_tankdown, x, y);
-                        break;
-                }
-
+                
+                    switch (xMove)
+                    {
+                        case MoveDiretion.Right:
+                            g.DrawImage(image_tankright, x, y);
+                            break;
+                        case MoveDiretion.Left:
+                            g.DrawImage(image_tankleft, x, y);
+                            break;
+                    }
+                
+                     switch (yMove)
+                    {
+                        case MoveDiretion.Up:
+                            g.DrawImage(image_tankup, x, y);
+                            break;
+                        case MoveDiretion.Down:
+                            g.DrawImage(image_tankdown, x, y);
+                            break;
+                    }
+                
 
             }
 
@@ -234,7 +235,7 @@ namespace TankDemo
                             this.y = (this.y / 40) * 40;
                             break;
                         case MoveDiretion.Left:
-                            this.x = (this.x / 40 + 1) * 40;
+                                    this.x = (this.x / 40 + 1) * 40;
                             break;
                         case MoveDiretion.Right:
                             this.x = (this.x / 40) * 40;
@@ -284,21 +285,11 @@ namespace TankDemo
         #endregion
         public bool isKill()
         {
-            //foreach (Bullet enemyBullet in Map.enemyBullets)
-            //{
-            //    if (enemyBullet.killMyTank())
-            //    {
-            //        Map.Gametank = null;
-            //        return true;
-            //    }
-
-
-            //}
             for (int i = 0; i < Map.enemyBullets.Count; i++)
             {
                 if (Map.enemyBullets[i].killMyTank())
                 {
-                    Map.Gametank = null;
+       //             Map.Gametank = null;
                     return true;
                 }
             }
@@ -322,13 +313,13 @@ namespace TankDemo
             return -1;
         }
 
-         public bool isICrahTank()
+         public Boolean isICrahTank()
          {
              for (int i = 0; i < Map.enemyList.Count; i++)
              {
-                 if (Crash.crash(this.getRectangle(), Map.enemyList[i].getRectangle()))
+                 if (Crash.crash(Map.Gametank.getRectangle(), Map.enemyList[i].getRectangle()))
                  {
-                     Map.Gametank = null;
+       //              Map.Gametank = null;
                      return true;
                  }
              }

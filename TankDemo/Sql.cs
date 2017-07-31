@@ -19,9 +19,10 @@ namespace TankDemo
             
            */
         public static SqlConnection getCon(){
-            return new SqlConnection("server=B412-008;initial catalog=TankDemo;integrated security=SSPI");
+            //      return new SqlConnection("server=B412-008;initial catalog=TankDemo;integrated security=SSPI");LAPTOP-Q3STI184
+            return new SqlConnection("server=LAPTOP-Q3STI184;initial catalog=TankDemo;integrated security=SSPI");
         }
-            
+
         /*
         查询一般用SqlDataAdapter
         在注册时因为用的插入 所以用的是SqlCommand

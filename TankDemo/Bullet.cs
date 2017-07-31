@@ -137,7 +137,6 @@ namespace TankDemo
         {         
                 if (this.getRectangle().IntersectsWith(Map.Gametank.getRectangle()))
                 {
-                    Map.Gametank = null;
                     Map.enemyBullets.Remove(this);
                     return true;
                 }

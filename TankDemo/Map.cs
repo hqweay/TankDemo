@@ -149,13 +149,21 @@ namespace TankDemo
                 myBulletMove();
                 enemyBulletMove();
                 // bulletCrash();
+ 
 
 
-                if (Gametank.isKill() || Gametank.isICrahTank())
-          //      if(Gametank == null)
+                if(Gametank != null)
+                {
+                    if (Gametank.isKill() || Gametank.isICrahTank())
+                    {
+                        break;
+                    }
+                }else
                 {
                     break;
                 }
+
+
                 //显示图像
                 g.Clear(Color.Black);
 
@@ -179,8 +187,8 @@ namespace TankDemo
 
             }
 
-    //        upScore.uploadSorre("hqweay", 15255535);
-             upScore.uploadScore(Login.userName, score);
+
+    //         upScore.uploadScore(Login.userName, score);
             this.BackgroundImage = Properties.Resources.Gameover;
             this.BackgroundImageLayout = ImageLayout.Stretch;
             
@@ -758,7 +766,7 @@ namespace TankDemo
         private void MapTest_FormClosing(object sender, FormClosingEventArgs e)
         {
             //测试先删
-           welcome.Show();
+       //    welcome.Show();
             
         }
     }
