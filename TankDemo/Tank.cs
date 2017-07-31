@@ -334,7 +334,30 @@ namespace TankDemo
              }
              return false;
          }
-
+         public Boolean inSmog(Wall wall)
+         {
+             if (wall.getX() > Map.Gametank.getX() - 300 && wall.getX() < Map.Gametank.getX() + 300 && wall.getY() > Map.Gametank.getY() - 300 && wall.getY() < Map.Gametank.getY() + 300)
+             {
+                 return false;
+             }
+             return true;
+         }
+         public Boolean inSmog(EnemyTank enemy)
+         {
+             if (enemy.x > Map.Gametank.getX() - 300 && enemy.x < Map.Gametank.getX() + 300 && enemy.y > Map.Gametank.getY() - 300 && enemy.y < Map.Gametank.getY() + 300)
+             {
+                 return false;
+             }
+             return true;
+         }
+         public Boolean inSmog(Bullet enemy)
+         {
+             if (enemy.X > Map.Gametank.getX() - 300 && enemy.X < Map.Gametank.getX() + 300 && enemy.Y > Map.Gametank.getY() - 300 && enemy.Y < Map.Gametank.getY() + 300)
+             {
+                 return false;
+             }
+             return true;
+         }
     }
     
 }

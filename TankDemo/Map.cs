@@ -159,7 +159,9 @@ namespace TankDemo
                 drawMyTank();
 
                 drawEnemy();
+
                 drawAllBullet();
+
                 drawAllWall(g);
                 drawProp();
                 
@@ -184,7 +186,7 @@ namespace TankDemo
         }
 
 
-     
+       
 
 
         public void createNewMap(){
@@ -352,7 +354,10 @@ namespace TankDemo
         {
             foreach (EnemyTank enemy in enemyList)
             {
-                enemy.Draw(g);
+                if (!Gametank.inSmog(enemy))
+                {
+                    enemy.Draw(g);
+                }
             }
         }
         private void drawAllBullet()
@@ -364,10 +369,13 @@ namespace TankDemo
                 planeBullets[i].Draw(g);
             }
             //子弹绘制
+            
             for (int i = 0; i < enemyBullets.Count; i++)
             {
-
-                enemyBullets[i].Draw(g);
+                if (!Gametank.inSmog(enemyBullets[i]))
+                {
+                    enemyBullets[i].Draw(g);
+                }
             }
         }
         public void drawMap()
@@ -380,35 +388,40 @@ namespace TankDemo
             catch
             { }
         }
+
+        
         public void drawAllWall(Graphics g)
         {
 
             #region   画wall
             foreach (Wall wall in wallList)
             {
-                switch (wall.getType())
+                if (!Gametank.inSmog(wall))
                 {
-                    case 0:
-                        g.DrawImage(imageMapSoil, wall.getX(), wall.getY());
-                        break;
-                    case 1:
-                        g.DrawImage(imageMapSteel, wall.getX(), wall.getY());
-                        break;
-                    case 2:
-                        g.DrawImage(imageMapWater, wall.getX(), wall.getY());
-                        break;
-                    case 3:
-                        g.DrawImage(imageMapGrass, wall.getX(), wall.getY());
-                        break;
-                    case 4:
-                        g.DrawImage(imageMapSoil, wall.getX(), wall.getY());
-                        break;
-                    case 5:
-                        g.FillRectangle(new SolidBrush(Color.Green), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
-                        //         g.DrawImage(imageHome, wall.getX(), wall.getY());
-                        break;
-                    default:
-                        break;
+                    switch (wall.getType())
+                    {
+                        case 0:
+                            g.DrawImage(imageMapSoil, wall.getX(), wall.getY());
+                            break;
+                        case 1:
+                            g.DrawImage(imageMapSteel, wall.getX(), wall.getY());
+                            break;
+                        case 2:
+                            g.DrawImage(imageMapWater, wall.getX(), wall.getY());
+                            break;
+                        case 3:
+                            g.DrawImage(imageMapGrass, wall.getX(), wall.getY());
+                            break;
+                        case 4:
+                            g.DrawImage(imageMapSoil, wall.getX(), wall.getY());
+                            break;
+                        case 5:
+                            g.FillRectangle(new SolidBrush(Color.Green), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
+                            //         g.DrawImage(imageHome, wall.getX(), wall.getY());
+                            break;
+                        default:
+                            break;
+                    }
                 }
             }
             #endregion
