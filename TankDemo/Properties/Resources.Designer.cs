@@ -80,6 +80,15 @@ namespace TankDemo.Properties {
         }
         
         /// <summary>
+        ///   查找类似于 System.IO.MemoryStream 的 System.IO.UnmanagedMemoryStream 类型的本地化资源。
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream boom {
+            get {
+                return ResourceManager.GetStream("boom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找 System.Drawing.Bitmap 类型的本地化资源。
         /// </summary>
         internal static System.Drawing.Bitmap bullet {
@@ -96,6 +105,15 @@ namespace TankDemo.Properties {
             get {
                 object obj = ResourceManager.GetObject("bullet_enemy", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 System.IO.MemoryStream 的 System.IO.UnmanagedMemoryStream 类型的本地化资源。
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream fail {
+            get {
+                return ResourceManager.GetStream("fail", resourceCulture);
             }
         }
         
@@ -156,6 +174,15 @@ namespace TankDemo.Properties {
             get {
                 object obj = ResourceManager.GetObject("radar", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似于 System.IO.MemoryStream 的 System.IO.UnmanagedMemoryStream 类型的本地化资源。
+        /// </summary>
+        internal static System.IO.UnmanagedMemoryStream shoot {
+            get {
+                return ResourceManager.GetStream("shoot", resourceCulture);
             }
         }
         

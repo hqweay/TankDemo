@@ -138,6 +138,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="image\16.png" />
+    <None Include="Resources\shoot.wav" />
+    <None Include="Resources\fail.wav" />
+    <None Include="Resources\boom.wav" />
     <None Include="image\background\start.gif" />
     <None Include="image\background\login.gif" />
     <None Include="image\background\name.png" />

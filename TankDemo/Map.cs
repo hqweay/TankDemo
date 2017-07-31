@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Windows.Forms;
+using System.Media;
 
 namespace TankDemo
 {
@@ -155,11 +156,13 @@ namespace TankDemo
 
                 drawAllWall(g);
                 drawProp();
-                
+                theMessageOne();
+                theMessageTwo();
+                theMessageThree();
 
                 if (enemyList.Count == 0)
                 {
-                    MessageBox.Show("准备好了吗垃圾 下关提高难度了哦");
+                    MessageBox.Show("准备好了吗 下关提高难度了哦");
                     createNewMap();
                 }
 
@@ -168,17 +171,42 @@ namespace TankDemo
             }
 
 
-    //         upScore.uploadScore(Login.userName, score);
+            upScore.uploadScore(Login.userName, score);
             this.BackgroundImage = Properties.Resources.Gameover;
             this.BackgroundImageLayout = ImageLayout.Stretch;
             
                 
-            MessageBox.Show("你这水平也太垃圾了");
+            MessageBox.Show("恭喜您：\n您战神般的成绩已被记录到数据库\n您可以退出游戏查看\n");
            
         }
-
+        #region
+        public void theMessageOne()
+        {
+            if(score == 30)
+            {
+                score += 2;
+                MessageBox.Show("哇 你简直是太牛逼了 \n你的分数已经高达30分\n我们将赠送你2分以资鼓励！！");
+            }
+        }
+        public void theMessageTwo()
+        {
+            if (score == 50)
+            {
+                score++;
+                MessageBox.Show("加油 你马上就能赶上最强选手杨泽宇了！！\n这次我们也慷慨地送给你1分");
+            }
+        }
+        public void theMessageThree()
+        {
+            if (score == 80)
+            {
+                score++;
+                MessageBox.Show("哇！！！！\n你已经无人可挡了快给自己一个巴掌庆祝一下吧");
+            }
+        }
+        #endregion
         #region 一段判断玩家是否还活着的代码 发弹打死老王的代码不在这哦 在 Crash类里 与敌人相碰也是会挂掉的
-        
+
         public Boolean myTankIsLiving()
         {
             if (Gametank != null)
@@ -260,6 +288,8 @@ namespace TankDemo
                     if (Crash.crash(enemyList[j].getRectangle(), planeBullets[i].getRectangle()))
                     {
                         score += 10;
+                        SoundPlayer p = new SoundPlayer(Properties.Resources.boom);
+                        p.Play();
                         planeBullets.Remove(planeBullets[i]);
                         enemyList.Remove(enemyList[j]);
                         break;
@@ -411,29 +441,30 @@ namespace TankDemo
         {
 
             #region   画wall
-            foreach (Wall wall in wallList)
+        //    foreach (Wall wall in wallList)
+        for(int i = 0; i < wallList.Count; i++)
             {
-                if (!Gametank.inSmog(wall))
+                if (!Gametank.inSmog(wallList[i]))
                 {
-                    switch (wall.getType())
+                    switch (wallList[i].getType())
                     {
                         case 0:
-                            g.DrawImage(imageMapSoil, wall.getX(), wall.getY());
+                            g.DrawImage(imageMapSoil, wallList[i].getX(), wallList[i].getY());
                             break;
                         case 1:
-                            g.DrawImage(imageMapSteel, wall.getX(), wall.getY());
+                            g.DrawImage(imageMapSteel, wallList[i].getX(), wallList[i].getY());
                             break;
                         case 2:
-                            g.DrawImage(imageMapWater, wall.getX(), wall.getY());
+                            g.DrawImage(imageMapWater, wallList[i].getX(), wallList[i].getY());
                             break;
                         case 3:
-                            g.DrawImage(imageMapGrass, wall.getX(), wall.getY());
+                            g.DrawImage(imageMapGrass, wallList[i].getX(), wallList[i].getY());
                             break;
                         case 4:
-                            g.DrawImage(imageMapSoil, wall.getX(), wall.getY());
+                            g.DrawImage(imageMapSoil, wallList[i].getX(), wallList[i].getY());
                             break;
                         case 5:
-                            g.FillRectangle(new SolidBrush(Color.Green), wall.getX(), wall.getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
+                            g.FillRectangle(new SolidBrush(Color.Green), wallList[i].getX(), wallList[i].getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
                             //         g.DrawImage(imageHome, wall.getX(), wall.getY());
                             break;
                         default:
@@ -762,7 +793,23 @@ namespace TankDemo
         private void MapTest_FormClosing(object sender, FormClosingEventArgs e)
         {
             //测试先删
-           welcome.Show();
+            for (int i = 0; i < enemyBullets.Count; i++)
+            {
+                enemyBullets.Remove(enemyBullets[i]);
+            }
+            for (int i = 0; i < planeBullets.Count; i++)
+            {
+                planeBullets.Remove(planeBullets[i]);
+            }
+            for (int i = 0; i < wallList.Count; i++)
+            {
+                wallList.Remove(wallList[i]);
+            }
+            for (int i = 0; i < propList.Count; i++)
+            {
+                wallList.Remove(propList[i]);
+            }
+            welcome.Show();
             
         }
     }

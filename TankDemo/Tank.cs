@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
+using System.Media;
 
 namespace TankDemo
 {
@@ -200,6 +201,8 @@ namespace TankDemo
 
             if (Map.planeBullets.Count <= 0 && isShooting)
             {
+                SoundPlayer p = new SoundPlayer(Properties.Resources.shoot);
+                p.Play();
                 Bullet bullet = new Bullet(bulletDirection);
                 bullet.X = this.x;
                 bullet.Y = this.y;
@@ -292,6 +295,8 @@ namespace TankDemo
             {
                 if (Map.enemyBullets[i].killMyTank())
                 {
+                    SoundPlayer p = new SoundPlayer(Properties.Resources.fail);
+                    p.Play();
                     return true;
                 }
             }
@@ -320,6 +325,7 @@ namespace TankDemo
              {
                  if (Crash.crash(Map.Gametank.getRectangle(), Map.enemyList[i].getRectangle()))
                  {
+             
                      return true;
                  }
              }

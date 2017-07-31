@@ -41,6 +41,7 @@ namespace TankDemo
 
         private void Welcome_FormClosing(object sender, FormClosingEventArgs e)
         {
+
             System.Environment.Exit(0);
         }
 
