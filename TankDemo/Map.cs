@@ -86,7 +86,7 @@ namespace TankDemo
             imageMapSteel = Properties.Resources.steel;
             imageMapWater = Properties.Resources.water;
             imageMapGrass = Properties.Resources.grass;
-            imageHome = Properties.Resources.home;
+            imageHome = Properties.Resources.home_1;
 
             g = this.CreateGraphics();
             GameForm = this;
@@ -464,8 +464,8 @@ namespace TankDemo
                             g.DrawImage(imageMapSoil, wallList[i].getX(), wallList[i].getY());
                             break;
                         case 5:
-                            g.FillRectangle(new SolidBrush(Color.Green), wallList[i].getX(), wallList[i].getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
-                            //         g.DrawImage(imageHome, wall.getX(), wall.getY());
+                         //   g.FillRectangle(new SolidBrush(Color.Green), wallList[i].getX(), wallList[i].getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
+                            g.DrawImage(imageHome, wallList[i].getX(), wallList[i].getY());
                             break;
                         default:
                             break;

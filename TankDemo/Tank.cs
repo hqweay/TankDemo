@@ -32,7 +32,9 @@ namespace TankDemo
         
         MoveDiretion xMove;
         MoveDiretion yMove;
-        MoveDiretion lastMove = MoveDiretion.Left;
+        MoveDiretion lastMove = MoveDiretion.Stop;
+        
+        MoveDiretion myMoveControl = MoveDiretion.Stop;
 
         MoveDiretion bulletDirection = MoveDiretion.Left;
 
@@ -60,38 +62,45 @@ namespace TankDemo
 
         private void GameForm_KeyDown(object sender, System.Windows.Forms.KeyEventArgs e)
         {
-            switch (e.KeyCode)
+            if (myMoveControl == MoveDiretion.Stop)
             {
-                case System.Windows.Forms.Keys.Up:
-                    yMove = MoveDiretion.Up;
-                    bulletDirection = MoveDiretion.Up;
-                    lastMove = MoveDiretion.Up;
-                    break;
-                case System.Windows.Forms.Keys.Down:
-                    yMove = MoveDiretion.Down;
-                    bulletDirection = MoveDiretion.Down;
-                    lastMove = MoveDiretion.Down;
+                switch (e.KeyCode)
+                {
+                    case System.Windows.Forms.Keys.Up:
+                        yMove = MoveDiretion.Up;
+                        bulletDirection = MoveDiretion.Up;
+                        lastMove = MoveDiretion.Up;
+                        myMoveControl = MoveDiretion.Up;
+                        break;
+                    case System.Windows.Forms.Keys.Down:
+                        yMove = MoveDiretion.Down;
+                        bulletDirection = MoveDiretion.Down;
+                        lastMove = MoveDiretion.Down;
+                        myMoveControl = MoveDiretion.Down;
 
-                    break;
-                case System.Windows.Forms.Keys.Left:
-                    xMove = MoveDiretion.Left;
-                    bulletDirection = MoveDiretion.Left;
-                    lastMove = MoveDiretion.Left;
+                        break;
+                    case System.Windows.Forms.Keys.Left:
+                        xMove = MoveDiretion.Left;
+                        bulletDirection = MoveDiretion.Left;
+                        lastMove = MoveDiretion.Left;
+                        myMoveControl = MoveDiretion.Left;
 
-                    break;
-                case System.Windows.Forms.Keys.Right:
-                    xMove = MoveDiretion.Right;
-                    bulletDirection = MoveDiretion.Right;
-                    lastMove = MoveDiretion.Right;
+                        break;
+                    case System.Windows.Forms.Keys.Right:
+                        xMove = MoveDiretion.Right;
+                        bulletDirection = MoveDiretion.Right;
+                        lastMove = MoveDiretion.Right;
+                        myMoveControl = MoveDiretion.Right;
 
-                    break;
-                case System.Windows.Forms.Keys.Space:
-                    isShooting = true;
+                        break;
+                    case System.Windows.Forms.Keys.Space:
+                        isShooting = true;
 
-                    break;
+                        break;
 
 
 
+                }
             }
         }
 
@@ -103,10 +112,12 @@ namespace TankDemo
                 case System.Windows.Forms.Keys.Up:
                 case System.Windows.Forms.Keys.Down:
                     yMove = MoveDiretion.Stop;
+                    myMoveControl = MoveDiretion.Stop;
                     break;
                 case System.Windows.Forms.Keys.Left:
                 case System.Windows.Forms.Keys.Right:
                     xMove = MoveDiretion.Stop;
+                    myMoveControl = MoveDiretion.Stop;
                     break;
                 case System.Windows.Forms.Keys.Space:
 

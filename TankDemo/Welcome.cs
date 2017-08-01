@@ -29,7 +29,7 @@ namespace TankDemo
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            MessageBox.Show("坦克小战由葫芦娃项目组开发");
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -60,6 +60,11 @@ namespace TankDemo
         private void pictureBox1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("游戏以闯关的方式进行，击杀敌方坦克10架进入下一关，击杀敌方坦克会有计分。\n操作：方向键移动，空格键发弹。");
         }
     }
 }
