@@ -190,4 +190,28 @@
   <data name="home_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\c033ad6eddc451dae31aa0a4b5fd5266d21632f3.jpg;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="blast1" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blast1.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="blast2" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blast2.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="blast3" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blast3.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="blast4" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blast4.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="blast5" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blast5.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="blast6" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blast6.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="blast7" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blast7.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="blast8" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\blast8.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

@@ -138,6 +138,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="image\16.png" />
+    <None Include="Resources\blast8.gif" />
+    <None Include="Resources\blast7.gif" />
+    <None Include="Resources\blast6.gif" />
+    <None Include="Resources\blast5.gif" />
+    <None Include="Resources\blast4.gif" />
+    <None Include="Resources\blast3.gif" />
+    <None Include="Resources\blast2.gif" />
+    <None Include="Resources\blast1.gif" />
     <None Include="Resources\c033ad6eddc451dae31aa0a4b5fd5266d21632f3.jpg" />
     <None Include="Resources\my.png" />
     <None Include="Resources\enemy.png" />

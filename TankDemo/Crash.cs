@@ -25,6 +25,8 @@ namespace TankDemo
                         }
                         else
                         {
+                            Map.blastX = Map.wallList[i].getX();
+                            Map.blastY = Map.wallList[i].getY();
                             Map.wallList.Remove(Map.wallList[i]);
                         }
 

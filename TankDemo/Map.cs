@@ -15,7 +15,8 @@ namespace TankDemo
     {
         //判断是否点击关闭
         int temp = 0;
-
+        public static int blastX = 0;
+        public static int blastY = 0;
 
         public int score = 0;
         public int ENEMY_SPEED = 0;
@@ -45,6 +46,8 @@ namespace TankDemo
         Image imageHome;
 
 
+
+
         public static Map GameForm;
         public static tank Gametank;
         public static int elapsedFrames = 0;
@@ -59,6 +62,8 @@ namespace TankDemo
             imageMapWater = Properties.Resources.water;
             imageMapGrass = Properties.Resources.grass;
             imageHome = Properties.Resources.home;
+
+ 
 
             g = this.CreateGraphics();
             GameForm = this;
@@ -163,6 +168,12 @@ namespace TankDemo
                 drawAllWall(mode);
 
                 drawProp();
+                
+                drawBlast(blastX, blastY);
+                
+
+                
+
 
                 theMessageOne();
                 theMessageTwo();
@@ -186,6 +197,42 @@ namespace TankDemo
                 
             MessageBox.Show("恭喜您：\n您战神般的成绩已被记录到数据库\n您可以退出游戏查看\n");
            
+        }
+
+        public void drawBlast(int x, int y)
+        {
+            if (blastX != 0 && blastY != 0)
+                {
+                    for (int blast = 1; blast <= 7; blast++)
+                    {
+                        switch (blast)
+                        {
+                            case 1:
+                                g.DrawImage(Properties.Resources.blast1, x, y);
+                                break;
+                            case 2:
+                                g.DrawImage(Properties.Resources.blast2, x, y);
+                                break;
+                            case 3:
+                                g.DrawImage(Properties.Resources.blast3, x, y);
+                                break;
+                            case 4:
+                                g.DrawImage(Properties.Resources.blast4, x, y);
+                                break;
+                            case 5:
+                                g.DrawImage(Properties.Resources.blast5, x, y);
+                                break;
+                            case 6:
+                                g.DrawImage(Properties.Resources.blast6, x, y);
+                                break;
+                            case 7:
+                                g.DrawImage(Properties.Resources.blast7, x, y);
+                                break;
+                        }
+                    }
+            }
+            blastX = 0;
+            blastY = 0;
         }
         #region
         public void theMessageOne()
@@ -288,6 +335,7 @@ namespace TankDemo
             {
                 if (Crash.isCrashWall(planeBullets[i]))
                 {
+                    //撞墙
                     planeBullets.Remove(planeBullets[i]);
                     break;
                 }
@@ -295,10 +343,16 @@ namespace TankDemo
                 {
                     if (Crash.crash(enemyList[j].getRectangle(), planeBullets[i].getRectangle()))
                     {
+                        //撞敌机
                         score += 10;
                         SoundPlayer p = new SoundPlayer(Properties.Resources.boom);
                         p.Play();
                         planeBullets.Remove(planeBullets[i]);
+
+                        blastX = enemyList[j].X;
+                        blastY = enemyList[j].Y;
+                        
+
                         enemyList.Remove(enemyList[j]);
                         break;
                     }
