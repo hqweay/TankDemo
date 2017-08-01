@@ -13,9 +13,11 @@ namespace TankDemo
 {
     public partial class Map : Form
     {
+        //判断是否点击关闭
+        int temp = 0;
+
+
         public int score = 0;
-
-
         public int ENEMY_SPEED = 0;
         public int ENEMYBULLET_SPEED = 0;
         public static List<Wall> wallList = new List<Wall>();
@@ -26,6 +28,7 @@ namespace TankDemo
         public static List<Wall> propList = new List<Wall>();
 
         Welcome welcome;
+        int mode = 0;
         private Graphics g = null;
         //创建线程用于刷新屏幕
         private Thread threadRefresh = null;
@@ -76,10 +79,10 @@ namespace TankDemo
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(ControlStyles.DoubleBuffer, true);
         }
-        public Map(Welcome welcome)
+        public Map(Welcome welcome, int mode)
         {
             this.welcome = welcome;
-
+            this.mode = mode;
             InitializeComponent();
 
             imageMapSoil = Properties.Resources.soil;
@@ -142,22 +145,25 @@ namespace TankDemo
                 {
                     break;
                 }
-                
 
+                if (temp == 1)
+                {
+                    break;
+                }
 
                 //显示图像
                 g.Clear(Color.Black);
 
                 drawMyTank();
 
-                drawEnemy();
 
-                
 
-                drawAllBullet();
+                drawEnemy(mode);
+                drawAllBullet(mode);
+                drawAllWall(mode);
 
-                drawAllWall(g);
                 drawProp();
+
                 theMessageOne();
                 theMessageTwo();
                 theMessageThree();
@@ -396,19 +402,32 @@ namespace TankDemo
         }
         #endregion
         #region 绘制敌人
-        public void drawEnemy()
+        public void drawEnemy(int mode)
         {
-            foreach (EnemyTank enemy in enemyList)
+            if (mode == 1)
             {
-                if (!Gametank.inSmog(enemy))
+                foreach (EnemyTank enemy in enemyList)
                 {
-                    enemy.Draw(g);
+                    if (!Gametank.inSmog(enemy))
+                    {
+                        enemy.Draw(g);
+                    }
+                }
+            }
+            else
+            {
+                foreach (EnemyTank enemy in enemyList)
+                {
+              //      if (!Gametank.inSmog(enemy))
+                    {
+                        enemy.Draw(g);
+                    }
                 }
             }
         }
         #endregion
         #region 绘制敌我双方子弹 当然它们放在不同的集合
-        private void drawAllBullet()
+        private void drawAllBullet(int mode)
         {
            
             //玩家子弹绘制
@@ -416,12 +435,25 @@ namespace TankDemo
             {
                 planeBullets[i].Draw(g);
             }
-            //敌人子弹绘制           
-            for (int i = 0; i < enemyBullets.Count; i++)
+            //敌人子弹绘制  
+            if (mode == 1)
             {
-                if (!Gametank.inSmog(enemyBullets[i]))
+                for (int i = 0; i < enemyBullets.Count; i++)
                 {
-                    enemyBullets[i].Draw(g);
+                    if (!Gametank.inSmog(enemyBullets[i]))
+                    {
+                        enemyBullets[i].Draw(g);
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < enemyBullets.Count; i++)
+                {
+                //    if (!Gametank.inSmog(enemyBullets[i]))
+                    {
+                        enemyBullets[i].Draw(g);
+                    }
                 }
             }
         }
@@ -439,66 +471,96 @@ namespace TankDemo
         }
         #endregion
         #region   绘制所有的墙 墙分多种  自己的老家要特别特别区分
-        public void drawAllWall(Graphics g)
+        public void drawAllWall(int mode)
         {
 
-            #region   画wall
-        //    foreach (Wall wall in wallList)
-        for(int i = 0; i < wallList.Count; i++)
+            if (mode == 1)
             {
-                if (!Gametank.inSmog(wallList[i]))
+                for (int i = 0; i < wallList.Count; i++)
                 {
-                    switch (wallList[i].getType())
+                    if (!Gametank.inSmog(wallList[i]))
                     {
-                        case 0:
-                            g.DrawImage(imageMapSoil, wallList[i].getX(), wallList[i].getY());
-                            break;
-                        case 1:
-                            g.DrawImage(imageMapSteel, wallList[i].getX(), wallList[i].getY());
-                            break;
-                        case 2:
-                            g.DrawImage(imageMapWater, wallList[i].getX(), wallList[i].getY());
-                            break;
-                        case 3:
-                            g.DrawImage(imageMapGrass, wallList[i].getX(), wallList[i].getY());
-                            break;
-                        case 4:
-                            g.DrawImage(imageMapSoil, wallList[i].getX(), wallList[i].getY());
-                            break;
-                        case 5:
-                         //   g.FillRectangle(new SolidBrush(Color.Green), wallList[i].getX(), wallList[i].getY(), Wall.WALL_SIZE, Wall.WALL_SIZE);
-                            g.DrawImage(imageHome, wallList[i].getX(), wallList[i].getY());
-                            break;
-                        default:
-                            break;
+                        switch (wallList[i].getType())
+                        {
+                            case 0:
+                                g.DrawImage(imageMapSoil, wallList[i].getX(), wallList[i].getY());
+                                break;
+                            case 1:
+                                g.DrawImage(imageMapSteel, wallList[i].getX(), wallList[i].getY());
+                                break;
+                            case 2:
+                                g.DrawImage(imageMapWater, wallList[i].getX(), wallList[i].getY());
+                                break;
+                            case 3:
+                                g.DrawImage(imageMapGrass, wallList[i].getX(), wallList[i].getY());
+                                break;
+                            case 4:
+                                g.DrawImage(imageMapSoil, wallList[i].getX(), wallList[i].getY());
+                                break;
+                            case 5:
+                                g.DrawImage(imageHome, wallList[i].getX(), wallList[i].getY());
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
             }
-            #endregion
-            
+            else
+            {
+                for (int i = 0; i < wallList.Count; i++)
+                {
+                //    if (!Gametank.inSmog(wallList[i]))
+                    {
+                        switch (wallList[i].getType())
+                        {
+                            case 0:
+                                g.DrawImage(imageMapSoil, wallList[i].getX(), wallList[i].getY());
+                                break;
+                            case 1:
+                                g.DrawImage(imageMapSteel, wallList[i].getX(), wallList[i].getY());
+                                break;
+                            case 2:
+                                g.DrawImage(imageMapWater, wallList[i].getX(), wallList[i].getY());
+                                break;
+                            case 3:
+                                g.DrawImage(imageMapGrass, wallList[i].getX(), wallList[i].getY());
+                                break;
+                            case 4:
+                                g.DrawImage(imageMapSoil, wallList[i].getX(), wallList[i].getY());
+                                break;
+                            case 5:
+                                g.DrawImage(imageHome, wallList[i].getX(), wallList[i].getY());
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            }
         }
         #endregion
 
         public void drawProp()
         {
-            for (int i = 0; i < propList.Count; i++)
-            {
-                switch (propList[i].getType())
+                for (int i = 0; i < propList.Count; i++)
                 {
-                    case 10:
-                        g.DrawImage(Properties.Resources.bomb, propList[i].getX(), propList[i].getY());
-                        break;
-                    case 11:
-                        g.DrawImage(Properties.Resources.timer, propList[i].getX(), propList[i].getY());
-                        break;
-                    case 12:
-                        g.DrawImage(Properties.Resources.star, propList[i].getX(), propList[i].getY());
-                        break;
+                    switch (propList[i].getType())
+                    {
+                        case 10:
+                            g.DrawImage(Properties.Resources.bomb, propList[i].getX(), propList[i].getY());
+                            break;
+                        case 11:
+                            g.DrawImage(Properties.Resources.timer, propList[i].getX(), propList[i].getY());
+                            break;
+                        case 12:
+                            g.DrawImage(Properties.Resources.star, propList[i].getX(), propList[i].getY());
+                            break;
 
-                    default:
-                        break;
+                        default:
+                            break;
+                    }
                 }
-            }
         }
         #endregion
         #region 创造地图上的一切--->创建对象存在相应链表
@@ -811,8 +873,8 @@ namespace TankDemo
             {
                 wallList.Remove(propList[i]);
             }
-            welcome.Show();
-            
+            this.temp = 1;
+            welcome.Show();      
         }
     }
 }

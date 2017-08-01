@@ -12,8 +12,14 @@ namespace TankDemo
 {
     public partial class Welcome : Form
     {
+        Login login;
         public Welcome()
         {
+            InitializeComponent();
+        }
+        public Welcome(Login login)
+        {
+            this.login = login;
             InitializeComponent();
         }
 
@@ -29,20 +35,20 @@ namespace TankDemo
 
         private void button2_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("坦克小战由葫芦娃项目组开发");
+            MessageBox.Show("坦克小战由葫芦娃项目组开发\n\n以下排名不分先后：\n\n桂贞林 向新宇 张   波\n罗博伦 李成洪 杨泽宇\n衡清文");
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
             this.Hide();
-            Map map = new Map(this);
+            Map map = new Map(this, 1);
             map.Show();
         }
 
         private void Welcome_FormClosing(object sender, FormClosingEventArgs e)
         {
 
-            System.Environment.Exit(0);
+    //        System.Environment.Exit(0);
         }
 
         private void button4_Click(object sender, EventArgs e)
@@ -64,7 +70,26 @@ namespace TankDemo
 
         private void button1_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("游戏以闯关的方式进行，击杀敌方坦克10架进入下一关，击杀敌方坦克会有计分。\n操作：方向键移动，空格键发弹。");
+            MessageBox.Show("新的风暴已经出现，赶快加入坦克大军一起拯救世界吧！\n操作：在坦克小战的世界里，您将扮演一辆坦克，按方向键进行移动，按空格键发弹。\n道具：在游戏中会随机产生各种有趣的道具，当您获得道具，将会大大增强您的实力！\n胜利规则：在坦克小战的世界里，没有终点，您将一个地图一个地图地与敌人进行作战，直到您的死亡。注意：每消灭完一个地图的敌人，你将进入下一个地图。下一个地图的敌人实力将会大大增强！\n模式：游戏分为两个模式，点开进去一探究竟吧！！");
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+            Map map = new Map(this, 0);
+            map.Show();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+          //  this.Close();
+            this.Hide();
+            login.Show();
+        }
+
+        private void Welcome_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            System.Environment.Exit(0);
         }
     }
 }

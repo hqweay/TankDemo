@@ -146,7 +146,7 @@ namespace TankDemo
                         g.DrawImage(image_tankdown, x, y);
                         break;
                     case MoveDiretion.Stop:
-                        g.DrawImage(image_tankleft, x, y);
+                         g.DrawImage(image_tankleft, x, y);
                         break;
                 }//of switch
             } //of if

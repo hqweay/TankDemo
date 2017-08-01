@@ -99,7 +99,7 @@ namespace TankDemo
                     // this.DialogResult = DialogResult.OK;
                     this.Hide();
                     sp.Stop();
-                    Welcome welcome = new Welcome();
+                    Welcome welcome = new Welcome(this);
                     welcome.Show();
                 }
                 else
