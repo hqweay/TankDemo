@@ -13,32 +13,61 @@ namespace TankDemo
 {
     public partial class Map : Form
     {
-        //判断是否点击关闭
+
+        /**
+         *  temp的作用是判断是否点击了Map窗口的退出按钮 
+         *  当强制退出游戏时也应该上传成绩--------虽然现在是单机版
+         *  在窗口的关闭事件 Map_FormClosing() 中赋值为1
+         *  在游戏的逻辑中判断temp变为1 说明玩家点击了退出 这时就上传成绩 
+         *  至于结束游戏---->关闭窗口就已经结束了
+         */
         int temp = 0;
+
+        /**
+         *  blastX , blastY 是子弹撞击特效的坐标
+         *  爆炸特效我用了种很笨的方法
+         *  定义一个全局的爆炸特效坐标，检测到子弹撞击物体后，把子弹的坐标赋给爆炸特效的坐标
+         *  判断爆炸特效不为初始值，就绘制爆炸特效，绘制完毕后把爆炸特效坐标恢复初始值
+         */
         public static int blastX = 0;
         public static int blastY = 0;
 
+        //成绩
         public int score = 0;
+
+        /**
+         *  这里 mode 的值用于判断玩家进入了哪种模式
+         *  对Map写了一个含 mode 参数的构造函数
+         *  在 welcome 的 选择模式的按钮中传入相应参数
+         */
+        int mode = 0;
+
         public int ENEMY_SPEED = 0;
         public int ENEMYBULLET_SPEED = 0;
+
         public static List<Wall> wallList = new List<Wall>();
         public static List<EnemyTank> enemyList = new List<EnemyTank>();
         public static List<Bullet> planeBullets = new List<Bullet>();    //我方子弹
         public static List<Bullet> enemyBullets = new List<Bullet>();
-
         public static List<Wall> propList = new List<Wall>();
 
+
         Welcome welcome;
-        int mode = 0;
-        private Graphics g = null;
+       
+
+
+        
+
         //创建线程用于刷新屏幕
         private Thread threadRefresh = null;
 
         //敌人坦克线程  暂时没用
         //private Thread threadEnemy = null;
 
+        private Graphics g = null;
         private Bitmap bmp = null;
 
+        //地图所需的各种墙的图片
         Image imageMapSoil;
         Image imageMapSteel;
         Image imageMapWater;
@@ -50,12 +79,12 @@ namespace TankDemo
 
         public static Map GameForm;
         public static tank Gametank;
-        public static int elapsedFrames = 0;
 
         public Map()
         {
 
             InitializeComponent();
+
 
             imageMapSoil = Properties.Resources.soil;
             imageMapSteel = Properties.Resources.steel;
@@ -90,6 +119,7 @@ namespace TankDemo
             this.mode = mode;
             InitializeComponent();
 
+            
             imageMapSoil = Properties.Resources.soil;
             imageMapSteel = Properties.Resources.steel;
             imageMapWater = Properties.Resources.water;
@@ -108,7 +138,6 @@ namespace TankDemo
             //双缓冲的一些设置
             bmp = new Bitmap(this.getMapWidth(), this.getMapHeight());
             g = Graphics.FromImage(bmp);
-            //g.Clear(Color.White);
 
             //设置双缓冲画图
             this.DoubleBuffered = true;
@@ -134,6 +163,7 @@ namespace TankDemo
 
         private void RefreshUI()
         {
+            //不断刷新 不断判断 不断清空屏幕 不断重绘
             while (true)
             {
                 myTankMove();
@@ -145,17 +175,19 @@ namespace TankDemo
                 enemyBulletMove();
                 // bulletCrash();
 
-
+                #region 游戏是否结束 两种 可以尝试写在一个方法
+                //判断游戏是否结束
                 if (!myTankIsLiving())
                 {
                     break;
                 }
-
+                //判断是否点击窗口退出
+                //也是游戏结束的一种嘛
                 if (temp == 1)
                 {
                     break;
                 }
-
+                #endregion
                 //显示图像
                 g.Clear(Color.Black);
 
@@ -179,6 +211,7 @@ namespace TankDemo
                 theMessageTwo();
                 theMessageThree();
 
+                //过完一关 即打完一个关卡里的所有敌人
                 if (enemyList.Count == 0)
                 {
                     MessageBox.Show("准备好了吗 下关提高难度了哦");
@@ -190,12 +223,11 @@ namespace TankDemo
             }
 
 
-            upScore.uploadScore(Login.userName, score);
             this.BackgroundImage = Properties.Resources.Gameover;
             this.BackgroundImageLayout = ImageLayout.Stretch;
             
                 
-            MessageBox.Show("恭喜您：\n您战神般的成绩已被记录到数据库\n您可以退出游戏查看\n");
+            MessageBox.Show("恭喜您：\n您战神般的成绩已被记录\n您可以退出游戏查看\n");
            
         }
 
@@ -234,7 +266,7 @@ namespace TankDemo
             blastX = 0;
             blastY = 0;
         }
-        #region
+        #region message
         public void theMessageOne()
         {
             if(score == 30)
@@ -260,7 +292,7 @@ namespace TankDemo
             }
         }
         #endregion
-        #region 一段判断玩家是否还活着的代码 发弹打死老王的代码不在这哦 在 Crash类里 与敌人相碰也是会挂掉的
+        #region 一段判断玩家是否还活着的代码 发弹打死自己家的代码不在这哦 在 Crash类里 与敌人相碰也是会挂掉的
 
         public Boolean myTankIsLiving()
         {
@@ -278,7 +310,7 @@ namespace TankDemo
             return true;
         }
         #endregion 
-        #region 当达到某个条件 重新生成敌人和地图 当然 敌人会更强
+        #region 当达到某个条件 重新生成敌人和地图 当然 敌人会更强（移动速度 子弹速度++）
         public void createNewMap(){
             for (int i = 0; i < enemyBullets.Count; i++)
             {
@@ -823,14 +855,11 @@ namespace TankDemo
 
 
 
-        public tank getPlayer()
-        {
-            return Gametank;
-        }
+    
 
 
-       // 该定时器生产道具
-        private void timer1_Tick(object sender, EventArgs e)
+       // 使用定时器生产道具
+        private void createProp_Tick(object sender, EventArgs e)
         {
             Random r = new Random();
             int i = r.Next(0, 3);
@@ -879,7 +908,7 @@ namespace TankDemo
             }
         }
         //该定时器生产敌方子弹
-        private void timer2_Tick(object sender, EventArgs e)
+        private void createEnemyBullet_Tick(object sender, EventArgs e)
         {
             Random r = new Random();
             int i = r.Next(0, enemyList.Count);
@@ -894,7 +923,7 @@ namespace TankDemo
                 enemyBullets.Add(bullet);
             }
        }
-        private void MapTest_Load(object sender, EventArgs e)
+        private void Map_Load(object sender, EventArgs e)
         {
             //开启刷新页面线程
             threadRefresh = new Thread(new ThreadStart(RefreshUI));
@@ -908,9 +937,10 @@ namespace TankDemo
             //threadEnemy.Start();
             //threadEnemy.IsBackground = true;
         }
-        private void MapTest_FormClosing(object sender, FormClosingEventArgs e)
+        private void Map_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //测试先删
+            //清除地图上所有东西
+            //不进行这一步的话退出游戏后不能重新开始游戏
             for (int i = 0; i < enemyBullets.Count; i++)
             {
                 enemyBullets.Remove(enemyBullets[i]);

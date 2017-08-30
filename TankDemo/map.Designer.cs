@@ -37,13 +37,13 @@
             // 
             this.timer1.Enabled = true;
             this.timer1.Interval = 5000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timer1.Tick += new System.EventHandler(this.createProp_Tick);
             // 
             // timer2
             // 
             this.timer2.Enabled = true;
             this.timer2.Interval = 500;
-            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            this.timer2.Tick += new System.EventHandler(this.createEnemyBullet_Tick);
             // 
             // Map
             // 
@@ -56,8 +56,8 @@
             this.Name = "Map";
             this.Text = "GameUI";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MapTest_FormClosing);
-            this.Load += new System.EventHandler(this.MapTest_Load);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Map_FormClosing);
+            this.Load += new System.EventHandler(this.Map_Load);
             this.ResumeLayout(false);
 
         }

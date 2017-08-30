@@ -21,10 +21,12 @@ namespace TankDemo
             Application.SetCompatibleTextRenderingDefault(false);
 
 
-        //      Application.Run(new Map());
-         Application.Run(new Login());
+            Application.Run(new Welcome());
 
-        //    Application.Run(new Welcome());
+            //     Application.Run(new Map());
+            //      Application.Run(new Login());
+
+            //    Application.Run(new Welcome());
 
         }
     }
