@@ -52,7 +52,8 @@ namespace TankDemo
                 MessageBox.Show("请重复密码");
                 text_repassword.Focus();
                 return;
-            } else if (text_repassword.Text != text_password.Text)
+            }
+            else if (text_repassword.Text != text_password.Text)
             {
                 MessageBox.Show("重复密码不一致");
                 text_repassword.Focus();
@@ -60,17 +61,14 @@ namespace TankDemo
             }
             else
             {
-                //无这行的话
-                //弹出的框无法显示
-                button_confrim.Enabled = true;
+
+                //
             }
             tb_user.UserName = text_username.Text.Trim();
             tb_user.UserPWD = text_password.Text.Trim();
 
             //邮箱地址应为  xxxx@xx.xx
             //              用正则表达式匹配吧
-
-
             Regex r = new Regex("^\\s*([A-Za-z0-9_-]+(\\.\\w+)*@(\\w+\\.)+\\w{2,5})\\s*$");
 
 
@@ -85,35 +83,61 @@ namespace TankDemo
                 text_email.Focus();
                 return;
             }
-           //操作数据库
-           //对数据库进行插入数据操作
-            SqlConnection con = new SqlConnection("server=B412-008;initial catalog=TankDemo;integrated security=SSPI");
-            SqlCommand com = new SqlCommand("insert into userinfor(userName,userPassword,userEmail) values('" + tb_user.UserName + "','" + tb_user.UserPWD + "','" + tb_user.UserEmail + "'" +  ")", con);
-            try
-            {
-                con.Open();
-                int i = com.ExecuteNonQuery();
-                if (i > 0)
+            //操作数据库
+            //对数据库进行插入数据操作
+            SqlConnection con = Sql.getCon();
+
+            
+
+            //插入操作返回的结果是 受影响的行数   是一个  int 值
+            //而查询操作返回的是一个 集合
+            //可以在sql中试试 insert 和 select 操作 观察返回结果
+          
+                SqlCommand com = new SqlCommand("insert into userinfor(userName,userPassword,userEmail,userScore) values('" + tb_user.UserName + "','" + tb_user.UserPWD + "','" + tb_user.UserEmail + "','" + "0" + "'" + ")", con);
+
+
+                //判断用户名是否存在
+                //引用了前面登录的代码
+                SqlDataAdapter da = new SqlDataAdapter("select * from userinfor where username='" + text_username.Text.Trim() + "'", con);
+                DataSet ds = new DataSet();
+                try
                 {
-                    MessageBox.Show(text_username.Text + ",恭喜你注册成功！！");
-                    //main lf = new main();
-                    //lf.Show();
-                    //this.Hide();
+                    da.Fill(ds, "userinfor");
+                    if (ds.Tables["userinfor"].Rows.Count > 0)
+                    {
+                        MessageBox.Show("抱歉，该用户名已存在");
+                        return;
+
+                    }
+                }
+                catch (Exception err){
+                    MessageBox.Show("抱歉连接失败，请检查自己的网络连接\n或联系供应商\nQq10086");
                 }
 
-            }
-            catch (Exception er)
-            {
-                MessageBox.Show(er.ToString());
+                try
+                {
+                    con.Open();
+
+                    //进行注册，即插入数据前应先判断
+                    //判断用户名是否也存在
+
+                    int i = com.ExecuteNonQuery();
+                    if (i > 0)
+                    {
+                        MessageBox.Show(text_username.Text + ",恭喜你注册成功！！");
+                    }
+
+                }
+                catch (Exception er)
+                {
+        //            MessageBox.Show(er.ToString());
+                    MessageBox.Show("抱歉连接失败，请检查自己的网络连接\n或联系供应商\nQq10086");
+                    con.Close();
+                }
+
+                this.Close();
 
             }
-            finally
-            {
-                con.Close();
-            }
-
-            this.Close();
-
-        }
+        
     }
 }
