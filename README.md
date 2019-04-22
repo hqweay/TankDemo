@@ -12,8 +12,11 @@
 * 敌人移动速度，发弹频率随着关卡变化提高.....
 * 没了...
 
+## 最新版
+* [https://github.com/hqweay/TankDemo/tree/Tank6.0](https://github.com/hqweay/TankDemo/tree/Tank6.0)
+
 ## 精简版
-* 提供精简版下载，请进入branch下的tank。
+* [https://github.com/hqweay/TankDemo/tree/Tank](https://github.com/hqweay/TankDemo/tree/Tank)
 * 精简版只提供游戏功能，删除了会用到数据库的功能（登录注册排名）。
 
 ## 使用
